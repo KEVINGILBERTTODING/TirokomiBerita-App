@@ -1,13 +1,13 @@
 package com.example.tiroberita.ui.activities.onboard;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 
 import com.example.tiroberita.R;
+import com.example.tiroberita.ui.fragments.onboard.OnBoardFragment;
 
 public class OnBoardActivitiy extends AppCompatActivity {
 
@@ -21,7 +21,10 @@ public class OnBoardActivitiy extends AppCompatActivity {
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
+        moveFragment(new OnBoardFragment());
+    }
 
-
+    private void moveFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameOnboard, fragment).commit();
     }
 }

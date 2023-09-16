@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".di.application.TiroBeritaApplication"
@@ -16,16 +17,16 @@
         android:theme="@style/Theme.TiroBerita"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.onboard.OnBoardActivitiy"
+            android:name=".ui.activities.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.main.MainActivity"
+            android:name=".ui.activities.onboard.OnBoardActivitiy"
             android:exported="false" />
         <activity
             android:name=".ui.activities.splash.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.Sp" />
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
