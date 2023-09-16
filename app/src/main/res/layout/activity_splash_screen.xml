@@ -6,4 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.splash.SplashScreenActivity">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_22sdp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/rfbold"
+            android:text="Tiro"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_22sdp"
+            android:textColor="@color/second_font"
+            android:fontFamily="@font/rfbold"
+            android:text="Berita"/>
+
+    </LinearLayout>
+
+
 </RelativeLayout>
