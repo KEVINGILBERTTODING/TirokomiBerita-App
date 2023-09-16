@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#F0F1F3</color>
+    <color name="second_font">#8E9399</color>
+    <color name="overlay">#88000000</color>
+    <color name="shimmer_placeholder">#dddddd</color>
 </resources>
