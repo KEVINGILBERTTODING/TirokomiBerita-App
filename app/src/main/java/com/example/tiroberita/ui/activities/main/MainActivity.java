@@ -1,8 +1,10 @@
-package com.example.tiroberita;
+package com.example.tiroberita.ui.activities.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.tiroberita.R;
 
 public class MainActivity extends AppCompatActivity {
 
