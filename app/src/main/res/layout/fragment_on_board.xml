@@ -4,7 +4,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/_7sdp"
+        android:padding="@dimen/_10sdp"
+        android:background="@color/background"
         tools:context=".ui.fragments.onboard.OnBoardFragment">
 
         <LinearLayout
@@ -17,6 +18,7 @@
                 android:fontFamily="@font/rbreg"
                 android:textColor="@color/second_font"
                 android:textSize="@dimen/_12sdp"
+                android:includeFontPadding="false"
                 android:gravity="center"
                 android:layout_height="wrap_content"
                 android:text="@string/desc_onboard"/>
@@ -33,7 +35,7 @@
             app:iconSize="@dimen/_12sdp"
             app:icon="@drawable/ic_arrow_right"
             app:iconTintMode="multiply"
-            android:fontFamily="@font/rbmed"
+            android:fontFamily="@font/rbbold"
             android:layout_height="wrap_content"/>
 
 
