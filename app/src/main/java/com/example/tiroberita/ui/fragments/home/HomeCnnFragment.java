@@ -34,6 +34,7 @@ public class HomeCnnFragment extends Fragment {
     private CnnViewModel cnnViewModel;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
