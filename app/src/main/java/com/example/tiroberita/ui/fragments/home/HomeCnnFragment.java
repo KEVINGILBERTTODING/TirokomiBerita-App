@@ -17,6 +17,9 @@ import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
 import com.example.tiroberita.util.Constans;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class HomeCnnFragment extends Fragment {
 
     private FragmentHomeCnnBinding binding;
@@ -26,7 +29,7 @@ public class HomeCnnFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentHomeCnnBinding.inflate(inflater, container, false);
 
         init();

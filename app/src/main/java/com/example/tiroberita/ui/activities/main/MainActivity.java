@@ -10,6 +10,9 @@ import com.example.tiroberita.R;
 import com.example.tiroberita.ui.fragments.home.HomeCnnFragment;
 import com.example.tiroberita.ui.fragments.home.HomeFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
