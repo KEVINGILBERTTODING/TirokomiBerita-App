@@ -7,7 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +18,20 @@ import java.util.Calendar;
 
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
+import com.example.tiroberita.model.DataModel;
+import com.example.tiroberita.model.ResponseModel;
 import com.example.tiroberita.util.Constans;
+import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import es.dmoral.toasty.Toasty;
 
 @AndroidEntryPoint
 public class HomeCnnFragment extends Fragment {
 
     private FragmentHomeCnnBinding binding;
     private SharedPreferences sharedPreferences;
+    private CnnViewModel cnnViewModel;
 
 
     @Override
@@ -42,6 +50,7 @@ public class HomeCnnFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listenerTabLayout();
         listener();
+        getData();
 
         binding.tvUsername.setText(sharedPreferences.getString(Constans.USERNAME, "-"));
 
@@ -49,6 +58,32 @@ public class HomeCnnFragment extends Fragment {
 
     private void init() {
         sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        cnnViewModel = new ViewModelProvider(this).get(CnnViewModel.class);
+    }
+
+    private void getData() {
+        cnnViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            @Override
+            public void onChanged(ResponseModel responseModel) {
+                if (responseModel.getSuccess() == true) {
+                    DataModel dataModel = responseModel.getDataModel();
+                    Log.d("isi data", "onChanged: " + dataModel.getLink());
+                }else {
+                    showToast(Constans.TOAST_ERROR, responseModel.getMessage());
+                }
+            }
+        });
+    }
+
+    private void showToast(String type, String message) {
+        if (type.equals(Constans.TOAST_SUCCESS)){
+            Toasty.success(getContext(), message, Toasty.LENGTH_LONG).show();
+        }else if (type.equals(Constans.TOAST_NORMAL)){
+            Toasty.normal(getContext(), message, Toasty.LENGTH_LONG).show();
+        }else {
+            Toasty.error(getContext(), message, Toasty.LENGTH_LONG).show();
+
+        }
     }
 
 

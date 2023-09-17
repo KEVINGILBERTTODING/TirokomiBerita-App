@@ -1,6 +1,7 @@
 package com.example.tiroberita.di.module;
 
 import com.example.tiroberita.data.remote.ApiService;
+import com.example.tiroberita.data.remote.CnnApiService;
 
 import javax.inject.Singleton;
 
@@ -26,7 +27,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public ApiService apiService(Retrofit retrofit) {
-        return retrofit.create(ApiService.class);
+    public CnnApiService cnnApiService(Retrofit retrofit) {
+        return retrofit.create(CnnApiService.class);
     }
 }

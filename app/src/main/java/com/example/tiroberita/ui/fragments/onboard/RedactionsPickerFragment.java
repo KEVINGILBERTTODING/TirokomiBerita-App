@@ -239,9 +239,9 @@ public class RedactionsPickerFragment extends Fragment {
         if (binding.tvRedaction.getText().toString().isEmpty()) {
             showToast(Constans.TOAST_NORMAL, "Anda belum memilih media");
         }else if (username == null) {
-            showToast(Constans.TOAST_ERROR, "Terjadi kesalahan");
+            showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
         }else if(userId == null) {
-            showToast(Constans.TOAST_ERROR, "Terjadi kesalahan");
+            showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
         }else {
             UserModel userModel = new UserModel(userId, username, binding.tvRedaction.getText().toString(), created_at);
             myRef.child("user").push().setValue(userModel);
