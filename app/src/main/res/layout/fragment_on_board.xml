@@ -15,7 +15,7 @@
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
-                android:fontFamily="@font/rbreg"
+                android:fontFamily="@font/rfreg"
                 android:textColor="@color/second_font"
                 android:textSize="@dimen/_12sdp"
                 android:includeFontPadding="false"
@@ -28,14 +28,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
-            android:text="Lanjut"
+            android:text="Lanjut memilih"
             app:iconGravity="end"
             android:id="@+id/btnNext"
             android:layout_alignParentBottom="true"
             app:iconSize="@dimen/_12sdp"
             app:icon="@drawable/ic_arrow_right"
             app:iconTintMode="multiply"
-            android:fontFamily="@font/rbbold"
+            android:fontFamily="@font/rbmed"
             android:layout_height="wrap_content"/>
 
 

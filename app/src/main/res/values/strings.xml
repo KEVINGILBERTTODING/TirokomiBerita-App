@@ -3,4 +3,38 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="desc_onboard">Kemudahan akses berita terkini dan terpercaya dari berbagai sumber media berita terbesar dan terpercaya di Indonesia</string>
+
+
+<!--    Redaction name-->
+
+    <string name="cnn">CNN Indonesia</string>
+    <string name="tribun">Tribunnews.com</string>
+    <string name="antara">Antaranews.com</string>
+    <string name="okezone">Okezone.com</string>
+    <string name="cnbc">CNBC Indonesia</string>
+    <string name="kumparan">Kumparan</string>
+    <string name="merdeka">Merdeka.com</string>
+    <string name="sindonews">Sindonews.com</string>
+    <string name="tempo">Tempo.co</string>
+    <string name="suara">Suara.com</string>
+    <string name="republika">Republika.co.id</string>
+    <string name="jpnn">JPNN.com</string>
+
+
+
+<!--    text for redaction picker-->
+    <string name="cnn_short_desc">CNN Indonesia adalah jaringan berita berbahasa Indonesia yang diluncurkan pada tahun 2015.</string>
+    <string name="tribun_short_desc">Tribunnews adalah portal berita online Indonesia yang didirikan pada tahun 2010.</string>
+    <string name="antara_short_desc">Antara News adalah agensi berita nasional Indonesia yang didirikan pada tahun 1937.</string>
+    <string name="okezone_short_desc">Okezone adalah portal berita online Indonesia yang didirikan pada tahun 2007.</string>
+    <string name="cnbc_short_desc">CNBC Indonesia adalah saluran bisnis dan berita ekonomi berbahasa Indonesia yang diluncurkan pada tahun 2018.</string>
+    <string name="kumparan_short_desc">Kumparan adalah platform berita dan konten digital Indonesia yang didirikan pada tahun 2017.</string>
+    <string name="merdeka_short_desc">Merdeka.com adalah portal berita online Indonesia yang didirikan pada tahun 2001.</string>
+    <string name="sindonews_short_desc">Sindonews adalah portal berita online Indonesia yang didirikan pada tahun 2007.</string>
+    <string name="tempo_short_desc">Tempo.co adalah portal berita dan situs berita online Indonesia yang berawal dari majalah Tempo, yang didirikan pada tahun 1971.</string>
+    <string name="suara_short_desc">Suara.com adalah portal berita online Indonesia yang didirikan pada tahun 2007.</string>
+    <string name="republika_short_desc">Republika.co.id adalah portal berita dan situs berita online Indonesia yang didirikan pada tahun 1998.</string>
+    <string name="jpnn_short_desc">JPNN.com adalah portal berita online Indonesia yang didirikan pada tahun 2014.</string>
+
+
 </resources>
