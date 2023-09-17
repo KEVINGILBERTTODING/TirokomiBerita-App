@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.tiroberita.R;
+import com.example.tiroberita.ui.fragments.home.HomeCnnFragment;
 import com.example.tiroberita.ui.fragments.home.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        moveFragment(new HomeFragment());
+        moveFragment(new HomeCnnFragment());
     }
 
     private void moveFragment(Fragment fragment) {
