@@ -35,10 +35,12 @@
                 app:iconGravity="end"
                 android:id="@+id/btnNext"
                 android:layout_alignParentBottom="true"
-                app:iconSize="@dimen/_12sdp"
+                app:iconSize="@dimen/_15sdp"
+                app:cornerRadius="@dimen/_5sdp"
                 app:icon="@drawable/ic_arrow_right"
                 app:iconTintMode="multiply"
-                android:fontFamily="@font/rbmed"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/rfbold"
                 android:layout_height="wrap_content"/>
 
         </RelativeLayout>
@@ -55,12 +57,13 @@
                 android:layout_width="match_parent"
                 android:id="@+id/rlBottomSheet"
                 android:layout_gravity="bottom"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
                 android:background="@drawable/container_bottom_sheet"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:padding="@dimen/_10sdp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
                     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
                         android:layout_width="wrap_content"
@@ -70,7 +73,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Halo, masukkan username Anda"
+                        android:text="Halo, selamat datang di Tiro Berita!"
                         android:textColor="@color/black"
                         android:gravity="center"
                         android:includeFontPadding="false"
@@ -80,7 +83,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Anda dapat mengubah username anda pada menu pengaturan."
+                        android:text="Sistem kami mendeteksi bahwa Anda bahwa anda baru pertama kali menggunakan aplikasi Tiro Berita."
                         android:textColor="@color/second_font"
                         android:gravity="center"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -105,6 +108,7 @@
                         android:layout_height="wrap_content"
                         app:backgroundTint="@color/black"
                         android:text="Simpan"
+                        android:id="@+id/btnSimpan"
                         android:maxLength="20"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:textSize="@dimen/_12sdp"

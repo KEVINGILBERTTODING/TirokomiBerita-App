@@ -17,6 +17,8 @@ import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentRedactionsPickerBinding;
 import com.example.tiroberita.util.Constans;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RedactionsPickerFragment extends Fragment {
     private FragmentRedactionsPickerBinding binding;
@@ -24,6 +26,8 @@ public class RedactionsPickerFragment extends Fragment {
     private String redactionFavorite;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class RedactionsPickerFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         redactionFavorite = sharedPreferences.getString(Constans.REDACTION_FAVORIT, null);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
     }
 
     private void setUpBottomSheet() {
