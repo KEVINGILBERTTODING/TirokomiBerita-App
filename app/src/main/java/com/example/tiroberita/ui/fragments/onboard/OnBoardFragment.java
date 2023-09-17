@@ -35,6 +35,7 @@ public class OnBoardFragment extends Fragment {
 
         init();
         setUpBottomSheet();
+        validateNewUser();
 
         return binding.getRoot();
     }
@@ -60,7 +61,16 @@ public class OnBoardFragment extends Fragment {
         binding.vOverlay.setOnClickListener(view -> {
             hideBottomSheet();
         });
+        binding.btnSimpan.setOnClickListener(view -> {
+            saveUsername();
+        });
 
+    }
+
+    private void validateNewUser() {
+        if (sharedPreferences.getString(Constans.USERNAME, null) != null){
+            moveFragment(new RedactionsPickerFragment());
+        }
     }
 
 
@@ -96,6 +106,29 @@ public class OnBoardFragment extends Fragment {
     private void hideBottomSheet() {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         binding.vOverlay.setVisibility(View.GONE);
+    }
+    private void showToast(String type, String message) {
+        if (type.equals(Constans.TOAST_SUCCESS)){
+            Toasty.success(getContext(), message, Toasty.LENGTH_LONG).show();
+        }else if (type.equals(Constans.TOAST_NORMAL)){
+            Toasty.normal(getContext(), message, Toasty.LENGTH_LONG).show();
+        }else {
+            Toasty.error(getContext(), message, Toasty.LENGTH_LONG).show();
+
+        }
+    }
+
+    private void saveUsername() {
+        if (binding.etUsername.getText().toString().isEmpty()) {
+            showToast(Constans.TOAST_NORMAL, "Username tidak boleh kosong");
+        }else if (binding.etUsername.getText().length() > 20){
+            showToast(Constans.TOAST_NORMAL, "Tidak boleh lebih dari 20 karakter");
+        }else {
+            editor.putString(Constans.USERNAME, binding.etUsername.getText().toString());
+            editor.apply();
+            moveFragment(new RedactionsPickerFragment());
+        }
+
     }
     private void moveFragment(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction()
