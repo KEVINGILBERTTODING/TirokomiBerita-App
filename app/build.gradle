@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 
 
 }
@@ -45,6 +46,7 @@ dependencies {
     implementation libs.appcompat
     implementation libs.material
     implementation libs.constraintlayout
+    implementation libs.firebase.database
     testImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext.junit
     androidTestImplementation libs.espresso.core

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "126234640744",
+    "project_id": "tiro-berita-52b78",
+    "storage_bucket": "tiro-berita-52b78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126234640744:android:f396094d2307dd8ecb96dd",
+        "android_client_info": {
+          "package_name": "com.example.tiroberita"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhOLWDxeTVrf_O61ro-9oJU2Kd2gsKOn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

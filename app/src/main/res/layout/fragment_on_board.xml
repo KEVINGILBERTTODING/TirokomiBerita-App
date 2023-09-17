@@ -1,44 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/_10sdp"
         android:background="@color/background"
         tools:context=".ui.fragments.onboard.OnBoardFragment">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="vertical">
-            <TextView
+            android:padding="@dimen/_10sdp"
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:fontFamily="@font/rfreg"
-                android:textColor="@color/second_font"
-                android:textSize="@dimen/_12sdp"
-                android:includeFontPadding="false"
-                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:text="@string/desc_onboard"/>
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/rfreg"
+                    android:textColor="@color/second_font"
+                    android:textSize="@dimen/_12sdp"
+                    android:includeFontPadding="false"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="@string/desc_onboard"/>
 
-        </LinearLayout>
+            </LinearLayout>
 
 
-        <com.google.android.material.button.MaterialButton
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:text="Lanjut memilih"
+                app:iconGravity="end"
+                android:id="@+id/btnNext"
+                android:layout_alignParentBottom="true"
+                app:iconSize="@dimen/_12sdp"
+                app:icon="@drawable/ic_arrow_right"
+                app:iconTintMode="multiply"
+                android:fontFamily="@font/rbmed"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/vOverlay"
             android:layout_width="match_parent"
-            android:text="Lanjut memilih"
-            app:iconGravity="end"
-            android:id="@+id/btnNext"
-            android:layout_alignParentBottom="true"
-            app:iconSize="@dimen/_12sdp"
-            app:icon="@drawable/ic_arrow_right"
-            app:iconTintMode="multiply"
-            android:fontFamily="@font/rbmed"
-            android:layout_height="wrap_content"/>
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:background="@color/overlay"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/rlBottomSheet"
+                android:layout_gravity="bottom"
+                android:background="@drawable/container_bottom_sheet"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Halo, masukkan username Anda"
+                        android:textColor="@color/black"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/rfmed"
+                        android:textSize="@dimen/_15sdp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Anda dapat mengubah username anda pada menu pengaturan."
+                        android:textColor="@color/second_font"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/rfreg"
+                        android:textSize="@dimen/_11sdp"/>
+
+                    <EditText
+                        android:id="@+id/etUsername"
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/rfreg"
+                        android:hint="Username"
+                        android:maxLines="1"
+                        android:inputType="textPersonName"
+                        android:maxLength="20"
+                        android:textSize="@dimen/_14sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_height="wrap_content"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:backgroundTint="@color/black"
+                        android:text="Simpan"
+                        android:maxLength="20"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:fontFamily="@font/rfbold"
+                        app:cornerRadius="@dimen/_5sdp"/>
+                </LinearLayout>
+            </RelativeLayout>
 
 
 
-    </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

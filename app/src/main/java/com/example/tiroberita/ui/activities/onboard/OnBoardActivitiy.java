@@ -16,11 +16,6 @@ public class OnBoardActivitiy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_board_activitiy);
 
-        // full screen
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-
         moveFragment(new OnBoardFragment());
     }
 

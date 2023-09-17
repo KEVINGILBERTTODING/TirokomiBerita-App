@@ -1,5 +1,7 @@
 package com.example.tiroberita.ui.fragments.onboard;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,10 +14,15 @@ import android.view.ViewGroup;
 
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentOnBoardBinding;
+import com.example.tiroberita.util.Constans;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 public class OnBoardFragment extends Fragment {
 
     private FragmentOnBoardBinding binding;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,9 +30,13 @@ public class OnBoardFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentOnBoardBinding.inflate(inflater, container, false);
 
+        init();
+        setUpBottomSheet();
 
         return binding.getRoot();
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -33,12 +44,56 @@ public class OnBoardFragment extends Fragment {
         listener();
     }
 
+    private void init() {
+        sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+    }
+
     private void listener() {
         binding.btnNext.setOnClickListener(view -> {
-            moveFragment(new RedactionsPickerFragment());
+            showBottomSheet();
+        });
+        binding.vOverlay.setOnClickListener(view -> {
+            hideBottomSheet();
         });
     }
 
+    private void saveUsername() {
+
+    }
+
+    private void setUpBottomSheet() {
+//        bottomSheetBehavior = BottomSheetBehavior.from(binding.rlBottomSheet);
+//        // set behaviior
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+//        bottomSheetBehavior.setHideable(true);
+//        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+//            @Override
+//            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+//                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+//                    hideBottomSheet();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+//
+//            }
+//        });
+
+    }
+
+    private void showBottomSheet() {
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        binding.vOverlay.setVisibility(View.VISIBLE);
+    }
+
+
+    private void hideBottomSheet() {
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay.setVisibility(View.GONE);
+    }
     private void moveFragment(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameOnboard, fragment).commit();
