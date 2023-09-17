@@ -68,6 +68,7 @@ public class OnBoardFragment extends Fragment {
         bottomSheetBehavior = BottomSheetBehavior.from(binding.rlBottomSheet);
         // set behaviior
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior.setPeekHeight(0);
         bottomSheetBehavior.setHideable(true);
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override

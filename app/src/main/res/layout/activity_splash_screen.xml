@@ -15,19 +15,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_22sdp"
+            android:textSize="@dimen/_25sdp"
             android:textColor="@color/black"
             android:fontFamily="@font/rfbold"
-            android:text="Tiro"/>
+            android:text="Tiro Berita"/>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_22sdp"
-            android:textColor="@color/second_font"
-            android:fontFamily="@font/rfbold"
-            android:text="Berita"/>
+
 
     </LinearLayout>
 

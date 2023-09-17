@@ -2,7 +2,6 @@
     <string name="app_name">Tiro Berita</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="desc_onboard">Kemudahan akses berita terkini dan terpercaya dari berbagai sumber media berita terbesar dan terpercaya di Indonesia</string>
 
 
 <!--    Redaction name-->
@@ -35,6 +34,12 @@
     <string name="suara_short_desc">Suara.com adalah portal berita online Indonesia yang didirikan pada tahun 2007.</string>
     <string name="republika_short_desc">Republika.co.id adalah portal berita dan situs berita online Indonesia yang didirikan pada tahun 1998.</string>
     <string name="jpnn_short_desc">JPNN.com adalah portal berita online Indonesia yang didirikan pada tahun 2014.</string>
+
+<!--    On board screen-->
+    <string name="title_new_user">Hai, apakah Anda pengguna baru?</string>
+    <string name="desc_new_user">Sistem kami mendeteksi bahwa Anda baru pertama kali menggunakan aplikasi Tiro Berita.</string>
+    <string name="title_onboard">Kenapa memilih Tiro Berita?</string>
+    <string name="desc_onboard">"Karena hanya dalam satu aplikasi, Anda dapat mengakses semua berita terbaru dan terpercaya dari berbagai sumber media berita terkemuka di Indonesia.</string>
 
 
 </resources>

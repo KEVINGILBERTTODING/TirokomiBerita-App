@@ -18,9 +18,19 @@
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/rfbold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_22sdp"
+                    android:includeFontPadding="false"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_onboard"/>
+                <TextView
+                    android:layout_width="match_parent"
                     android:fontFamily="@font/rfreg"
                     android:textColor="@color/second_font"
                     android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:includeFontPadding="false"
                     android:gravity="center"
                     android:layout_height="wrap_content"
@@ -56,8 +66,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:id="@+id/rlBottomSheet"
-                android:layout_gravity="bottom"
                 app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                android:layout_gravity="bottom"
                 android:background="@drawable/container_bottom_sheet"
                 android:layout_height="match_parent">
                 <LinearLayout
@@ -73,7 +83,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Halo, selamat datang di Tiro Berita!"
+                        android:text="@string/title_new_user"
                         android:textColor="@color/black"
                         android:gravity="center"
                         android:includeFontPadding="false"
@@ -83,7 +93,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Sistem kami mendeteksi bahwa Anda bahwa anda baru pertama kali menggunakan aplikasi Tiro Berita."
+                        android:text="@string/desc_onboard"
                         android:textColor="@color/second_font"
                         android:gravity="center"
                         android:layout_marginTop="@dimen/_5sdp"
