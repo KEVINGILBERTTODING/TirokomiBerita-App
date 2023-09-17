@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-<!--    Redaction name-->
+    <!--    Redaction name-->
 
     <string name="cnn">CNN Indonesia</string>
     <string name="tribun">Tribunnews.com</string>
@@ -20,8 +20,7 @@
     <string name="jpnn">JPNN.com</string>
 
 
-
-<!--    text for redaction picker-->
+    <!--    text for redaction picker-->
     <string name="cnn_short_desc">CNN Indonesia adalah jaringan berita berbahasa Indonesia yang diluncurkan pada tahun 2015.</string>
     <string name="tribun_short_desc">Tribunnews adalah portal berita online Indonesia yang didirikan pada tahun 2010.</string>
     <string name="antara_short_desc">Antara News adalah agensi berita nasional Indonesia yang didirikan pada tahun 1937.</string>
@@ -35,7 +34,7 @@
     <string name="republika_short_desc">Republika.co.id adalah portal berita dan situs berita online Indonesia yang didirikan pada tahun 1998.</string>
     <string name="jpnn_short_desc">JPNN.com adalah portal berita online Indonesia yang didirikan pada tahun 2014.</string>
 
-<!--    On board screen-->
+    <!--    On board screen-->
     <string name="title_new_user">Hai, apakah Anda pengguna baru?</string>
     <string name="desc_new_user">Sistem kami mendeteksi bahwa Anda baru pertama kali menggunakan aplikasi Tiro Berita.</string>
     <string name="title_onboard">Kenapa memilih Tiro Berita?</string>

@@ -1,6 +1,7 @@
 package com.example.tiroberita.ui.fragments.onboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,19 +12,28 @@ import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import java.text.SimpleDateFormat;
 import android.view.ViewGroup;
 
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentRedactionsPickerBinding;
+import com.example.tiroberita.model.UserModel;
+import com.example.tiroberita.ui.activities.main.MainActivity;
 import com.example.tiroberita.util.Constans;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
+
+import es.dmoral.toasty.Toasty;
+
 public class RedactionsPickerFragment extends Fragment {
     private FragmentRedactionsPickerBinding binding;
     private BottomSheetBehavior bottomSheetBehavior;
-    private String redactionFavorite;
+    private String redactionFavorite, username, userId, created_at;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private FirebaseDatabase database;
@@ -35,6 +45,7 @@ public class RedactionsPickerFragment extends Fragment {
         binding = FragmentRedactionsPickerBinding.inflate(inflater, container, false);
         init();
         setUpBottomSheet();
+        validateUserInfo();
         return binding.getRoot();
     }
 
@@ -49,6 +60,7 @@ public class RedactionsPickerFragment extends Fragment {
         editor = sharedPreferences.edit();
         redactionFavorite = sharedPreferences.getString(Constans.REDACTION_FAVORIT, null);
         database = FirebaseDatabase.getInstance();
+        username = sharedPreferences.getString(Constans.USERNAME, null);
         myRef = database.getReference();
     }
 
@@ -177,9 +189,16 @@ public class RedactionsPickerFragment extends Fragment {
 
             }
         });
+
+
         binding.vOverlay.setOnClickListener(view -> {
            hideBottomSheet();
         });
+
+        binding.btnSimpan.setOnClickListener(view -> {
+            saveUserInfo();
+        });
+
     }
 
 
@@ -204,6 +223,52 @@ public class RedactionsPickerFragment extends Fragment {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
     }
+
+    private void validateUserInfo() {
+        if (sharedPreferences.getString(Constans.REDACTION_FAVORIT, null) != null) {
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
+        }
+    }
+
+    private void saveUserInfo() {
+
+        userId = UUID.randomUUID().toString().substring(0, 6);
+        created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        if (binding.tvRedaction.getText().toString().isEmpty()) {
+            showToast(Constans.TOAST_NORMAL, "Anda belum memilih media");
+        }else if (username == null) {
+            showToast(Constans.TOAST_ERROR, "Terjadi kesalahan");
+        }else if(userId == null) {
+            showToast(Constans.TOAST_ERROR, "Terjadi kesalahan");
+        }else {
+            UserModel userModel = new UserModel(userId, username, binding.tvRedaction.getText().toString(), created_at);
+            myRef.child("user").push().setValue(userModel);
+
+            // save sharedpref
+            editor.putString(Constans.REDACTION_FAVORIT, binding.tvRedaction.getText().toString());
+            editor.putString(Constans.USER_ID, userId);
+            editor.putString(Constans.JOIN_DATE, created_at);
+            editor.apply();
+
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
+            showToast(Constans.TOAST_NORMAL, "Selamat membaca...");
+        }
+    }
+
+    private void showToast(String type, String message) {
+        if (type.equals(Constans.TOAST_SUCCESS)){
+            Toasty.success(getContext(), message, Toasty.LENGTH_LONG).show();
+        }else if (type.equals(Constans.TOAST_NORMAL)){
+            Toasty.normal(getContext(), message, Toasty.LENGTH_LONG).show();
+        }else {
+            Toasty.error(getContext(), message, Toasty.LENGTH_LONG).show();
+
+        }
+    }
+
 
     @Override
     public void onDestroy() {
