@@ -59,7 +59,7 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/second_font"
             android:includeFontPadding="false"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_11sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:text="Delegasi Republik Kenya dan Bangladesh tiba di Indonesia untuk mengikuti rangkaian kegiatan pelatihan kesehatan khususnya tentang keluarga berencana dan reproduksi selama satu pekan ke depan di Kota Madiun, Jawa ..."/>
 

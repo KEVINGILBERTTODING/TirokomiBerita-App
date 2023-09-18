@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.SavePostModel;
 import com.example.tiroberita.util.Constans;
 import com.google.firebase.database.DataSnapshot;
@@ -28,27 +29,28 @@ public class SavePostRepository {
 
     }
 
-    public LiveData<List<SavePostModel>> savePost(String userId) {
-        MutableLiveData<List<SavePostModel>> listMutableLiveData = new MutableLiveData<>();
+    public LiveData<FirebaseResponseModel<List<SavePostModel>>> savePost(String userId) {
+        MutableLiveData<FirebaseResponseModel<List<SavePostModel>>> listMutableLiveData = new MutableLiveData<>();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         Query query = databaseReference.child(Constans.FIREBASE_CHILD_SAVE_POST).orderByChild(Constans.USER_ID).equalTo(userId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 List<SavePostModel> savePostModelList = new ArrayList<>();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     SavePostModel savePostModel = snapshot1.getValue(SavePostModel.class);
                     savePostModelList.add(savePostModel);
                 }
 
-                listMutableLiveData.setValue(savePostModelList);
+                listMutableLiveData.setValue(new FirebaseResponseModel<>(true, Constans.RESPONSE_SUCCESS, savePostModelList));
+
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                if (error != null) {
-                    Log.e("Firebase gagal", "Error: " + error.getMessage());
-                }
+                listMutableLiveData.setValue(new FirebaseResponseModel<>(false, Constans.ERR_MESSAGE, null));
 
             }
         });

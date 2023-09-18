@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.tiroberita.data.repository.post.SavePostRepository;
+import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.SavePostModel;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class SavePostViewModel extends ViewModel {
     public SavePostViewModel(SavePostRepository savePostRepository) {
         this.savePostRepository = savePostRepository;
     }
-    public LiveData<List<SavePostModel>> getSavePost(String userId) {
+    public LiveData<FirebaseResponseModel<List<SavePostModel>>> getSavePost(String userId) {
        return savePostRepository.savePost(userId);
     }
 }

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentSavePostBinding;
+import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.SavePostModel;
 import com.example.tiroberita.ui.adapters.SavePostAdapter;
 import com.example.tiroberita.util.Constans;
@@ -66,19 +67,25 @@ public class SavePostFragment extends Fragment {
 
     }
     private void getData() {
-        savePostViewModel.getSavePost(userId).observe(getViewLifecycleOwner(), new Observer<List<SavePostModel>>() {
+        savePostViewModel.getSavePost(userId).observe(getViewLifecycleOwner(), new Observer<FirebaseResponseModel<List<SavePostModel>>>() {
             @Override
-            public void onChanged(List<SavePostModel> savePostModels) {
-                if (savePostModels.size() > 0) {
-                    savePostAdapter = new SavePostAdapter(getContext(), savePostModels);
-                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                    binding.rvPost.setAdapter(savePostAdapter);
-                    binding.rvPost.setLayoutManager(linearLayoutManager);
-                    binding.rvPost.setHasFixedSize(true);
+            public void onChanged(FirebaseResponseModel<List<SavePostModel>> listFirebaseResponseModel) {
+                if (listFirebaseResponseModel.getSuccess() == true) {
+                    if (listFirebaseResponseModel.getData().size() > 0) {
+                        savePostAdapter = new SavePostAdapter(getContext(), listFirebaseResponseModel.getData());
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        binding.rvPost.setAdapter(savePostAdapter);
+                        binding.rvPost.setLayoutManager(linearLayoutManager);
+                        binding.rvPost.setHasFixedSize(true);
+                    }else {
+                        showToast(Constans.TOAST_NORMAL, "Tidak ada data");
+                    }
                 }else {
-                    showToast(Constans.TOAST_NORMAL, "data tidak ada");
+                    showToast(Constans.TOAST_ERROR, listFirebaseResponseModel.getMessage());
                 }
             }
+
+
         });
 
     }
@@ -97,5 +104,9 @@ public class SavePostFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onDestroy() {
+        binding = null;
+        super.onDestroy();
+    }
 }
