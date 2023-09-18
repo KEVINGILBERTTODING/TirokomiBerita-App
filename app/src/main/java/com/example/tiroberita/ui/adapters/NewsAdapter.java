@@ -37,7 +37,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull NewsAdapter.ViewHolder holder, int position) {
         holder.tvTitle.setText(postModelList.get(holder.getAdapterPosition()).getTitle());
         holder.tvDesc.setText(postModelList.get(holder.getAdapterPosition()).getDescription());
-        holder.tvDate.setText(postModelList.get(holder.getAdapterPosition()).getPubDate());
+
+
+        String date = postModelList.get(holder.getAdapterPosition()).getPubDate().substring(0, 10);
+        String timeStamp = postModelList.get(holder.getAdapterPosition()).getPubDate().substring(11, 19);
+
+        holder.tvDate.setText(date + " | " + timeStamp);
 
         Glide.with(context).load(postModelList.get(holder.getAdapterPosition()).getThumbnail())
                 .skipMemoryCache(true)

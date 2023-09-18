@@ -33,7 +33,7 @@
                                 android:layout_width="match_parent"
                                 android:fontFamily="@font/rfreg"
                                 android:includeFontPadding="false"
-                                android:textSize="@dimen/_10sdp"
+                                android:textSize="@dimen/_9sdp"
                                 android:text="Selamat Pagi,"
                                 android:layout_height="wrap_content"/>
 

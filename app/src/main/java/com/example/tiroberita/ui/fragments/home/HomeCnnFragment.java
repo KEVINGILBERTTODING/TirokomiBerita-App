@@ -64,6 +64,7 @@ public class HomeCnnFragment extends Fragment {
         listenerTabLayout();
         listener();
         getData("terbaru");
+        greetings();
 
         binding.tvUsername.setText(sharedPreferences.getString(Constans.USERNAME, "-"));
 
@@ -498,13 +499,13 @@ public class HomeCnnFragment extends Fragment {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
         if (hour >= 12 && hour < 15) {
-            binding.tvGreeting.setText("Selamat Siang");
+            binding.tvGreeting.setText("Selamat Siang,");
         } else if (hour >= 15 && hour < 18) {
-            binding.tvGreeting.setText("Selamat Sore");
+            binding.tvGreeting.setText("Selamat Sore,");
         } else if (hour >= 18 && hour < 24) {
-            binding.tvGreeting.setText("Selamat Malam");
+            binding.tvGreeting.setText("Selamat Malam,");
         } else {
-            binding.tvGreeting.setText("Selamat Pagi");
+            binding.tvGreeting.setText("Selamat Pagi,");
         }
     }
 
@@ -534,6 +535,7 @@ public class HomeCnnFragment extends Fragment {
         binding.rvNews.setVisibility(View.GONE);
         binding.shimmerLayout.setVisibility(View.VISIBLE);
         binding.shimmerLayout.startShimmer();
+        binding.lrEmpty.setVisibility(View.GONE);
     }
 
 
