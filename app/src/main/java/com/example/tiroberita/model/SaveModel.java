@@ -1,18 +1,26 @@
 package com.example.tiroberita.model;
 
-public class SavePostModel {
+public class SaveModel {
     private String link;
     private String title;
     private String description;
     private String pubDate;
     private String thumbnail;
-    private String userId;
+    private String user_id;
     private String username;
     private String created_at;
     private String redaction_name;
 
-    public SavePostModel() {
-
+    public SaveModel(String link, String title, String description, String pubDate, String thumbnail, String user_id, String username, String created_at, String redaction_name) {
+        this.link = link;
+        this.title = title;
+        this.description = description;
+        this.pubDate = pubDate;
+        this.thumbnail = thumbnail;
+        this.user_id = user_id;
+        this.username = username;
+        this.created_at = created_at;
+        this.redaction_name = redaction_name;
     }
 
     public String getLink() {
@@ -55,12 +63,12 @@ public class SavePostModel {
         this.thumbnail = thumbnail;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getUsername() {

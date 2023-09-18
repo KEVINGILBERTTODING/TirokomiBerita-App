@@ -42,6 +42,7 @@ import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
 import com.example.tiroberita.model.DataModel;
 import com.example.tiroberita.model.PostModel;
 import com.example.tiroberita.model.ResponseModel;
+import com.example.tiroberita.model.SaveModel;
 import com.example.tiroberita.model.SavePostModel;
 import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
@@ -765,8 +766,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         }else {
             created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
-            SavePostModel savePostModel = new SavePostModel(postUrl, postTitle, postDesc, postDate, thumbnail, userId, username, created_at, redactionName);
-            databaseReference.child(Constans.FIREBASE_CHILD_SAVE_POST).push().setValue(savePostModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+            SaveModel saveModel = new SaveModel(postUrl, postTitle, postDesc, postDate, thumbnail, userId, username, created_at, redactionName);
+            databaseReference.child(Constans.FIREBASE_CHILD_SAVE_POST).push().setValue(saveModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
                     showToast(Constans.TOAST_SUCCESS, "Berhasil menyimpan");

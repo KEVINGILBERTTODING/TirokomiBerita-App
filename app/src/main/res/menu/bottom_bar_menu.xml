@@ -6,13 +6,18 @@
         android:icon="@drawable/ic_home"
         android:title="Home"/>
 
-    <item
-        android:id="@+id/menuRedactions"
-        android:title="Home"/>
 
     <item
         android:id="@+id/menuExplorer"
         android:title="Home"/>
+
+    <item
+        android:id="@+id/menuSave"
+        android:icon="@drawable/ic_save"
+        android:title="Save"/>
+
+
+
 
     <item
         android:id="@+id/menuProfile"
