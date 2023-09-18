@@ -511,10 +511,7 @@
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"/>
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:layout_width="match_parent"
-                android:id="@+id/swipeRefreshWebView"
-                android:layout_height="match_parent">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -537,7 +534,7 @@
 
 
                 </LinearLayout>
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 
 
@@ -659,6 +656,7 @@
                             <ImageButton
                                 android:layout_width="@dimen/_25sdp"
                                 android:layout_height="@dimen/_25sdp"
+                                android:id="@+id/btnSimpan"
                                 android:layout_gravity="center"
                                 android:background="@drawable/ic_save"/>
 

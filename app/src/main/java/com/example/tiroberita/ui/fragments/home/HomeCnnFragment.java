@@ -25,8 +25,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -39,11 +42,16 @@ import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
 import com.example.tiroberita.model.DataModel;
 import com.example.tiroberita.model.PostModel;
 import com.example.tiroberita.model.ResponseModel;
+import com.example.tiroberita.model.SavePostModel;
 import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
@@ -60,8 +68,10 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     private String newsType = "terbaru";
     private LinearLayoutManager linearLayoutManager;
     private BottomSheetBehavior bottomSheetShare, bottomSheetWebView;
-    private String thumbnail, postTitle, postDesc, postDate, postUrl;
+    private String thumbnail, postTitle, postDesc, postDate, postUrl, userId, created_at, username, redactionName;
 
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
 
     @Override
@@ -92,6 +102,11 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     private void init() {
         sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         cnnViewModel = new ViewModelProvider(this).get(CnnViewModel.class);
+        userId = sharedPreferences.getString(Constans.USER_ID, null);
+        username = sharedPreferences.getString(Constans.USERNAME, null);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        redactionName = "CNN Indonesia";
 
     }
 
@@ -564,11 +579,9 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         });
 
 
-        binding.swipeRefreshWebView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                setWebView(postUrl);
-            }
+
+        binding.btnSimpan.setOnClickListener(view -> {
+            savePost();
         });
 
     }
@@ -697,8 +710,6 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         // start shimmer
         shimmerWebView();
 
-
-        binding.swipeRefreshWebView.setRefreshing(false);
         // Aktifkan JavaScript
         WebSettings webSettings = binding.webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -746,6 +757,33 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                 binding.webview.setVisibility(View.VISIBLE);
             }
         }, 2500);
+    }
+
+    private void savePost() {
+        if (userId == null) {
+            showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
+        }else {
+            created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+            SavePostModel savePostModel = new SavePostModel(postUrl, postTitle, postDesc, postDate, thumbnail, userId, username, created_at, redactionName);
+            databaseReference.child(Constans.FIREBASE_CHILD_SAVE_POST).push().setValue(savePostModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    showToast(Constans.TOAST_SUCCESS, "Berhasil menyimpan");
+                    hideBottomSheetShare();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
+
+                }
+            });
+
+        }
+
+
+
     }
 
 

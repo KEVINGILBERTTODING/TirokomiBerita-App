@@ -244,7 +244,7 @@ public class RedactionsPickerFragment extends Fragment {
             showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
         }else {
             UserModel userModel = new UserModel(userId, username, binding.tvRedaction.getText().toString(), created_at);
-            myRef.child("user").push().setValue(userModel);
+            myRef.child(Constans.FIREBASE_CHILD_USER).push().setValue(userModel);
 
             // save sharedpref
             editor.putString(Constans.REDACTION_FAVORIT, binding.tvRedaction.getText().toString());

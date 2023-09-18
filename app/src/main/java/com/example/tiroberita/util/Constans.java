@@ -1,5 +1,7 @@
 package com.example.tiroberita.util;
 
+import java.util.Stack;
+
 public class Constans {
     public static final String ERR_MESSAGE = "Terjadi kesalahan";
     public static final String SHARED_PREF_NAME = "tiro_berita_sf";
@@ -11,4 +13,6 @@ public class Constans {
     public static final String TOAST_NORMAL = "normal";
     public static final String JOIN_DATE = "created_at";
     public static final String NO_INTERNET_CONNECTION  = "Tidak ada koneksi internet";
+    public static final String FIREBASE_CHILD_SAVE_POST = "save";
+    public static final String FIREBASE_CHILD_USER = "user";
 }
