@@ -1,6 +1,7 @@
 package com.example.tiroberita.ui.fragments.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -54,7 +55,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     private String newsType = "terbaru";
     private LinearLayoutManager linearLayoutManager;
     private BottomSheetBehavior bottomSheetShare;
-    private String thumbnail, postTitle, postDesc, postDate;
+    private String thumbnail, postTitle, postDesc, postDate, postUrl;
 
 
 
@@ -540,6 +541,20 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             hideBottomSheetShare();
         });
 
+        binding.btnShare.setOnClickListener(view -> {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, postUrl);
+            sendIntent.setType("text/plain");
+
+            // Hapus preferensi pilihan pengguna (default)
+            sendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+
+            // Membuat chooser dialog
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
+        });
+
 
     }
 
@@ -638,6 +653,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         postDesc  = postModel.getDescription();
         postDate = postModel.getPubDate();
         thumbnail = postModel.getThumbnail();
+        postUrl = postModel.getLink();
 
 
         // set value to bottom sheet
