@@ -3,6 +3,7 @@ package com.example.tiroberita.ui.fragments.home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -563,6 +564,13 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         });
 
 
+        binding.swipeRefreshWebView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setWebView(postUrl);
+            }
+        });
+
     }
 
     private void greetings() {
@@ -611,7 +619,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
     private void setUpBottomSheetShare () {
         bottomSheetShare = BottomSheetBehavior.from(binding.rlBottomSheetShare);
-        bottomSheetShare.setHideable(false);
+        bottomSheetShare.setHideable(true);
         bottomSheetShare.setPeekHeight(0);
         bottomSheetShare.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
@@ -660,11 +668,14 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         bottomSheetShare.setPeekHeight(600);
         binding.vOverlay.setVisibility(View.VISIBLE);
 
+
     }
 
     private void hideBottomSheetShare() {
         bottomSheetShare.setState(BottomSheetBehavior.STATE_HIDDEN);
         binding.vOverlay.setVisibility(View.GONE);
+        bottomSheetShare.setPeekHeight(0);
+
     }
 
 
@@ -683,15 +694,30 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     }
 
     private void setWebView(String url) {
-
-        // aktifkan java script
-        // disable all ads
+        binding.swipeRefreshWebView.setRefreshing(false);
+        // Aktifkan JavaScript
         WebSettings webSettings = binding.webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        binding.webview.setWebViewClient(new WebViewClient());
+
+        // Set WebViewClient dan callback
+        binding.webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                binding.webViewShimmer.setVisibility(View.VISIBLE);
+                binding.webViewShimmer.startShimmer();
+                binding.webview.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                binding.webViewShimmer.setVisibility(View.GONE);
+                binding.webViewShimmer.stopShimmer();
+                binding.webview.setVisibility(View.VISIBLE);
+            }
+        });
+
+        // Load URL
         binding.webview.loadUrl(url);
-
-
     }
 
 

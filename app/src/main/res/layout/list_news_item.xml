@@ -23,7 +23,7 @@
                 <ImageView
                     android:id="@+id/ivThumbnail"
                     android:layout_width="@dimen/_60sdp"
-                    android:background="@color/black"
+                    android:background="@color/shimmer_placeholder"
                     android:layout_height="@dimen/_60sdp"/>
             </androidx.cardview.widget.CardView>
 
