@@ -10,4 +10,5 @@ public class Constans {
     public static final String TOAST_ERROR = "error";
     public static final String TOAST_NORMAL = "normal";
     public static final String JOIN_DATE = "created_at";
+    public static final String NO_INTERNET_CONNECTION  = "Tidak ada koneksi internet";
 }

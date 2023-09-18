@@ -46,9 +46,192 @@ public LiveData<ResponseModel> getDataTerbaru(){
 
             @Override
             public void onFailure(Call<ResponseModel> call, Throwable t) {
-                responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.NO_INTERNET_CONNECTION, null));
 
 
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel> getDataNasional(){
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        cnnApiService.getDataNasional().enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        responseModelMutableLiveData.setValue(response.body());
+                    }else {
+
+                        responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                    }
+                }else {
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.NO_INTERNET_CONNECTION, null));
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
+
+
+    public LiveData<ResponseModel> getDataOlahraga(){
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        cnnApiService.getDataOlahraga().enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        responseModelMutableLiveData.setValue(response.body());
+                    }else {
+
+                        responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                    }
+                }else {
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.NO_INTERNET_CONNECTION, null));
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel> getDataTeknologi(){
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        cnnApiService.getDataTeknologi().enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        responseModelMutableLiveData.setValue(response.body());
+                    }else {
+
+                        responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                    }
+                }else {
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.NO_INTERNET_CONNECTION, null));
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel> getDataEkonomi(){
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        cnnApiService.getDataEkonomi().enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        responseModelMutableLiveData.setValue(response.body());
+                    }else {
+
+                        responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                    }
+                }else {
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.NO_INTERNET_CONNECTION, null));
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel> getDataInternasional(){
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        cnnApiService.getDataInternasional().enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        responseModelMutableLiveData.setValue(response.body());
+                    }else {
+
+                        responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                    }
+                }else {
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.NO_INTERNET_CONNECTION, null));
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel> getDataHiburan(){
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        cnnApiService.getDataHiburan().enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        responseModelMutableLiveData.setValue(response.body());
+                    }else {
+
+                        responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                    }
+                }else {
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.NO_INTERNET_CONNECTION, null));
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel> getDataGayaHidup(){
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        cnnApiService.getDataGayaHidup().enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        responseModelMutableLiveData.setValue(response.body());
+                    }else {
+
+                        responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                    }
+                }else {
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.NO_INTERNET_CONNECTION, null));
             }
         });
 

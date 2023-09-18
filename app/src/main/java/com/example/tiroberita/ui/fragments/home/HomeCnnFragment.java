@@ -11,6 +11,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,10 +73,11 @@ public class HomeCnnFragment extends Fragment {
     }
 
     private void getData() {
+        showShimmer();
         cnnViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
             @Override
             public void onChanged(ResponseModel responseModel) {
-                if (responseModel.getSuccess() == true) {
+                if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
                     dataModel = responseModel.getDataModel();
                     postModelList = dataModel.getPostModelList();
                     linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -82,12 +85,11 @@ public class HomeCnnFragment extends Fragment {
                     binding.rvNews.setAdapter(newsAdapter);
                     binding.rvNews.setLayoutManager(linearLayoutManager);
                     binding.rvNews.setHasFixedSize(true);
-
-
-
+                    hideShimmer(false, "");
 
                 }else {
-                    showToast(Constans.TOAST_ERROR, responseModel.getMessage());
+                    hideShimmer(true, responseModel.getMessage());
+
                 }
             }
         });
@@ -294,6 +296,33 @@ public class HomeCnnFragment extends Fragment {
         } else {
             binding.tvGreeting.setText("Selamat Pagi");
         }
+    }
+
+    private void hideShimmer(Boolean isEmpty, String message) {
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.shimmerLayout.setVisibility(View.GONE);
+                binding.shimmerLayout.stopShimmer();
+                binding.rvNews.setVisibility(View.VISIBLE);
+                if (isEmpty == true) {
+                    binding.lrEmpty.setVisibility(View.VISIBLE);
+                    binding.tvMessage.setText(message);
+                }else {
+                    binding.lrEmpty.setVisibility(View.GONE);
+                }
+            }
+        }, 2000);
+
+
+    }
+
+    private void showShimmer() {
+        binding.rvNews.setVisibility(View.GONE);
+        binding.shimmerLayout.setVisibility(View.VISIBLE);
+        binding.shimmerLayout.startShimmer();
     }
 
 

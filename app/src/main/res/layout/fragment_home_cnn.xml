@@ -413,7 +413,6 @@
                                         android:layout_height="wrap_content">
                                         <com.facebook.shimmer.ShimmerFrameLayout
                                             android:id="@+id/shimmerLayout"
-                                            android:visibility="gone"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content">
                                             <LinearLayout
@@ -460,6 +459,34 @@
 
 
             </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/lrEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Tidak ada data."
+                android:includeFontPadding="false"
+                android:fontFamily="@font/rfbold"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:id="@+id/tvMessage"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_height="wrap_content"
+                android:text="Tidak ada data"
+                android:textColor="@color/second_font"
+                android:fontFamily="@font/rfreg"
+                android:textSize="@dimen/_12sdp"/>
+        </LinearLayout>
 
 
 
