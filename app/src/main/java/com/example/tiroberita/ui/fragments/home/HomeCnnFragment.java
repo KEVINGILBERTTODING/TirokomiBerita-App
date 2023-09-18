@@ -609,7 +609,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     }
 
     private void showBottomSheetShare() {
-        bottomSheetShare.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        bottomSheetShare.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetShare.setPeekHeight(600);
         binding.vOverlay.setVisibility(View.VISIBLE);
 
