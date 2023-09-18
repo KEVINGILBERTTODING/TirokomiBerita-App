@@ -58,6 +58,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .fitCenter()
                 .centerCrop()
+                .override(300, 300)
                 .dontAnimate()
                 .into(holder.ivThumbnail);
 
