@@ -61,21 +61,6 @@
             android:background="@color/shimmer_placeholder"
             android:layout_height="@dimen/_25sdp"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:background="@color/shimmer_placeholder"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_height="@dimen/_100sdp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/rfbold"
-                android:text="Tiro Berita"
-                android:textColor="@color/second_font"
-                android:textSize="@dimen/_20sdp" />
-        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"

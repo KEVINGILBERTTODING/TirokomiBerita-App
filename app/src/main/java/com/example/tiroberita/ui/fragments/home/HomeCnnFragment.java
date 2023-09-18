@@ -705,6 +705,22 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     private void hideBottomSheetWebView() {
         bottomSheetWebView.setState(BottomSheetBehavior.STATE_HIDDEN);
         binding.vOverlay.setVisibility(View.GONE);
+
+        // clean webview
+        binding.webview.loadUrl("about:blank");
+        binding.webview.clearCache(true);
+        binding.webview.clearHistory();
+        binding.webview.reload();
+        binding.webview.clearFormData();
+        binding.webview.clearSslPreferences();
+        binding.webview.clearMatches();
+        binding.webview.clearDisappearingChildren();
+        binding.webview.clearAnimation();
+        binding.webview.clearFocus();
+        binding.webview.destroyDrawingCache();
+        binding.webview.removeAllViews();
+
+
     }
 
     private void setWebView(String url) {
@@ -757,7 +773,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                 binding.webViewShimmer.stopShimmer();
                 binding.webview.setVisibility(View.VISIBLE);
             }
-        }, 2500);
+        }, 3500);
     }
 
     private void savePost() {
@@ -770,7 +786,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             databaseReference.child(Constans.FIREBASE_CHILD_SAVE_POST).push().setValue(saveModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
-                    showToast(Constans.TOAST_SUCCESS, "Berhasil menyimpan");
+                    showToast(Constans.TOAST_NORMAL, "Berhasil menyimpan berita");
                     hideBottomSheetShare();
                 }
             }).addOnFailureListener(new OnFailureListener() {

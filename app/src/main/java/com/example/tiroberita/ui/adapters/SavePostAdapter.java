@@ -35,14 +35,18 @@ public class SavePostAdapter extends RecyclerView.Adapter<SavePostAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull SavePostAdapter.ViewHolder holder, int position) {
+        String date = savePostModelList.get(holder.getAdapterPosition()).getPubDate().substring(0, 10);
+        String timeStamp = savePostModelList.get(holder.getAdapterPosition()).getPubDate().substring(11, 19);
         holder.tvRedactionName.setText(savePostModelList.get(holder.getAdapterPosition()).getRedaction_name());
         holder.tvTitle.setText(savePostModelList.get(holder.getAdapterPosition()).getTitle());
         holder.tvDesc.setText(savePostModelList.get(holder.getAdapterPosition()).getDescription());
-        holder.tvDate.setText(savePostModelList.get(holder.getAdapterPosition()).getPubDate());
+
+        holder.tvDate.setText(date + " | " + timeStamp);
 
         Glide.with(context).load(savePostModelList.get(holder.getAdapterPosition()).getThumbnail())
                 .override(300, 300)
                 .skipMemoryCache(true)
+                .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.ivThumbnail);
 
