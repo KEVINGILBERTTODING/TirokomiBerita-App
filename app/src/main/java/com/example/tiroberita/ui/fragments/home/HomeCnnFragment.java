@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
 import android.os.Message;
@@ -41,6 +42,7 @@ public class HomeCnnFragment extends Fragment {
     private NewsAdapter newsAdapter;
     private List<PostModel> postModelList;
     private DataModel dataModel;
+    private String newsType = "terbaru";
     private LinearLayoutManager linearLayoutManager;
 
 
@@ -61,7 +63,7 @@ public class HomeCnnFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listenerTabLayout();
         listener();
-        getData();
+        getData("terbaru");
 
         binding.tvUsername.setText(sharedPreferences.getString(Constans.USERNAME, "-"));
 
@@ -72,27 +74,177 @@ public class HomeCnnFragment extends Fragment {
         cnnViewModel = new ViewModelProvider(this).get(CnnViewModel.class);
     }
 
-    private void getData() {
+    private void getData(String newsType) {
         showShimmer();
-        cnnViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-            @Override
-            public void onChanged(ResponseModel responseModel) {
-                if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
-                    dataModel = responseModel.getDataModel();
-                    postModelList = dataModel.getPostModelList();
-                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                    newsAdapter = new NewsAdapter(getContext(), postModelList);
-                    binding.rvNews.setAdapter(newsAdapter);
-                    binding.rvNews.setLayoutManager(linearLayoutManager);
-                    binding.rvNews.setHasFixedSize(true);
-                    hideShimmer(false, "");
+        binding.rvNews.setAdapter(null);
+        if (newsType.equals("terbaru")){
+            cnnViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
 
-                }else {
-                    hideShimmer(true, responseModel.getMessage());
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
 
+                    }
                 }
-            }
-        });
+            });
+        }else if (newsType.equals("nasional")){
+            cnnViewModel.getDataNasional().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (newsType.equals("olahraga")){
+            cnnViewModel.getDataOlahraga().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (newsType.equals("teknologi")){
+            cnnViewModel.getDataTeknologi().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        } else if (newsType.equals("ekonomi")){
+            cnnViewModel.getDataEkonomi().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (newsType.equals("internasional")){
+            cnnViewModel.getDataInternasional().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (newsType.equals("hiburan")){
+            cnnViewModel.getDataHiburan().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (newsType.equals("gayahidup")){
+            cnnViewModel.getDataGayaHidup().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }
+
+
+
+
+
+
+
     }
 
     private void showToast(String type, String message) {
@@ -120,6 +272,13 @@ public class HomeCnnFragment extends Fragment {
             binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
             binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
 
+            // set type
+            newsType = "terbaru";
+
+            // get data
+            getData("terbaru");
+
+
 
             binding.lnTerbaru.setVisibility(View.VISIBLE);
             binding.lnNasional.setVisibility(View.GONE);
@@ -143,6 +302,12 @@ public class HomeCnnFragment extends Fragment {
             binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
             binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
 
+            // set type
+            newsType = "nasional";
+
+            // get data
+            getData("nasional");
+
 
             binding.lnTerbaru.setVisibility(View.GONE);
             binding.lnNasional.setVisibility(View.VISIBLE);
@@ -163,6 +328,13 @@ public class HomeCnnFragment extends Fragment {
             binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
             binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
             binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
+
+
+            // set type
+            newsType = "internasional";
+
+            // get data
+            getData("internasional");
 
 
             binding.lnTerbaru.setVisibility(View.GONE);
@@ -186,6 +358,13 @@ public class HomeCnnFragment extends Fragment {
             binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
 
 
+            // set type
+            newsType = "ekonomi";
+
+            // get data
+            getData("ekonomi");
+
+
             binding.lnTerbaru.setVisibility(View.GONE);
             binding.lnNasional.setVisibility(View.GONE);
             binding.lnInternasional.setVisibility(View.GONE);
@@ -205,6 +384,11 @@ public class HomeCnnFragment extends Fragment {
             binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
             binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
             binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
+
+            // set type
+            newsType = "olahraga";
+            // get data
+            getData("olahraga");
 
 
             binding.lnTerbaru.setVisibility(View.GONE);
@@ -227,6 +411,12 @@ public class HomeCnnFragment extends Fragment {
             binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
             binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
 
+            // set type
+            newsType = "teknologi";
+
+            // get data
+            getData("teknologi");
+
             binding.lnTerbaru.setVisibility(View.GONE);
             binding.lnNasional.setVisibility(View.GONE);
             binding.lnInternasional.setVisibility(View.GONE);
@@ -248,6 +438,13 @@ public class HomeCnnFragment extends Fragment {
             binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
             binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
 
+            // set type
+            newsType = "hiburan";
+
+
+            // get data
+            getData("hiburan");
+
             binding.lnTerbaru.setVisibility(View.GONE);
             binding.lnNasional.setVisibility(View.GONE);
             binding.lnInternasional.setVisibility(View.GONE);
@@ -268,6 +465,13 @@ public class HomeCnnFragment extends Fragment {
             binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
             binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
 
+            // set type
+            newsType = "gayahidup";
+
+            // get data
+            getData("gayahidup");
+
+
             binding.lnTerbaru.setVisibility(View.GONE);
             binding.lnNasional.setVisibility(View.GONE);
             binding.lnInternasional.setVisibility(View.GONE);
@@ -281,6 +485,12 @@ public class HomeCnnFragment extends Fragment {
 
 
     private void listener() {
+        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData(newsType);
+            }
+        });
     }
 
     private void greetings() {
@@ -299,6 +509,7 @@ public class HomeCnnFragment extends Fragment {
     }
 
     private void hideShimmer(Boolean isEmpty, String message) {
+        binding.swipeRefresh.setRefreshing(false);
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
