@@ -64,8 +64,9 @@
             android:text="Delegasi Republik Kenya dan Bangladesh tiba di Indonesia untuk mengikuti rangkaian kegiatan pelatihan kesehatan khususnya tentang keluarga berencana dan reproduksi selama satu pekan ke depan di Kota Madiun, Jawa ..."/>
 
         <ImageButton
-            android:layout_width="@dimen/_18sdp"
-            android:layout_height="@dimen/_18sdp"
+            android:id="@+id/btnShare"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/ic_share"/>

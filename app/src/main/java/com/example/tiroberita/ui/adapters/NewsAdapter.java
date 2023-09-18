@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,16 +15,24 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiroberita.R;
 import com.example.tiroberita.model.PostModel;
+import com.example.tiroberita.ui.ItemClickListener;
 
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private Context context;
     private List<PostModel> postModelList;
+    private ItemClickListener itemClickListener;
+
 
     public NewsAdapter(Context context, List<PostModel> postModelList) {
         this.context = context;
         this.postModelList = postModelList;
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -63,6 +72,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvTitle, tvDesc, tvDate;
         private ImageView ivThumbnail;
+        ImageButton btnShare;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -70,6 +80,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDesc = itemView.findViewById(R.id.tvDesc);
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
+            btnShare = itemView.findViewById(R.id.btnShare);
+
+
+
+            btnShare.setOnClickListener(view -> {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClickListener(postModelList.get(getAdapterPosition()));
+                }
+            });
+
+
         }
     }
 }

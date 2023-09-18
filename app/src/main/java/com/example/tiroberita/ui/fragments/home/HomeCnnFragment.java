@@ -26,6 +26,7 @@ import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
 import com.example.tiroberita.model.DataModel;
 import com.example.tiroberita.model.PostModel;
 import com.example.tiroberita.model.ResponseModel;
+import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
@@ -34,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
 
 @AndroidEntryPoint
-public class HomeCnnFragment extends Fragment {
+public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
     private FragmentHomeCnnBinding binding;
     private SharedPreferences sharedPreferences;
@@ -92,6 +93,9 @@ public class HomeCnnFragment extends Fragment {
                         binding.rvNews.setHasFixedSize(true);
                         hideShimmer(false, "");
 
+                        // set on click item
+                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+
                     }else {
                         hideShimmer(true, responseModel.getMessage());
 
@@ -111,6 +115,10 @@ public class HomeCnnFragment extends Fragment {
                         binding.rvNews.setLayoutManager(linearLayoutManager);
                         binding.rvNews.setHasFixedSize(true);
                         hideShimmer(false, "");
+
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -132,6 +140,11 @@ public class HomeCnnFragment extends Fragment {
                         binding.rvNews.setHasFixedSize(true);
                         hideShimmer(false, "");
 
+
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+
                     }else {
                         hideShimmer(true, responseModel.getMessage());
 
@@ -151,6 +164,10 @@ public class HomeCnnFragment extends Fragment {
                         binding.rvNews.setLayoutManager(linearLayoutManager);
                         binding.rvNews.setHasFixedSize(true);
                         hideShimmer(false, "");
+
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -172,6 +189,10 @@ public class HomeCnnFragment extends Fragment {
                         binding.rvNews.setHasFixedSize(true);
                         hideShimmer(false, "");
 
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+
                     }else {
                         hideShimmer(true, responseModel.getMessage());
 
@@ -191,6 +212,10 @@ public class HomeCnnFragment extends Fragment {
                         binding.rvNews.setLayoutManager(linearLayoutManager);
                         binding.rvNews.setHasFixedSize(true);
                         hideShimmer(false, "");
+
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -212,6 +237,10 @@ public class HomeCnnFragment extends Fragment {
                         binding.rvNews.setHasFixedSize(true);
                         hideShimmer(false, "");
 
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+
                     }else {
                         hideShimmer(true, responseModel.getMessage());
 
@@ -231,6 +260,9 @@ public class HomeCnnFragment extends Fragment {
                         binding.rvNews.setLayoutManager(linearLayoutManager);
                         binding.rvNews.setHasFixedSize(true);
                         hideShimmer(false, "");
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -545,5 +577,11 @@ public class HomeCnnFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         binding = null;
+    }
+
+    @Override
+    public void onItemClickListener(Object model) {
+        PostModel postModel = (PostModel) model;
+        showToast(Constans.TOAST_NORMAL, postModel.getTitle());
     }
 }
