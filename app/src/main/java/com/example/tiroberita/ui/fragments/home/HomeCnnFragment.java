@@ -2,6 +2,7 @@ package com.example.tiroberita.ui.fragments.home;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,12 @@ import android.view.ViewGroup;
 import java.util.Calendar;
 import java.util.List;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
 import com.example.tiroberita.model.DataModel;
@@ -30,6 +37,7 @@ import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
@@ -45,6 +53,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     private DataModel dataModel;
     private String newsType = "terbaru";
     private LinearLayoutManager linearLayoutManager;
+    private BottomSheetBehavior bottomSheetShare;
+    private String thumbnail, postTitle, postDesc, postDate;
 
 
 
@@ -66,6 +76,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         listener();
         getData("terbaru");
         greetings();
+        setUpBottomSheetShare();
 
         binding.tvUsername.setText(sharedPreferences.getString(Constans.USERNAME, "-"));
 
@@ -524,6 +535,12 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                 getData(newsType);
             }
         });
+
+        binding.vOverlay.setOnClickListener(view -> {
+            hideBottomSheetShare();
+        });
+
+
     }
 
     private void greetings() {
@@ -570,6 +587,39 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         binding.lrEmpty.setVisibility(View.GONE);
     }
 
+    private void setUpBottomSheetShare () {
+        bottomSheetShare = BottomSheetBehavior.from(binding.rlBottomSheetShare);
+        bottomSheetShare.setHideable(true);
+        bottomSheetShare.setPeekHeight(0);
+        bottomSheetShare.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+        bottomSheetShare.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    hideBottomSheetShare();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+    private void showBottomSheetShare() {
+        bottomSheetShare.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        bottomSheetShare.setPeekHeight(600);
+        binding.vOverlay.setVisibility(View.VISIBLE);
+
+    }
+
+    private void hideBottomSheetShare() {
+        bottomSheetShare.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay.setVisibility(View.GONE);
+    }
+
 
 
 
@@ -580,8 +630,45 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     }
 
     @Override
-    public void onItemClickListener(Object model) {
+    public void onItemClickListener(String share, Object model) {
         PostModel postModel = (PostModel) model;
-        showToast(Constans.TOAST_NORMAL, postModel.getTitle());
+
+        // set value
+        postTitle = postModel.getTitle();
+        postDesc  = postModel.getDescription();
+        postDate = postModel.getPubDate();
+        thumbnail = postModel.getThumbnail();
+
+
+        // set value to bottom sheet
+        binding.tvPostTitle.setText(postTitle);
+
+
+        String date = postDate.substring(0, 10);
+        String timeStamp = postDate.substring(11, 19);
+        binding.tvPostDate.setText(date + " | " + timeStamp);
+
+
+        Glide.with(getContext()).load(thumbnail)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .fitCenter()
+                .centerCrop()
+                .dontAnimate()
+                .override(300, 300)
+                .into(binding.ivPost);
+
+
+
+        // logic listener
+
+
+        if (share.equals("share")) {
+            showBottomSheetShare();
+
+        }
+
+
+
     }
 }

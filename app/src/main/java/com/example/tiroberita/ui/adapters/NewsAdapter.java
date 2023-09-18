@@ -86,7 +86,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
             btnShare.setOnClickListener(view -> {
                 if (itemClickListener != null) {
-                    itemClickListener.onItemClickListener(postModelList.get(getAdapterPosition()));
+                    itemClickListener.onItemClickListener("share", postModelList.get(getAdapterPosition()));
                 }
             });
 
