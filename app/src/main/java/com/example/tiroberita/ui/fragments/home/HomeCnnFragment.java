@@ -20,6 +20,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -54,7 +58,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     private DataModel dataModel;
     private String newsType = "terbaru";
     private LinearLayoutManager linearLayoutManager;
-    private BottomSheetBehavior bottomSheetShare;
+    private BottomSheetBehavior bottomSheetShare, bottomSheetWebView;
     private String thumbnail, postTitle, postDesc, postDate, postUrl;
 
 
@@ -78,6 +82,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         getData("terbaru");
         greetings();
         setUpBottomSheetShare();
+        setUpBottomSheetWebView();
 
         binding.tvUsername.setText(sharedPreferences.getString(Constans.USERNAME, "-"));
 
@@ -86,6 +91,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     private void init() {
         sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         cnnViewModel = new ViewModelProvider(this).get(CnnViewModel.class);
+
     }
 
     private void getData(String newsType) {
@@ -539,6 +545,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
         binding.vOverlay.setOnClickListener(view -> {
             hideBottomSheetShare();
+            hideBottomSheetWebView();
         });
 
         binding.btnShare.setOnClickListener(view -> {
@@ -604,7 +611,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
     private void setUpBottomSheetShare () {
         bottomSheetShare = BottomSheetBehavior.from(binding.rlBottomSheetShare);
-        bottomSheetShare.setHideable(true);
+        bottomSheetShare.setHideable(false);
         bottomSheetShare.setPeekHeight(0);
         bottomSheetShare.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
@@ -623,6 +630,31 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         });
     }
 
+
+    private void setUpBottomSheetWebView () {
+        bottomSheetWebView = BottomSheetBehavior.from(binding.RlbottomSheetWebview);
+        bottomSheetWebView.setHideable(true);
+        bottomSheetWebView.setPeekHeight(0);
+        bottomSheetWebView.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+
+        bottomSheetWebView.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    hideBottomSheetWebView();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+
+
+            }
+        });
+    }
+
     private void showBottomSheetShare() {
         bottomSheetShare.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetShare.setPeekHeight(600);
@@ -634,6 +666,35 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         bottomSheetShare.setState(BottomSheetBehavior.STATE_HIDDEN);
         binding.vOverlay.setVisibility(View.GONE);
     }
+
+
+
+    private void showBottomSheetWebView() {
+        bottomSheetWebView.setState(BottomSheetBehavior.STATE_EXPANDED);
+        bottomSheetWebView.setPeekHeight(2000);
+        bottomSheetWebView.setDraggable(false);
+        binding.vOverlay.setVisibility(View.VISIBLE);
+
+    }
+
+    private void hideBottomSheetWebView() {
+        bottomSheetWebView.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay.setVisibility(View.GONE);
+    }
+
+    private void setWebView(String url) {
+
+        // aktifkan java script
+        // disable all ads
+        WebSettings webSettings = binding.webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        binding.webview.setWebViewClient(new WebViewClient());
+        binding.webview.loadUrl(url);
+
+
+    }
+
+
 
 
 
@@ -675,13 +736,15 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                 .into(binding.ivPost);
 
 
+        // load webview
+        setWebView(postUrl);
 
         // logic listener
 
-
         if (share.equals("share")) {
             showBottomSheetShare();
-
+        }else {
+            showBottomSheetWebView();
         }
 
 

@@ -91,6 +91,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 }
             });
 
+            itemView.setOnClickListener(view -> {
+                itemClickListener.onItemClickListener("webview", postModelList.get(getAdapterPosition()));
+            });
+
 
         }
     }
