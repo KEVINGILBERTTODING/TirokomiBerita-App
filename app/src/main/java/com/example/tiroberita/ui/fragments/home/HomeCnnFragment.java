@@ -694,30 +694,58 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     }
 
     private void setWebView(String url) {
+        // start shimmer
+        shimmerWebView();
+
+
         binding.swipeRefreshWebView.setRefreshing(false);
         // Aktifkan JavaScript
         WebSettings webSettings = binding.webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        binding.webview.loadUrl(url);
 
-        // Set WebViewClient dan callback
-        binding.webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                binding.webViewShimmer.setVisibility(View.VISIBLE);
-                binding.webViewShimmer.startShimmer();
-                binding.webview.setVisibility(View.GONE);
-            }
 
+
+
+
+
+//        UNCOMMENT THIS IF GET REAL TIME TO LOAD WEBVIEW COMPLETE
+//        // Set WebViewClient dan callback
+//        binding.webview.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//                binding.webViewShimmer.setVisibility(View.VISIBLE);
+//                binding.webViewShimmer.startShimmer();
+//                binding.webview.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                binding.webViewShimmer.setVisibility(View.GONE);
+//                binding.webViewShimmer.stopShimmer();
+//                binding.webview.setVisibility(View.VISIBLE);
+//            }
+//        });
+//
+//        // Load URL
+//        binding.webview.loadUrl(url);
+    }
+
+    private void shimmerWebView() {
+
+        binding.webViewShimmer.setVisibility(View.VISIBLE);
+        binding.webViewShimmer.startShimmer();
+        binding.webview.setVisibility(View.GONE
+        );
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onPageFinished(WebView view, String url) {
+            public void run() {
                 binding.webViewShimmer.setVisibility(View.GONE);
                 binding.webViewShimmer.stopShimmer();
                 binding.webview.setVisibility(View.VISIBLE);
             }
-        });
-
-        // Load URL
-        binding.webview.loadUrl(url);
+        }, 2500);
     }
 
 
@@ -725,11 +753,6 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
 
     @Override
     public void onItemClickListener(String share, Object model) {
@@ -775,5 +798,12 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
 
 
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }

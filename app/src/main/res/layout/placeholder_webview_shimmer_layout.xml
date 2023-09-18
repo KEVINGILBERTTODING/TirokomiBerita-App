@@ -21,7 +21,7 @@
                 android:fontFamily="@font/rfbold"
                 android:text="Tiro Berita"
                 android:textColor="@color/second_font"
-                android:textSize="@dimen/_25sdp" />
+                android:textSize="@dimen/_20sdp" />
         </RelativeLayout>
 
         <View
@@ -74,7 +74,7 @@
                 android:fontFamily="@font/rfbold"
                 android:text="Tiro Berita"
                 android:textColor="@color/second_font"
-                android:textSize="@dimen/_25sdp" />
+                android:textSize="@dimen/_20sdp" />
         </RelativeLayout>
 
         <View
