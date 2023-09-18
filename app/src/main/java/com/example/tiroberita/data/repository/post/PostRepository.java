@@ -1,14 +1,16 @@
 package com.example.tiroberita.data.repository.post;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.tiroberita.model.FirebaseResponseModel;
+import com.example.tiroberita.model.ResponseModel;
+import com.example.tiroberita.model.SaveModel;
 import com.example.tiroberita.model.SavePostModel;
 import com.example.tiroberita.util.Constans;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,17 +23,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class SavePostRepository {
+public class PostRepository {
+
 
 
     @Inject
-    public SavePostRepository () {
+    public PostRepository() {
 
     }
 
-    public LiveData<FirebaseResponseModel<List<SavePostModel>>> savePost(String userId) {
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+    public LiveData<FirebaseResponseModel<List<SavePostModel>>> getDatasavePost(String userId) {
         MutableLiveData<FirebaseResponseModel<List<SavePostModel>>> listMutableLiveData = new MutableLiveData<>();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
         Query query = databaseReference.child(Constans.FIREBASE_CHILD_SAVE_POST).orderByChild(Constans.USER_ID).equalTo(userId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -56,5 +61,23 @@ public class SavePostRepository {
         });
 
         return listMutableLiveData;
+    }
+
+
+    public LiveData<FirebaseResponseModel> insertSavePost(SaveModel model) {
+        MutableLiveData<FirebaseResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        databaseReference.child(Constans.FIREBASE_CHILD_SAVE_POST).push().setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                responseModelMutableLiveData.setValue(new FirebaseResponseModel(true, "Berhasil menyimpan berita", null));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, Constans.ERR_MESSAGE, null));
+            }
+        });
+
+        return responseModelMutableLiveData;
     }
 }

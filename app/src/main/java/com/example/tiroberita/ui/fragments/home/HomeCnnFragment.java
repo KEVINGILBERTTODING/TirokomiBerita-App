@@ -40,6 +40,7 @@ import com.bumptech.glide.request.target.Target;
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
 import com.example.tiroberita.model.DataModel;
+import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.PostModel;
 import com.example.tiroberita.model.ResponseModel;
 import com.example.tiroberita.model.SaveModel;
@@ -48,6 +49,7 @@ import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
+import com.example.tiroberita.viewmodel.post.PostViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -65,6 +67,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     private CnnViewModel cnnViewModel;
     private NewsAdapter newsAdapter;
     private List<PostModel> postModelList;
+    private PostViewModel postViewModel;
     private DataModel dataModel;
     private String newsType = "terbaru";
     private LinearLayoutManager linearLayoutManager;
@@ -108,6 +111,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         redactionName = "CNN Indonesia";
+        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
 
     }
 
@@ -781,19 +785,18 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
         }else {
             created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-
             SaveModel saveModel = new SaveModel(postUrl, postTitle, postDesc, postDate, thumbnail, userId, username, created_at, redactionName);
-            databaseReference.child(Constans.FIREBASE_CHILD_SAVE_POST).push().setValue(saveModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    showToast(Constans.TOAST_NORMAL, "Berhasil menyimpan berita");
-                    hideBottomSheetShare();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
 
+
+            postViewModel.insertSavePost(saveModel).observe(getViewLifecycleOwner(), new Observer<FirebaseResponseModel>() {
+                @Override
+                public void onChanged(FirebaseResponseModel firebaseResponseModel) {
+                    if (firebaseResponseModel.getSuccess() == true) {
+                        showToast(Constans.TOAST_NORMAL, firebaseResponseModel.getMessage());
+                        hideBottomSheetShare();
+                    }else {
+                        showToast(Constans.TOAST_ERROR,Constans.ERR_MESSAGE);
+                    }
                 }
             });
 

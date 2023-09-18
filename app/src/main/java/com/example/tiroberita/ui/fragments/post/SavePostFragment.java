@@ -15,13 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentSavePostBinding;
 import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.SavePostModel;
 import com.example.tiroberita.ui.adapters.SavePostAdapter;
 import com.example.tiroberita.util.Constans;
-import com.example.tiroberita.viewmodel.post.SavePostViewModel;
+import com.example.tiroberita.viewmodel.post.PostViewModel;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class SavePostFragment extends Fragment {
     private SavePostAdapter savePostAdapter;
     private SharedPreferences sharedPreferences;
     private String userId;
-    private SavePostViewModel savePostViewModel;
+    private PostViewModel savePostViewModel;
     private List<SavePostModel> savePostModelList;
     private LinearLayoutManager linearLayoutManager;
 
@@ -63,7 +62,7 @@ public class SavePostFragment extends Fragment {
     private void init() {
         sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         userId = sharedPreferences.getString(Constans.USER_ID, null);
-        savePostViewModel = new ViewModelProvider(this).get(SavePostViewModel.class);
+        savePostViewModel = new ViewModelProvider(this).get(PostViewModel.class);
 
     }
     private void getData() {
@@ -71,8 +70,9 @@ public class SavePostFragment extends Fragment {
             @Override
             public void onChanged(FirebaseResponseModel<List<SavePostModel>> listFirebaseResponseModel) {
                 if (listFirebaseResponseModel.getSuccess() == true) {
+                    savePostModelList = listFirebaseResponseModel.getData();
                     if (listFirebaseResponseModel.getData().size() > 0) {
-                        savePostAdapter = new SavePostAdapter(getContext(), listFirebaseResponseModel.getData());
+                        savePostAdapter = new SavePostAdapter(getContext(), savePostModelList);
                         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                         binding.rvPost.setAdapter(savePostAdapter);
                         binding.rvPost.setLayoutManager(linearLayoutManager);
