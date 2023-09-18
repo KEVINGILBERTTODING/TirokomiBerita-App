@@ -22,4 +22,27 @@ public class CnnViewModel extends ViewModel {
     public LiveData<ResponseModel> getDataTerbaru(){
         return cnnRepository.getDataTerbaru();
     }
+    public LiveData<ResponseModel> getDataNasional(){
+        return cnnRepository.getDataNasional();
+    }
+    public LiveData<ResponseModel> getDataInternasional(){
+        return cnnRepository.getDataInternasional();
+    }
+
+    public LiveData<ResponseModel> getDataEkonomi(){
+        return cnnRepository.getDataEkonomi();
+    }
+    public LiveData<ResponseModel> getDataOlahraga(){
+        return cnnRepository.getDataOlahraga();
+    }
+    public LiveData<ResponseModel> getDataTeknologi(){
+        return cnnRepository.getDataTeknologi();
+    }
+    public LiveData<ResponseModel> getDataHiburan(){
+        return cnnRepository.getDataHiburan();
+    }
+    public LiveData<ResponseModel> getDataGayaHidup(){
+        return cnnRepository.getDataGayaHidup();
+    }
+
 }
