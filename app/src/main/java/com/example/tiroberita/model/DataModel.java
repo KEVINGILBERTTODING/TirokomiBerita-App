@@ -7,14 +7,14 @@ public class DataModel {
     private String image;
     private String description;
     private String title;
-    private List<PostModel> postModelList;
+    private List<PostModel> posts;
 
     public DataModel(String link, String image, String description, String title, List<PostModel> postModelList) {
         this.link = link;
         this.image = image;
         this.description = description;
         this.title = title;
-        this.postModelList = postModelList;
+        this.posts = postModelList;
     }
 
     public String getLink() {
@@ -34,6 +34,6 @@ public class DataModel {
     }
 
     public List<PostModel> getPostModelList() {
-        return postModelList;
+        return posts;
     }
 }

@@ -9,17 +9,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.Calendar;
+import java.util.List;
 
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
 import com.example.tiroberita.model.DataModel;
+import com.example.tiroberita.model.PostModel;
 import com.example.tiroberita.model.ResponseModel;
+import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
 
@@ -32,6 +36,10 @@ public class HomeCnnFragment extends Fragment {
     private FragmentHomeCnnBinding binding;
     private SharedPreferences sharedPreferences;
     private CnnViewModel cnnViewModel;
+    private NewsAdapter newsAdapter;
+    private List<PostModel> postModelList;
+    private DataModel dataModel;
+    private LinearLayoutManager linearLayoutManager;
 
 
 
@@ -67,8 +75,17 @@ public class HomeCnnFragment extends Fragment {
             @Override
             public void onChanged(ResponseModel responseModel) {
                 if (responseModel.getSuccess() == true) {
-                    DataModel dataModel = responseModel.getDataModel();
-                    Log.d("isi data", "onChanged: " + dataModel.getLink());
+                    dataModel = responseModel.getDataModel();
+                    postModelList = dataModel.getPostModelList();
+                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    newsAdapter = new NewsAdapter(getContext(), postModelList);
+                    binding.rvNews.setAdapter(newsAdapter);
+                    binding.rvNews.setLayoutManager(linearLayoutManager);
+                    binding.rvNews.setHasFixedSize(true);
+
+
+
+
                 }else {
                     showToast(Constans.TOAST_ERROR, responseModel.getMessage());
                 }

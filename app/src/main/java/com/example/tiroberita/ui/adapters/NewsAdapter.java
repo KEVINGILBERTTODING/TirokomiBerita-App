@@ -37,11 +37,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull NewsAdapter.ViewHolder holder, int position) {
         holder.tvTitle.setText(postModelList.get(holder.getAdapterPosition()).getTitle());
         holder.tvDesc.setText(postModelList.get(holder.getAdapterPosition()).getDescription());
-        holder.tvDate.setText(postModelList.get(holder.getAdapterPosition()).getTitle());
+        holder.tvDate.setText(postModelList.get(holder.getAdapterPosition()).getPubDate());
 
         Glide.with(context).load(postModelList.get(holder.getAdapterPosition()).getThumbnail())
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .fitCenter()
+                .centerCrop()
                 .dontAnimate()
                 .into(holder.ivThumbnail);
 
@@ -62,6 +64,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             tvDate = itemView.findViewById(R.id.tvDate);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDesc = itemView.findViewById(R.id.tvDesc);
+            ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
         }
     }
 }

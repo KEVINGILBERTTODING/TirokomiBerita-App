@@ -9,7 +9,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:padding="@dimen/_10sdp"
+
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -18,6 +18,9 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
                         android:layout_height="wrap_content">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -30,7 +33,7 @@
                                 android:layout_width="match_parent"
                                 android:fontFamily="@font/rfreg"
                                 android:includeFontPadding="false"
-                                android:textSize="@dimen/_8sdp"
+                                android:textSize="@dimen/_10sdp"
                                 android:text="Selamat Pagi,"
                                 android:layout_height="wrap_content"/>
 
@@ -56,10 +59,7 @@
 
                     </RelativeLayout>
 
-                    <androidx.core.widget.NestedScrollView
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_height="match_parent">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -72,6 +72,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:includeFontPadding="false"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_10sdp"
                                     android:text="CNN Indonesia"
                                     android:textColor="@color/black"
                                     android:fontFamily="@font/rfbold"
@@ -81,6 +84,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_marginTop="@dimen/_5sdp"
                                     android:scrollbars="none"
+                                    android:layout_marginLeft="@dimen/_10sdp"
                                     android:padding="@dimen/_5sdp"
                                     android:layout_height="wrap_content">
                                     <LinearLayout
@@ -112,7 +116,7 @@
                                                     android:layout_marginLeft="@dimen/_5sdp"
                                                     android:layout_gravity="center"
                                                     android:textColor="@color/black"
-                                                    android:textSize="@dimen/_15sdp"
+                                                    android:textSize="@dimen/_12sdp"
                                                     android:fontFamily="@font/rfmed"/>
                                             </LinearLayout>
 
@@ -149,7 +153,7 @@
                                                     android:layout_marginLeft="@dimen/_5sdp"
                                                     android:layout_gravity="center"
                                                     android:textColor="@color/second_font"
-                                                    android:textSize="@dimen/_15sdp"
+                                                    android:textSize="@dimen/_12sdp"
                                                     android:fontFamily="@font/rfmed"/>
                                             </LinearLayout>
                                             <View
@@ -187,7 +191,7 @@
                                                 android:layout_marginLeft="@dimen/_5sdp"
                                                 android:layout_gravity="center"
                                                 android:textColor="@color/second_font"
-                                                android:textSize="@dimen/_15sdp"
+                                                android:textSize="@dimen/_12sdp"
                                                 android:fontFamily="@font/rfmed"/>
                                         </LinearLayout>
 
@@ -225,7 +229,7 @@
                                                 android:layout_marginLeft="@dimen/_5sdp"
                                                 android:layout_gravity="center"
                                                 android:textColor="@color/second_font"
-                                                android:textSize="@dimen/_15sdp"
+                                                android:textSize="@dimen/_12sdp"
                                                 android:fontFamily="@font/rfmed"/>
                                         </LinearLayout>
 
@@ -263,7 +267,7 @@
                                                 android:layout_marginLeft="@dimen/_5sdp"
                                                 android:layout_gravity="center"
                                                 android:textColor="@color/second_font"
-                                                android:textSize="@dimen/_15sdp"
+                                                android:textSize="@dimen/_12sdp"
                                                 android:fontFamily="@font/rfmed"/>
 
 
@@ -304,7 +308,7 @@
                                                 android:layout_marginLeft="@dimen/_5sdp"
                                                 android:layout_gravity="center"
                                                 android:textColor="@color/second_font"
-                                                android:textSize="@dimen/_15sdp"
+                                                android:textSize="@dimen/_12sdp"
                                                 android:fontFamily="@font/rfmed"/>
                                         </LinearLayout>
                                         <View
@@ -343,7 +347,7 @@
                                                 android:layout_marginLeft="@dimen/_5sdp"
                                                 android:layout_gravity="center"
                                                 android:textColor="@color/second_font"
-                                                android:textSize="@dimen/_15sdp"
+                                                android:textSize="@dimen/_12sdp"
                                                 android:fontFamily="@font/rfmed"/>
                                         </LinearLayout>
                                         <View
@@ -381,7 +385,7 @@
                                                 android:layout_marginLeft="@dimen/_5sdp"
                                                 android:layout_gravity="center"
                                                 android:textColor="@color/second_font"
-                                                android:textSize="@dimen/_15sdp"
+                                                android:textSize="@dimen/_12sdp"
                                                 android:fontFamily="@font/rfmed"/>
                                         </LinearLayout>
                                         <View
@@ -398,18 +402,50 @@
 
 
                                 </HorizontalScrollView>
-
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/rvNews"
-                                    android:layout_marginTop="@dimen/_10sdp"
+                                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                                    android:id="@+id/swipeRefresh"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_10sdp"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content">
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+                                        <com.facebook.shimmer.ShimmerFrameLayout
+                                            android:id="@+id/shimmerLayout"
+                                            android:visibility="gone"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:orientation="vertical">
+                                                <include layout="@layout/placeholder_news_list_item"/>
+                                                <include layout="@layout/placeholder_news_list_item"/>
+                                                <include layout="@layout/placeholder_news_list_item"/>
+                                            </LinearLayout>
+
+
+                                        </com.facebook.shimmer.ShimmerFrameLayout>
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/rvNews"
+                                            android:layout_width="match_parent"
+                                            android:visibility="gone"
+                                            android:layout_height="wrap_content"/>
+
+                                    </RelativeLayout>
+
+
+                                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 
 
 
-                             
+
+
+
 
                             </LinearLayout>
 
@@ -418,7 +454,7 @@
 
 
                         </RelativeLayout>
-                    </androidx.core.widget.NestedScrollView>
+
 
                 </LinearLayout>
 
