@@ -26,6 +26,7 @@ public class Constans {
     public static final String URL_TEMPO = "https://www.tempo.co/";
     public static final String URL_SUARA = "https://www.suara.com/";
     public static final String URL_REPUBLIKA = "https://www.republika.co.id/";
+    public static final String URL_JPNN = "https://www.jpnn.com/";
 
 
 

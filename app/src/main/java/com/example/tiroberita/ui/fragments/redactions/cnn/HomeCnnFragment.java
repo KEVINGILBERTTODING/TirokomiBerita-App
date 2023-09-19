@@ -38,6 +38,7 @@ import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.ui.fragments.redactions.antara.HomeAntaraFragment;
 import com.example.tiroberita.ui.fragments.redactions.cnbc.HomeCnbcFragment;
+import com.example.tiroberita.ui.fragments.redactions.jpnn.HomeJpnnFragment;
 import com.example.tiroberita.ui.fragments.redactions.kumparan.HomeKumparanFragment;
 import com.example.tiroberita.ui.fragments.redactions.okezone.HomeOkezoneFragment;
 import com.example.tiroberita.ui.fragments.redactions.republika.HomeRepublikaFragment;
@@ -730,6 +731,10 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
         binding.mnuRepublika.setOnClickListener(view -> {
             moveFragment(new HomeRepublikaFragment());
+        });
+
+        binding.mnuJpnn.setOnClickListener(view -> {
+            moveFragment(new HomeJpnnFragment());
         });
     }
 
