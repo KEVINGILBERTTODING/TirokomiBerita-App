@@ -4,6 +4,7 @@ import com.example.tiroberita.data.remote.ApiService;
 import com.example.tiroberita.data.remote.CnbcService;
 import com.example.tiroberita.data.remote.CnnApiService;
 import com.example.tiroberita.data.remote.KumparanService;
+import com.example.tiroberita.data.remote.OkezoneService;
 import com.example.tiroberita.data.remote.TribunNewsService;
 
 import javax.inject.Singleton;
@@ -49,5 +50,11 @@ public class NetworkModule {
     @Singleton
     public CnbcService cnbcService(Retrofit retrofit) {
         return retrofit.create(CnbcService.class);
+    }
+
+    @Provides
+    @Singleton
+    public OkezoneService okezoneService (Retrofit retrofit) {
+        return retrofit.create(OkezoneService.class);
     }
 }

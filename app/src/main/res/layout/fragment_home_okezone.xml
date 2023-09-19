@@ -79,10 +79,10 @@
                                 android:layout_marginTop="@dimen/_10sdp"
                                 android:layout_marginLeft="@dimen/_10sdp"
                                 android:layout_marginRight="@dimen/_10sdp"
-                                android:text="TribunNews.com"
+                                android:text="Okezone.com"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/rfbold"
-                                android:textSize="@dimen/_35sdp"/>
+                                android:textSize="@dimen/_40sdp"/>
 
                             <HorizontalScrollView
                                 android:layout_width="match_parent"
@@ -135,7 +135,280 @@
 
                                     </LinearLayout>
 
+                                    <LinearLayout
+                                        android:id="@+id/menuBola"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/_20sdp"
+                                            android:orientation="horizontal">
+                                            <ImageView
+                                                android:layout_width="@dimen/_14sdp"
+                                                android:layout_gravity="center"
+                                                android:src="@drawable/ic_sport_off"
+                                                android:id="@+id/ivBola"
+                                                android:layout_height="@dimen/_14sdp"/>
+                                            <TextView
+                                                android:id="@+id/tvTbBola"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Bola"
+                                                android:layout_marginLeft="@dimen/_5sdp"
+                                                android:layout_gravity="center"
+                                                android:textColor="@color/second_font"
+                                                android:textSize="@dimen/_12sdp"
+                                                android:fontFamily="@font/rfmed"/>
+                                        </LinearLayout>
+                                        <View
+                                            android:id="@+id/lnBola"
+                                            android:visibility="gone"
+                                            android:layout_width="@dimen/_30sdp"
+                                            android:layout_marginTop="@dimen/_5sdp"
+                                            android:layout_height="@dimen/_2sdp"
+                                            android:layout_gravity="center"
+                                            android:background="@color/black"/>
+                                    </LinearLayout>
 
+
+                                    <LinearLayout
+                                        android:id="@+id/menuSport"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/_20sdp"
+                                            android:orientation="horizontal">
+                                            <ImageView
+                                                android:layout_width="@dimen/_14sdp"
+                                                android:layout_gravity="center"
+                                                android:id="@+id/ivSports"
+                                                android:src="@drawable/ic_sport2_off"
+                                                android:layout_height="@dimen/_14sdp"/>
+
+                                            <TextView
+                                                android:id="@+id/tvTbSports"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Sports"
+                                                android:layout_marginLeft="@dimen/_5sdp"
+                                                android:layout_gravity="center"
+                                                android:textColor="@color/second_font"
+                                                android:textSize="@dimen/_12sdp"
+                                                android:fontFamily="@font/rfmed"/>
+                                        </LinearLayout>
+
+                                        <View
+                                            android:id="@+id/lnSports"
+                                            android:layout_width="@dimen/_30sdp"
+                                            android:layout_marginTop="@dimen/_5sdp"
+                                            android:layout_height="@dimen/_2sdp"
+                                            android:layout_gravity="center"
+                                            android:visibility="gone"
+                                            android:background="@color/black"/>
+
+                                    </LinearLayout>
+                                    <LinearLayout
+                                        android:id="@+id/menuTeknologi"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/_20sdp"
+                                            android:orientation="horizontal">
+                                            <ImageView
+                                                android:layout_width="@dimen/_14sdp"
+                                                android:layout_gravity="center"
+                                                android:src="@drawable/ic_tech_off"
+                                                android:id="@+id/ivTeknologi"
+                                                android:layout_height="@dimen/_14sdp"/>
+
+                                            <TextView
+                                                android:id="@+id/tvTbTeknologi"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Teknologi"
+                                                android:layout_marginLeft="@dimen/_5sdp"
+                                                android:layout_gravity="center"
+                                                android:textColor="@color/second_font"
+                                                android:textSize="@dimen/_12sdp"
+                                                android:fontFamily="@font/rfmed"/>
+                                        </LinearLayout>
+
+                                        <View
+                                            android:id="@+id/lnTeknologi"
+                                            android:layout_width="@dimen/_30sdp"
+                                            android:layout_marginTop="@dimen/_5sdp"
+                                            android:layout_height="@dimen/_2sdp"
+                                            android:layout_gravity="center"
+                                            android:visibility="gone"
+                                            android:background="@color/black"/>
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/menuEkonomi"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/_20sdp"
+                                            android:orientation="horizontal">
+                                            <ImageView
+                                                android:layout_width="@dimen/_14sdp"
+                                                android:layout_gravity="center"
+                                                android:src="@drawable/ic_ekonomi_off"
+                                                android:id="@+id/ivEkonomi"
+                                                android:layout_height="@dimen/_14sdp"/>
+
+                                            <TextView
+                                                android:id="@+id/tvTbEkonomi"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Ekonomi"
+                                                android:layout_marginLeft="@dimen/_5sdp"
+                                                android:layout_gravity="center"
+                                                android:textColor="@color/second_font"
+                                                android:textSize="@dimen/_12sdp"
+                                                android:fontFamily="@font/rfmed"/>
+
+
+                                        </LinearLayout>
+
+                                        <View
+                                            android:id="@+id/lnEkonomi"
+                                            android:layout_width="@dimen/_30sdp"
+                                            android:layout_marginTop="@dimen/_5sdp"
+                                            android:layout_height="@dimen/_2sdp"
+                                            android:layout_gravity="center"
+                                            android:visibility="gone"
+                                            android:background="@color/black"/>
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:id="@+id/menuCelebrity"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/_20sdp"
+                                            android:orientation="horizontal">
+                                            <ImageView
+                                                android:layout_width="@dimen/_14sdp"
+                                                android:layout_gravity="center"
+                                                android:src="@drawable/ic_celebrity_off"
+                                                android:id="@+id/ivCelebrity"
+                                                android:layout_height="@dimen/_14sdp"/>
+
+                                            <TextView
+                                                android:id="@+id/tvTbCelebrity"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Celebrity"
+                                                android:layout_marginLeft="@dimen/_5sdp"
+                                                android:layout_gravity="center"
+                                                android:textColor="@color/second_font"
+                                                android:textSize="@dimen/_12sdp"
+                                                android:fontFamily="@font/rfmed"/>
+                                        </LinearLayout>
+                                        <View
+                                            android:id="@+id/lnCelebrity"
+                                            android:layout_width="@dimen/_30sdp"
+                                            android:layout_marginTop="@dimen/_5sdp"
+                                            android:layout_height="@dimen/_2sdp"
+                                            android:layout_gravity="center"
+                                            android:visibility="gone"
+                                            android:background="@color/black"/>
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:id="@+id/menuOtomotif"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/_20sdp"
+                                            android:orientation="horizontal">
+                                            <ImageView
+                                                android:layout_width="@dimen/_14sdp"
+                                                android:layout_gravity="center"
+                                                android:id="@+id/ivOtomotif"
+                                                android:src="@drawable/ic_otomotif_off"
+                                                android:layout_height="@dimen/_14sdp"/>
+
+                                            <TextView
+                                                android:id="@+id/tvTbOtomotif"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Otomotif"
+                                                android:layout_marginLeft="@dimen/_5sdp"
+                                                android:layout_gravity="center"
+                                                android:textColor="@color/second_font"
+                                                android:textSize="@dimen/_12sdp"
+                                                android:fontFamily="@font/rfmed"/>
+                                        </LinearLayout>
+                                        <View
+                                            android:id="@+id/lnOtomotif"
+                                            android:layout_width="@dimen/_30sdp"
+                                            android:layout_marginTop="@dimen/_5sdp"
+                                            android:layout_height="@dimen/_2sdp"
+                                            android:layout_gravity="center"
+                                            android:visibility="gone"
+                                            android:background="@color/black"/>
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/menuLifeStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/_20sdp"
+                                            android:orientation="horizontal">
+                                            <ImageView
+                                                android:layout_width="@dimen/_14sdp"
+                                                android:layout_gravity="center"
+                                                android:id="@+id/ivLifestyle"
+                                                android:src="@drawable/ic_life_style_off"
+                                                android:layout_height="@dimen/_14sdp"/>
+
+                                            <TextView
+                                                android:id="@+id/tvTbLifeStyle"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Lifestyle"
+                                                android:layout_marginLeft="@dimen/_5sdp"
+                                                android:layout_gravity="center"
+                                                android:textColor="@color/second_font"
+                                                android:textSize="@dimen/_12sdp"
+                                                android:fontFamily="@font/rfmed"/>
+                                        </LinearLayout>
+                                        <View
+                                            android:id="@+id/lnGayaHidup"
+                                            android:layout_width="@dimen/_30sdp"
+                                            android:layout_marginTop="@dimen/_5sdp"
+                                            android:layout_height="@dimen/_2sdp"
+                                            android:layout_gravity="center"
+                                            android:visibility="gone"
+                                            android:background="@color/black"/>
+                                    </LinearLayout>
                                 </LinearLayout>
 
 
@@ -230,6 +503,57 @@
             android:layout_height="match_parent"
             android:visibility="gone"
             android:background="@color/overlay"/>
+
+
+<!--        BOTTOM SHEEET WEB VIEW -->
+
+        <LinearLayout
+            android:id="@+id/RlbottomSheetWebview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/container_bottom_sheet2"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:orientation="vertical">
+            <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                android:layout_width="wrap_content"
+                app:tint="@color/black"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/webViewShimmer"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <include layout="@layout/placeholder_webview_shimmer_layout"/>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <WebView
+                        android:id="@+id/webview"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:nestedScrollingEnabled="false"
+                        android:layout_height="match_parent"/>
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
 
 
 <!--        BOTTOM SHEET SHARE POST -->

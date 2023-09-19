@@ -29,7 +29,9 @@ import com.example.tiroberita.model.ResponseModel;
 import com.example.tiroberita.model.SaveModel;
 import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
+import com.example.tiroberita.ui.fragments.redactions.cnbc.HomeCnbcFragment;
 import com.example.tiroberita.ui.fragments.redactions.cnn.HomeCnnFragment;
+import com.example.tiroberita.ui.fragments.redactions.okezone.HomeOkezoneFragment;
 import com.example.tiroberita.ui.fragments.redactions.tribun.HomeTribunNewsFragment;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.kumparan.KumparanViewModel;
@@ -209,6 +211,14 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
 
         binding.mnuTribun.setOnClickListener(view -> {
             moveFragment(new HomeTribunNewsFragment());
+        });
+
+        binding.mnuOkezone.setOnClickListener(view -> {
+            moveFragment(new HomeOkezoneFragment());
+        });
+
+        binding.mnuCnbc.setOnClickListener(view -> {
+            moveFragment(new HomeCnbcFragment());
         });
     }
 
