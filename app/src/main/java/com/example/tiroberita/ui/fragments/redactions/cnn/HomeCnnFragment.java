@@ -37,6 +37,7 @@ import com.example.tiroberita.model.SaveModel;
 import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.ui.fragments.redactions.kumparan.HomeKumparanFragment;
+import com.example.tiroberita.ui.fragments.redactions.tribun.HomeTribunNewsFragment;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
@@ -690,6 +691,10 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         binding.mnuKumparan.setOnClickListener(view -> {
             moveFragment(new HomeKumparanFragment());
             hideBottomSheetMediaBerita();
+        });
+
+        binding.mnuTribun.setOnClickListener(view -> {
+            moveFragment(new HomeTribunNewsFragment());
         });
     }
 

@@ -1,4 +1,4 @@
-package com.example.tiroberita.ui.fragments.redactions.kumparan;
+package com.example.tiroberita.ui.fragments.redactions.tribun;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiroberita.R;
-import com.example.tiroberita.databinding.FragmentHomeKumparanBinding;
+import com.example.tiroberita.databinding.FragmentHomeTribunNewsBinding;
 import com.example.tiroberita.model.DataModel;
 import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.PostModel;
@@ -30,10 +30,10 @@ import com.example.tiroberita.model.SaveModel;
 import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.ui.fragments.redactions.cnn.HomeCnnFragment;
-import com.example.tiroberita.ui.fragments.redactions.tribun.HomeTribunNewsFragment;
+import com.example.tiroberita.ui.fragments.redactions.kumparan.HomeKumparanFragment;
 import com.example.tiroberita.util.Constans;
-import com.example.tiroberita.viewmodel.kumparan.KumparanViewModel;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
+import com.example.tiroberita.viewmodel.tribunnews.TribunnewsViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.SimpleDateFormat;
@@ -46,17 +46,18 @@ import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
 
 @AndroidEntryPoint
-public class HomeKumparanFragment extends Fragment implements ItemClickListener {
+public class HomeTribunNewsFragment extends Fragment implements ItemClickListener {
 
-    private FragmentHomeKumparanBinding binding;
+    private FragmentHomeTribunNewsBinding binding;
     private SharedPreferences sharedPreferences;
-    private KumparanViewModel kumparanViewModel;
+    private TribunnewsViewModel tribunnewsViewModel;
     private NewsAdapter newsAdapter;
     private List<PostModel> postModelList;
     private PostViewModel postViewModel;
     private DataModel dataModel;
+
     private LinearLayoutManager linearLayoutManager;
-    private BottomSheetBehavior bottomSheetShare, bottomSheetMediaBerita;
+    private BottomSheetBehavior bottomSheetShare, bottomSheetWebView, bottomSheetMediaBerita;
     private String thumbnail, postTitle, postDesc, postDate, postUrl, userId, created_at, username, redactionName;
 
 
@@ -65,7 +66,7 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentHomeKumparanBinding.inflate(inflater, container, false);
+        binding = FragmentHomeTribunNewsBinding.inflate(inflater, container, false);
 
         init();
         return binding.getRoot();
@@ -89,10 +90,10 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
 
     private void init() {
         sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        kumparanViewModel = new ViewModelProvider(this).get(KumparanViewModel.class);
+        tribunnewsViewModel = new ViewModelProvider(this).get(TribunnewsViewModel.class);
         userId = sharedPreferences.getString(Constans.USER_ID, null);
         username = sharedPreferences.getString(Constans.USERNAME, null);
-        redactionName = "Kumparan";
+        redactionName = "Tribunnews";
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
 
     }
@@ -101,7 +102,7 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
         showShimmer();
         binding.rvNews.setAdapter(null);
 
-            kumparanViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            tribunnewsViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -115,7 +116,7 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(HomeKumparanFragment.this);
+                        newsAdapter.setItemClickListener(HomeTribunNewsFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -142,13 +143,9 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
 
     private void listenerTabLayout() {
         binding.menuTerbaru.setOnClickListener(view -> {
-            binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.black));
             // get data
             getData();
-            binding.lnTerbaru.setVisibility(View.VISIBLE);
-
         });
-
 
     }
 
@@ -191,24 +188,26 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
         });
 
         binding.tvHeader.setOnClickListener(view -> {
-            directPost(Constans.URL_KUMPARAN);
+            directPost(Constans.URL_TRIBUNEWS);
         });
 
 
     }
 
     private void listenerMediaBeritaPicker() {
-        binding.mnuKumparan.setOnClickListener(view -> {
+        binding.mnuTribun.setOnClickListener(view -> {
             getData();
+            hideBottomSheetMediaBerita();
+        });
+
+        binding.mnuKumparan.setOnClickListener(view -> {
+            moveFragment(new HomeKumparanFragment());
             hideBottomSheetMediaBerita();
         });
 
         binding.mnuCnn.setOnClickListener(view -> {
             moveFragment(new HomeCnnFragment());
-        });
-
-        binding.mnuTribun.setOnClickListener(view -> {
-            moveFragment(new HomeTribunNewsFragment());
+            hideBottomSheetMediaBerita();
         });
     }
 
@@ -331,11 +330,9 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
 
     }
 
-    private void directPost(String postUrl) {
-        // buka browser
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl));
-        startActivity(browserIntent);
-    }
+
+
+
 
 
 
@@ -365,13 +362,7 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
         }
 
 
-
     }
-
-
-
-
-
 
 
     @Override
@@ -405,19 +396,28 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
                 .into(binding.ivPost);
 
 
+
+
         // logic listener
 
         if (share.equals("share")) { // JIKA BUTTON SHARE DI KLIK DI ADAPTER
             showBottomSheetShare();
         }else {
-            directPost(postUrl);
+           directPost(postUrl);
         }
 
-    }
 
+
+    }
     private void moveFragment(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameHome, fragment)
                 .addToBackStack(null).commit();
+    }
+
+    private void directPost(String postUrl) {
+        // buka browser
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl));
+        startActivity(browserIntent);
     }
 
 

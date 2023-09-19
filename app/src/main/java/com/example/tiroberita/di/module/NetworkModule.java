@@ -3,6 +3,7 @@ package com.example.tiroberita.di.module;
 import com.example.tiroberita.data.remote.ApiService;
 import com.example.tiroberita.data.remote.CnnApiService;
 import com.example.tiroberita.data.remote.KumparanService;
+import com.example.tiroberita.data.remote.TribunNewsService;
 
 import javax.inject.Singleton;
 
@@ -36,5 +37,10 @@ public class NetworkModule {
     @Singleton
     public KumparanService kumparanService(Retrofit retrofit){
         return retrofit.create(KumparanService.class);
+    }
+    @Provides
+    @Singleton
+    public TribunNewsService tribunNewsService(Retrofit retrofit){
+        return retrofit.create(TribunNewsService.class);
     }
 }

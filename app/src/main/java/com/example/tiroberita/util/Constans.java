@@ -18,4 +18,7 @@ public class Constans {
     public static final String FIREBASE_CHILD_USER = "user";
     public static final String URL_CNN_INDONESIA = "https://www.cnnindonesia.com/";
     public static final String URL_KUMPARAN = "https://kumparan.com/";
+    public static final String URL_TRIBUNEWS = "https://www.tribunnews.com/";
+
+
 }
