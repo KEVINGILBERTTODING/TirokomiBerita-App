@@ -61,7 +61,7 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
     private PostViewModel postViewModel;
     private DataModel dataModel;
     private LinearLayoutManager linearLayoutManager;
-    private BottomSheetBehavior bottomSheetShare, bottomSheetWebView, bottomSheetMediaBerita;
+    private BottomSheetBehavior bottomSheetShare, bottomSheetMediaBerita;
     private String thumbnail, postTitle, postDesc, postDate, postUrl, userId, created_at, username, redactionName;
 
 
@@ -148,17 +148,9 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
     private void listenerTabLayout() {
         binding.menuTerbaru.setOnClickListener(view -> {
             binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.black));
-            // set type
-
-
             // get data
             getData();
-
-
             binding.lnTerbaru.setVisibility(View.VISIBLE);
-
-
-            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_star));
 
         });
 
@@ -348,21 +340,14 @@ public class HomeKumparanFragment extends Fragment implements ItemClickListener 
 
 
 
-
-
-
-
-
-
-
-
     private void savePost() {
         if (userId == null) {
             showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
         }else {
 
             created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-            String postId = userId + "-" + created_at;
+            String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(new Date());
+            String postId = userId + "-" + timeStamp;
             SaveModel saveModel = new SaveModel(postUrl, postTitle, postDesc, postDate, thumbnail, userId, username, created_at, redactionName, postId);
 
 

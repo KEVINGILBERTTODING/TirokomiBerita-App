@@ -900,7 +900,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         }else {
 
             created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-            String postId = userId + "-" + created_at;
+            String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(new Date());
+            String postId = userId + "-" + timeStamp;
             SaveModel saveModel = new SaveModel(postUrl, postTitle, postDesc, postDate, thumbnail, userId, username, created_at, redactionName, postId);
 
 
