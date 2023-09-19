@@ -1,10 +1,8 @@
-package com.example.tiroberita.ui.fragments.home;
+package com.example.tiroberita.ui.fragments.redactions.cnn;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,14 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,11 +26,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
 import com.example.tiroberita.model.DataModel;
@@ -44,17 +34,12 @@ import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.PostModel;
 import com.example.tiroberita.model.ResponseModel;
 import com.example.tiroberita.model.SaveModel;
-import com.example.tiroberita.model.SavePostModel;
 import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
@@ -71,11 +56,9 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     private DataModel dataModel;
     private String newsType = "terbaru";
     private LinearLayoutManager linearLayoutManager;
-    private BottomSheetBehavior bottomSheetShare, bottomSheetWebView;
+    private BottomSheetBehavior bottomSheetShare, bottomSheetWebView, bottomSheetMediaBerita;
     private String thumbnail, postTitle, postDesc, postDate, postUrl, userId, created_at, username, redactionName;
 
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
 
 
     @Override
@@ -94,10 +77,12 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         super.onViewCreated(view, savedInstanceState);
         listenerTabLayout();
         listener();
+        listenerMediaBeritaPicker();
         getData("terbaru");
         greetings();
         setUpBottomSheetShare();
         setUpBottomSheetWebView();
+        setUpBottomSheetMediaBerita();
 
         binding.tvUsername.setText(sharedPreferences.getString(Constans.USERNAME, "-"));
 
@@ -108,8 +93,6 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         cnnViewModel = new ViewModelProvider(this).get(CnnViewModel.class);
         userId = sharedPreferences.getString(Constans.USER_ID, null);
         username = sharedPreferences.getString(Constans.USERNAME, null);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
         redactionName = "CNN Indonesia";
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
 
@@ -362,6 +345,15 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             binding.lnGayaHidup.setVisibility(View.GONE);
 
 
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_star));
+            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
+            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
+            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
+
         });
 
         binding.menuNasional.setOnClickListener(view -> {
@@ -381,6 +373,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             getData("nasional");
 
 
+
+            // Set Underline
             binding.lnTerbaru.setVisibility(View.GONE);
             binding.lnNasional.setVisibility(View.VISIBLE);
             binding.lnInternasional.setVisibility(View.GONE);
@@ -389,6 +383,17 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             binding.lnTeknologi.setVisibility(View.GONE);
             binding.lnHiburan.setVisibility(View.GONE);
             binding.lnGayaHidup.setVisibility(View.GONE);
+
+            // set disable icon
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local));
+            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
+            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
         });
 
         binding.menuInternasional.setOnClickListener(view -> {
@@ -417,6 +422,18 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             binding.lnTeknologi.setVisibility(View.GONE);
             binding.lnHiburan.setVisibility(View.GONE);
             binding.lnGayaHidup.setVisibility(View.GONE);
+
+            // set disable icon
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
+            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional));
+            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
+
         });
 
         binding.menuEkonomi.setOnClickListener(view -> {
@@ -445,7 +462,22 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             binding.lnTeknologi.setVisibility(View.GONE);
             binding.lnHiburan.setVisibility(View.GONE);
             binding.lnGayaHidup.setVisibility(View.GONE);
+
+
+            // set disable icon
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
+            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi));
+            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
+            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
         });
+
+
+
 
         binding.menuOlahraga.setOnClickListener(view -> {
             binding.tvTbOlahraga.setTextColor(getContext().getColor(R.color.black));
@@ -471,6 +503,18 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             binding.lnTeknologi.setVisibility(View.GONE);
             binding.lnHiburan.setVisibility(View.GONE);
             binding.lnGayaHidup.setVisibility(View.GONE);
+
+
+            // set disable icon
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
+            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport));
+            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
+            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
         });
 
         binding.menuTeknologi.setOnClickListener(view -> {
@@ -497,6 +541,17 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             binding.lnTeknologi.setVisibility(View.VISIBLE);
             binding.lnHiburan.setVisibility(View.GONE);
             binding.lnGayaHidup.setVisibility(View.GONE);
+
+            // set disable icon
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
+            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech));
+            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
+            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
         });
 
 
@@ -525,6 +580,17 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             binding.lnTeknologi.setVisibility(View.GONE);
             binding.lnHiburan.setVisibility(View.VISIBLE);
             binding.lnGayaHidup.setVisibility(View.GONE);
+
+            // set disable icon
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
+            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
+            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
         });
 
         binding.menuGayaHidup.setOnClickListener(view -> {
@@ -552,6 +618,18 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             binding.lnTeknologi.setVisibility(View.GONE);
             binding.lnHiburan.setVisibility(View.GONE);
             binding.lnGayaHidup.setVisibility(View.VISIBLE);
+
+
+            // set disable icon
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
+            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
+            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style));
         });
     }
 
@@ -567,6 +645,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         binding.vOverlay.setOnClickListener(view -> {
             hideBottomSheetShare();
             hideBottomSheetWebView();
+            hideBottomSheetMediaBerita();
         });
 
         binding.btnShare.setOnClickListener(view -> {
@@ -589,6 +668,18 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             savePost();
         });
 
+        binding.btnMenuMedia.setOnClickListener(view -> {
+            showBottomSheetMediaBerita();
+        });
+
+
+    }
+
+    private void listenerMediaBeritaPicker() {
+        binding.mnuCnn.setOnClickListener(view -> {
+            getData("terbaru");
+            hideBottomSheetMediaBerita();
+        });
     }
 
     private void greetings() {
@@ -657,6 +748,28 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     }
 
 
+    private void setUpBottomSheetMediaBerita () {
+        bottomSheetMediaBerita = BottomSheetBehavior.from(binding.rlBottomSheetMediaPicker);
+        bottomSheetMediaBerita.setHideable(true);
+        bottomSheetMediaBerita.setPeekHeight(0);
+        bottomSheetMediaBerita.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+        bottomSheetMediaBerita.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    hideBottomSheetShare();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+
     private void setUpBottomSheetWebView () {
         bottomSheetWebView = BottomSheetBehavior.from(binding.RlbottomSheetWebview);
         bottomSheetWebView.setHideable(true);
@@ -693,6 +806,21 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         bottomSheetShare.setState(BottomSheetBehavior.STATE_HIDDEN);
         binding.vOverlay.setVisibility(View.GONE);
         bottomSheetShare.setPeekHeight(0);
+
+    }
+
+    private void hideBottomSheetMediaBerita() {
+        bottomSheetMediaBerita.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay.setVisibility(View.GONE);
+        bottomSheetMediaBerita.setPeekHeight(0);
+
+    }
+
+    private void showBottomSheetMediaBerita() {
+        bottomSheetMediaBerita.setState(BottomSheetBehavior.STATE_EXPANDED);
+        bottomSheetMediaBerita.setPeekHeight(600);
+        binding.vOverlay.setVisibility(View.VISIBLE);
+
 
     }
 

@@ -10,8 +10,7 @@ import android.view.MenuItem;
 
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.ActivityMainBinding;
-import com.example.tiroberita.ui.fragments.home.HomeCnnFragment;
-import com.example.tiroberita.ui.fragments.home.HomeFragment;
+import com.example.tiroberita.ui.fragments.redactions.cnn.HomeCnnFragment;
 import com.example.tiroberita.ui.fragments.post.SavePostFragment;
 import com.google.android.material.navigation.NavigationBarView;
 
