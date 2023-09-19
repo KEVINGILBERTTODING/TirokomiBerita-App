@@ -137,14 +137,7 @@ public class RedactionsPickerFragment extends Fragment {
             }
         });
 
-        binding.cvMerdeka.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBottomSheet();
-                addRedactionPicker(getContext().getString(R.string.merdeka), getContext().getString(R.string.merdeka_short_desc), getContext().getDrawable(R.drawable.logo_merdeka));
 
-            }
-        });
 
         binding.cvSindoNews.setOnClickListener(new View.OnClickListener() {
             @Override

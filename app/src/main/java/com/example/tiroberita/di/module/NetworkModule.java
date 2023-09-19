@@ -6,6 +6,7 @@ import com.example.tiroberita.data.remote.CnbcService;
 import com.example.tiroberita.data.remote.CnnApiService;
 import com.example.tiroberita.data.remote.KumparanService;
 import com.example.tiroberita.data.remote.OkezoneService;
+import com.example.tiroberita.data.remote.SindonewsService;
 import com.example.tiroberita.data.remote.TribunNewsService;
 
 import javax.inject.Singleton;
@@ -63,5 +64,11 @@ public class NetworkModule {
     @Singleton
     public AntaraService antaraService (Retrofit retrofit) {
         return retrofit.create(AntaraService.class);
+    }
+
+    @Provides
+    @Singleton
+    public SindonewsService sindonewsService (Retrofit retrofit) {
+        return retrofit.create(SindonewsService.class);
     }
 }

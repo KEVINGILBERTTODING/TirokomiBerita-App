@@ -22,6 +22,7 @@ public class Constans {
     public static final String URL_CNBC_INDONESIA = "https://www.cnbcindonesia.com/";
     public static final String URL_OKEZONE = "https://www.okezone.com/";
     public static final String URL_ANTARA = "https://www.antaranews.com/";
+    public static final String URL_SINDONEWS = "https://www.sindonews.com/";
 
 
 }

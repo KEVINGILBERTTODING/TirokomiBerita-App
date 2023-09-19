@@ -207,30 +207,7 @@
 
                         </androidx.cardview.widget.CardView>
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cvMerdeka"
-                            android:layout_width="wrap_content"
-                            android:layout_gravity="fill"
-                            app:cardUseCompatPadding="true"
-                            android:layout_height="@dimen/_80sdp"
-                            android:layout_row="3"
-                            app:cardElevation="@null"
-                            app:cardCornerRadius="@dimen/_5sdp"
-                            android:background="@color/black"
-                            android:layout_column="0">
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
 
-                                <ImageView
-                                    android:layout_width="@dimen/_70sdp"
-                                    android:layout_height="@dimen/_50sdp"
-                                    android:layout_centerInParent="true"
-                                    android:src="@drawable/logo_merdeka" />
-                            </RelativeLayout>
-
-
-                        </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cvSindoNews"
@@ -264,7 +241,7 @@
                             android:layout_gravity="fill"
                             app:cardUseCompatPadding="true"
                             android:layout_height="@dimen/_80sdp"
-                            android:layout_row="4"
+                            android:layout_row="3"
                             app:cardElevation="@null"
                             app:cardCornerRadius="@dimen/_5sdp"
                             android:background="@color/black"
@@ -315,7 +292,7 @@
                             android:layout_gravity="fill"
                             app:cardUseCompatPadding="true"
                             android:layout_height="@dimen/_80sdp"
-                            android:layout_row="5"
+                            android:layout_row="4"
                             app:cardElevation="@null"
                             app:cardCornerRadius="@dimen/_5sdp"
                             android:background="@color/black"
@@ -337,14 +314,14 @@
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cvJpnn"
                             android:layout_width="0dp"
-                            android:layout_gravity="fill"
+                            android:layout_gravity="fill_horizontal"
                             app:cardUseCompatPadding="true"
                             android:layout_height="@dimen/_80sdp"
                             android:layout_row="5"
                             app:cardElevation="@null"
                             app:cardCornerRadius="@dimen/_5sdp"
                             android:background="@color/black"
-                            android:layout_column="1">
+                            android:layout_column="0">
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
@@ -386,6 +363,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:visibility="gone"
             android:id="@+id/rlBottomSheet"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
             android:layout_height="wrap_content">
