@@ -10,8 +10,9 @@ public class SaveModel {
     private String username;
     private String created_at;
     private String redaction_name;
+    private String post_id;
 
-    public SaveModel(String link, String title, String description, String pubDate, String thumbnail, String user_id, String username, String created_at, String redaction_name) {
+    public SaveModel(String link, String title, String description, String pubDate, String thumbnail, String user_id, String username, String created_at, String redaction_name, String post_id) {
         this.link = link;
         this.title = title;
         this.description = description;
@@ -21,6 +22,7 @@ public class SaveModel {
         this.username = username;
         this.created_at = created_at;
         this.redaction_name = redaction_name;
+        this.post_id = post_id;
     }
 
     public String getLink() {
@@ -93,6 +95,14 @@ public class SaveModel {
 
     public void setRedaction_name(String redaction_name) {
         this.redaction_name = redaction_name;
+    }
+
+    public String getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(String post_id) {
+        this.post_id = post_id;
     }
 }
 

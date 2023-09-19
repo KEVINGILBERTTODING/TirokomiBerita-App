@@ -702,6 +702,347 @@
 
 
 
+<!--        BOTTOM SHEET MEDIA PICKER-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/rlBottomSheetMediaPicker"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:background="@drawable/container_bottom_sheet2"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                        android:layout_width="wrap_content"
+                        app:tint="@color/black"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pilih media berita"
+                        android:textColor="@color/black"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/rfmed"
+                        android:textSize="@dimen/_15sdp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Geser ke kanan untuk melihat media berita lainnya."
+                        android:textColor="@color/second_font"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/rfreg"
+                        android:textSize="@dimen/_11sdp"/>
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:scrollbars="none"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:id="@+id/mnuCnn"
+                                android:layout_width="@dimen/_50sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_cnn"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/mnuKumparan"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_kumparan"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/mnuTribun"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_tribun"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/mnuCnbc"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_cnbc"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/mnuOkezone"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_okezone"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/mnuAntara"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_antara"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/mnuMerdeka"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_merdeka"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/mnuSindoNews"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_sindonews"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/mnuTempo"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/tempo"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/mnuSuara"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_suara"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/mnuRepublika"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_republika"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/mnuJpnn"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:background="@drawable/container_media_rounded"
+                                android:layout_height="@dimen/_50sdp">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="0dp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:src="@drawable/logo_jpnn"/>
+                                </androidx.cardview.widget.CardView>
+
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
 
 
 

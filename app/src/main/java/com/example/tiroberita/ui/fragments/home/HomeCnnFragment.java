@@ -784,8 +784,10 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         if (userId == null) {
             showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
         }else {
+
             created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-            SaveModel saveModel = new SaveModel(postUrl, postTitle, postDesc, postDate, thumbnail, userId, username, created_at, redactionName);
+            String postId = userId + "-" + created_at;
+            SaveModel saveModel = new SaveModel(postUrl, postTitle, postDesc, postDate, thumbnail, userId, username, created_at, redactionName, postId);
 
 
             postViewModel.insertSavePost(saveModel).observe(getViewLifecycleOwner(), new Observer<FirebaseResponseModel>() {
@@ -848,7 +850,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
         // logic listener
 
-        if (share.equals("share")) {
+        if (share.equals("share")) { // JIKA BUTTON SHARE DI KLIK DI ADAPTER
             showBottomSheetShare();
         }else {
             showBottomSheetWebView();
