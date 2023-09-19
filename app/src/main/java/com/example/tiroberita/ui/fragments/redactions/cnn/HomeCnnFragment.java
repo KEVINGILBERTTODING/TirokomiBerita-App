@@ -36,6 +36,7 @@ import com.example.tiroberita.model.ResponseModel;
 import com.example.tiroberita.model.SaveModel;
 import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
+import com.example.tiroberita.ui.fragments.redactions.kumparan.HomeKumparanFragment;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
@@ -685,6 +686,11 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             getData("terbaru");
             hideBottomSheetMediaBerita();
         });
+
+        binding.mnuKumparan.setOnClickListener(view -> {
+            moveFragment(new HomeKumparanFragment());
+            hideBottomSheetMediaBerita();
+        });
     }
 
     private void greetings() {
@@ -966,6 +972,10 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
 
 
+    }
+    private void moveFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameHome, fragment)
+                .addToBackStack(null).commit();
     }
 
 
