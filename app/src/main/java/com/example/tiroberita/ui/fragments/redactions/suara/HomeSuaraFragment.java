@@ -1,9 +1,14 @@
-package com.example.tiroberita.ui.fragments.redactions.cnn;
+package com.example.tiroberita.ui.fragments.redactions.suara;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebSettings;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,22 +18,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebSettings;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
+import com.example.tiroberita.databinding.FragmentHomeSuaraBinding;
 import com.example.tiroberita.model.DataModel;
 import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.PostModel;
@@ -38,26 +32,33 @@ import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.ui.fragments.redactions.antara.HomeAntaraFragment;
 import com.example.tiroberita.ui.fragments.redactions.cnbc.HomeCnbcFragment;
+import com.example.tiroberita.ui.fragments.redactions.cnn.HomeCnnFragment;
 import com.example.tiroberita.ui.fragments.redactions.kumparan.HomeKumparanFragment;
 import com.example.tiroberita.ui.fragments.redactions.okezone.HomeOkezoneFragment;
 import com.example.tiroberita.ui.fragments.redactions.sindonews.HomeSindoNewsFragment;
-import com.example.tiroberita.ui.fragments.redactions.suara.HomeSuaraFragment;
 import com.example.tiroberita.ui.fragments.redactions.tempo.HomeTempoFragment;
 import com.example.tiroberita.ui.fragments.redactions.tribun.HomeTribunNewsFragment;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
+import com.example.tiroberita.viewmodel.suara.SuaraViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
 
 @AndroidEntryPoint
-public class HomeCnnFragment extends Fragment implements ItemClickListener {
+public class HomeSuaraFragment extends Fragment implements ItemClickListener {
 
-    private FragmentHomeCnnBinding binding;
+    private FragmentHomeSuaraBinding binding;
     private SharedPreferences sharedPreferences;
-    private CnnViewModel cnnViewModel;
+    private SuaraViewModel suaraViewModel;
     private NewsAdapter newsAdapter;
     private List<PostModel> postModelList;
     private PostViewModel postViewModel;
@@ -73,7 +74,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentHomeCnnBinding.inflate(inflater, container, false);
+        binding = FragmentHomeSuaraBinding.inflate(inflater, container, false);
 
         init();
         return binding.getRoot();
@@ -98,10 +99,10 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
     private void init() {
         sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        cnnViewModel = new ViewModelProvider(this).get(CnnViewModel.class);
+        suaraViewModel = new ViewModelProvider(this).get(SuaraViewModel.class);
         userId = sharedPreferences.getString(Constans.USER_ID, null);
         username = sharedPreferences.getString(Constans.USERNAME, null);
-        redactionName = "CNN Indonesia";
+        redactionName = "Suara.com";
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
 
     }
@@ -110,7 +111,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         showShimmer();
         binding.rvNews.setAdapter(null);
         if (newsType.equals("terbaru")){
-            cnnViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            suaraViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -124,7 +125,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+                        newsAdapter.setItemClickListener(HomeSuaraFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -132,8 +133,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
-        }else if (newsType.equals("nasional")){
-            cnnViewModel.getDataNasional().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+        }else if (newsType.equals("bisnis")){
+            suaraViewModel.getDataBisnis().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -148,7 +149,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
 
                         // set on click item
-                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+                        newsAdapter.setItemClickListener(HomeSuaraFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -156,8 +157,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
-        }else if (newsType.equals("olahraga")){
-            cnnViewModel.getDataOlahraga().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+        }else if (newsType.equals("bola")){
+            suaraViewModel.getDataBola().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -173,7 +174,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
 
                         // set on click item
-                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+                        newsAdapter.setItemClickListener(HomeSuaraFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -181,8 +182,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
-        }else if (newsType.equals("teknologi")){
-            cnnViewModel.getDataTeknologi().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+        }else if (newsType.equals("lifestyle")){
+            suaraViewModel.getDataLifeStyle().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -197,7 +198,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
 
                         // set on click item
-                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+                        newsAdapter.setItemClickListener(HomeSuaraFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -205,8 +206,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
-        } else if (newsType.equals("ekonomi")){
-            cnnViewModel.getDataEkonomi().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+        } else if (newsType.equals("entertainment")){
+            suaraViewModel.getDataEntertainment().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -221,7 +222,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
 
                         // set on click item
-                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+                        newsAdapter.setItemClickListener(HomeSuaraFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -229,8 +230,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
-        }else if (newsType.equals("internasional")){
-            cnnViewModel.getDataInternasional().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+        }else if (newsType.equals("otomotif")){
+            suaraViewModel.getDataOtomotif().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -245,7 +246,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
 
                         // set on click item
-                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+                        newsAdapter.setItemClickListener(HomeSuaraFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -253,8 +254,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
-        }else if (newsType.equals("hiburan")){
-            cnnViewModel.getDataHiburan().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+        }else if (newsType.equals("tekno")){
+            suaraViewModel.getDataTekno().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -269,7 +270,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
 
                         // set on click item
-                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+                        newsAdapter.setItemClickListener(HomeSuaraFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -277,8 +278,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
-        }else if (newsType.equals("gayahidup")){
-            cnnViewModel.getDataGayaHidup().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+        }else if (newsType.equals("health")){
+            suaraViewModel.getDataHealth().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -292,7 +293,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(HomeCnnFragment.this);
+                        newsAdapter.setItemClickListener(HomeSuaraFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -327,13 +328,13 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     private void listenerTabLayout() {
         binding.menuTerbaru.setOnClickListener(view -> {
             binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.black));
-            binding.tvTbNasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbInternasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbEkonomi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbOlahraga.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBisnis.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBola.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbLifestyle.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbEntertainment.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbOtomotif.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbTekno.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbHealth.setTextColor(getContext().getColor(R.color.second_font));
 
             // set type
             newsType = "terbaru";
@@ -344,301 +345,291 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
 
             binding.lnTerbaru.setVisibility(View.VISIBLE);
-            binding.lnNasional.setVisibility(View.GONE);
-            binding.lnInternasional.setVisibility(View.GONE);
-            binding.lnEkonomi.setVisibility(View.GONE);
-            binding.lnOlahraga.setVisibility(View.GONE);
-            binding.lnTeknologi.setVisibility(View.GONE);
-            binding.lnHiburan.setVisibility(View.GONE);
-            binding.lnGayaHidup.setVisibility(View.GONE);
+            binding.lnBisnis.setVisibility(View.GONE);
+            binding.lnBola.setVisibility(View.GONE);
+            binding.lnLifestyle.setVisibility(View.GONE);
+            binding.lnEntertainment.setVisibility(View.GONE);
+            binding.lnOtomotif.setVisibility(View.GONE);
+            binding.lnTekno.setVisibility(View.GONE);
+            binding.lnHealth.setVisibility(View.GONE);
+
 
 
             binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_star));
-            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
-            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
-            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
-            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
-            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
-            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivBisnis.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivBola.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
             binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
+            binding.ivEntertainment.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivOtomotif.setImageDrawable(getContext().getDrawable(R.drawable.ic_otomotif_off));
+            binding.ivTekno.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivHealth.setImageDrawable(getContext().getDrawable(R.drawable.ic_heart_off));
 
         });
 
-        binding.menuNasional.setOnClickListener(view -> {
-            binding.tvTbNasional.setTextColor(getContext().getColor(R.color.black));
+
+        binding.menuBisnis.setOnClickListener(view -> {
             binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbInternasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbEkonomi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbOlahraga.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBisnis.setTextColor(getContext().getColor(R.color.black));
+            binding.tvTbBola.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbLifestyle.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbEntertainment.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbOtomotif.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbTekno.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbHealth.setTextColor(getContext().getColor(R.color.second_font));
 
             // set type
-            newsType = "nasional";
+            newsType = "bisnis";
 
             // get data
-            getData("nasional");
-
-
-
-            // Set Underline
-            binding.lnTerbaru.setVisibility(View.GONE);
-            binding.lnNasional.setVisibility(View.VISIBLE);
-            binding.lnInternasional.setVisibility(View.GONE);
-            binding.lnEkonomi.setVisibility(View.GONE);
-            binding.lnOlahraga.setVisibility(View.GONE);
-            binding.lnTeknologi.setVisibility(View.GONE);
-            binding.lnHiburan.setVisibility(View.GONE);
-            binding.lnGayaHidup.setVisibility(View.GONE);
-
-            // set disable icon
-
-            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
-            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local));
-            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
-            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
-            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
-            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
-            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
-            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
-        });
-
-        binding.menuInternasional.setOnClickListener(view -> {
-            binding.tvTbInternasional.setTextColor(getContext().getColor(R.color.black));
-            binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbNasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbEkonomi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbOlahraga.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
-
-
-            // set type
-            newsType = "internasional";
-
-            // get data
-            getData("internasional");
-
+            getData("bisnis");
 
             binding.lnTerbaru.setVisibility(View.GONE);
-            binding.lnNasional.setVisibility(View.GONE);
-            binding.lnInternasional.setVisibility(View.VISIBLE);
-            binding.lnEkonomi.setVisibility(View.GONE);
-            binding.lnOlahraga.setVisibility(View.GONE);
-            binding.lnTeknologi.setVisibility(View.GONE);
-            binding.lnHiburan.setVisibility(View.GONE);
-            binding.lnGayaHidup.setVisibility(View.GONE);
-
-            // set disable icon
+            binding.lnBisnis.setVisibility(View.VISIBLE);
+            binding.lnBola.setVisibility(View.GONE);
+            binding.lnLifestyle.setVisibility(View.GONE);
+            binding.lnEntertainment.setVisibility(View.GONE);
+            binding.lnOtomotif.setVisibility(View.GONE);
+            binding.lnTekno.setVisibility(View.GONE);
+            binding.lnHealth.setVisibility(View.GONE);
 
             binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
-            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
-            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
-            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
-            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
-            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional));
-            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivBisnis.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi));
+            binding.ivBola.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
             binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
+            binding.ivEntertainment.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivOtomotif.setImageDrawable(getContext().getDrawable(R.drawable.ic_otomotif_off));
+            binding.ivTekno.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivHealth.setImageDrawable(getContext().getDrawable(R.drawable.ic_heart_off));
 
-        });
-
-        binding.menuEkonomi.setOnClickListener(view -> {
-            binding.tvTbEkonomi.setTextColor(getContext().getColor(R.color.black));
-            binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbNasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbInternasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbOlahraga.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
-
-
-            // set type
-            newsType = "ekonomi";
-
-            // get data
-            getData("ekonomi");
-
-
-            binding.lnTerbaru.setVisibility(View.GONE);
-            binding.lnNasional.setVisibility(View.GONE);
-            binding.lnInternasional.setVisibility(View.GONE);
-            binding.lnEkonomi.setVisibility(View.VISIBLE);
-            binding.lnOlahraga.setVisibility(View.GONE);
-            binding.lnTeknologi.setVisibility(View.GONE);
-            binding.lnHiburan.setVisibility(View.GONE);
-            binding.lnGayaHidup.setVisibility(View.GONE);
-
-
-            // set disable icon
-
-            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
-            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
-            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
-            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
-            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi));
-            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
-            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
-            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
         });
 
 
 
-
-        binding.menuOlahraga.setOnClickListener(view -> {
-            binding.tvTbOlahraga.setTextColor(getContext().getColor(R.color.black));
+        binding.menuBola.setOnClickListener(view -> {
             binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbNasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbInternasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbEkonomi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBisnis.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBola.setTextColor(getContext().getColor(R.color.black));
+            binding.tvTbLifestyle.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbEntertainment.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbOtomotif.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbTekno.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbHealth.setTextColor(getContext().getColor(R.color.second_font));
 
             // set type
-            newsType = "olahraga";
-            // get data
-            getData("olahraga");
-
-
-            binding.lnTerbaru.setVisibility(View.GONE);
-            binding.lnNasional.setVisibility(View.GONE);
-            binding.lnInternasional.setVisibility(View.GONE);
-            binding.lnEkonomi.setVisibility(View.GONE);
-            binding.lnOlahraga.setVisibility(View.VISIBLE);
-            binding.lnTeknologi.setVisibility(View.GONE);
-            binding.lnHiburan.setVisibility(View.GONE);
-            binding.lnGayaHidup.setVisibility(View.GONE);
-
-
-            // set disable icon
-
-            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
-            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
-            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport));
-            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
-            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
-            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
-            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
-            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
-        });
-
-        binding.menuTeknologi.setOnClickListener(view -> {
-            binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.black));
-            binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbNasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbInternasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbEkonomi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbOlahraga.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
-
-            // set type
-            newsType = "teknologi";
+            newsType = "bola";
 
             // get data
-            getData("teknologi");
+            getData("bola");
 
             binding.lnTerbaru.setVisibility(View.GONE);
-            binding.lnNasional.setVisibility(View.GONE);
-            binding.lnInternasional.setVisibility(View.GONE);
-            binding.lnEkonomi.setVisibility(View.GONE);
-            binding.lnOlahraga.setVisibility(View.GONE);
-            binding.lnTeknologi.setVisibility(View.VISIBLE);
-            binding.lnHiburan.setVisibility(View.GONE);
-            binding.lnGayaHidup.setVisibility(View.GONE);
-
-            // set disable icon
+            binding.lnBisnis.setVisibility(View.GONE);
+            binding.lnBola.setVisibility(View.VISIBLE);
+            binding.lnLifestyle.setVisibility(View.GONE);
+            binding.lnEntertainment.setVisibility(View.GONE);
+            binding.lnOtomotif.setVisibility(View.GONE);
+            binding.lnTekno.setVisibility(View.GONE);
+            binding.lnHealth.setVisibility(View.GONE);
 
             binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
-            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
-            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
-            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech));
-            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
-            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
-            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivBisnis.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivBola.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport));
             binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
+            binding.ivEntertainment.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivOtomotif.setImageDrawable(getContext().getDrawable(R.drawable.ic_otomotif_off));
+            binding.ivTekno.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivHealth.setImageDrawable(getContext().getDrawable(R.drawable.ic_heart_off));
+
         });
 
 
-        binding.menuHiburan.setOnClickListener(view -> {
-            binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.black));
+        binding.menuLifestyle.setOnClickListener(view -> {
             binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbNasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbInternasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbEkonomi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbOlahraga.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBisnis.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBola.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbLifestyle.setTextColor(getContext().getColor(R.color.black));
+            binding.tvTbEntertainment.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbOtomotif.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbTekno.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbHealth.setTextColor(getContext().getColor(R.color.second_font));
 
             // set type
-            newsType = "hiburan";
-
-
-            // get data
-            getData("hiburan");
-
-            binding.lnTerbaru.setVisibility(View.GONE);
-            binding.lnNasional.setVisibility(View.GONE);
-            binding.lnInternasional.setVisibility(View.GONE);
-            binding.lnEkonomi.setVisibility(View.GONE);
-            binding.lnOlahraga.setVisibility(View.GONE);
-            binding.lnTeknologi.setVisibility(View.GONE);
-            binding.lnHiburan.setVisibility(View.VISIBLE);
-            binding.lnGayaHidup.setVisibility(View.GONE);
-
-            // set disable icon
-
-            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
-            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
-            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
-            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
-            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
-            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
-            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment));
-            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
-        });
-
-        binding.menuGayaHidup.setOnClickListener(view -> {
-            binding.tvTbGayaHidup.setTextColor(getContext().getColor(R.color.black));
-            binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbNasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbInternasional.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbEkonomi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbOlahraga.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbTeknologi.setTextColor(getContext().getColor(R.color.second_font));
-            binding.tvTbHiburan.setTextColor(getContext().getColor(R.color.second_font));
-
-            // set type
-            newsType = "gayahidup";
+            newsType = "lifestyle";
 
             // get data
-            getData("gayahidup");
-
+            getData("lifestyle");
 
             binding.lnTerbaru.setVisibility(View.GONE);
-            binding.lnNasional.setVisibility(View.GONE);
-            binding.lnInternasional.setVisibility(View.GONE);
-            binding.lnEkonomi.setVisibility(View.GONE);
-            binding.lnOlahraga.setVisibility(View.GONE);
-            binding.lnTeknologi.setVisibility(View.GONE);
-            binding.lnHiburan.setVisibility(View.GONE);
-            binding.lnGayaHidup.setVisibility(View.VISIBLE);
-
-
-            // set disable icon
+            binding.lnBisnis.setVisibility(View.GONE);
+            binding.lnBola.setVisibility(View.GONE);
+            binding.lnLifestyle.setVisibility(View.VISIBLE);
+            binding.lnEntertainment.setVisibility(View.GONE);
+            binding.lnOtomotif.setVisibility(View.GONE);
+            binding.lnTekno.setVisibility(View.GONE);
+            binding.lnHealth.setVisibility(View.GONE);
 
             binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
-            binding.ivLocal.setImageDrawable(getContext().getDrawable(R.drawable.ic_local_off));
-            binding.ivOlahraga.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
-            binding.ivTeknologi.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
-            binding.ivEkonomi.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
-            binding.ivInternasional.setImageDrawable(getContext().getDrawable(R.drawable.ic_internasional_off));
-            binding.ivHiburan.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivBisnis.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivBola.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
             binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style));
+            binding.ivEntertainment.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivOtomotif.setImageDrawable(getContext().getDrawable(R.drawable.ic_otomotif_off));
+            binding.ivTekno.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivHealth.setImageDrawable(getContext().getDrawable(R.drawable.ic_heart_off));
+
         });
+
+
+        binding.menuEntertainment.setOnClickListener(view -> {
+            binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBisnis.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBola.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbLifestyle.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbEntertainment.setTextColor(getContext().getColor(R.color.black));
+            binding.tvTbOtomotif.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbTekno.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbHealth.setTextColor(getContext().getColor(R.color.second_font));
+
+            // set type
+            newsType = "entertainment";
+
+            // get data
+            getData("entertainment");
+
+            binding.lnTerbaru.setVisibility(View.GONE);
+            binding.lnBisnis.setVisibility(View.GONE);
+            binding.lnBola.setVisibility(View.GONE);
+            binding.lnLifestyle.setVisibility(View.GONE);
+            binding.lnEntertainment.setVisibility(View.VISIBLE);
+            binding.lnOtomotif.setVisibility(View.GONE);
+            binding.lnTekno.setVisibility(View.GONE);
+            binding.lnHealth.setVisibility(View.GONE);
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivBisnis.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivBola.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
+            binding.ivEntertainment.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment));
+            binding.ivOtomotif.setImageDrawable(getContext().getDrawable(R.drawable.ic_otomotif_off));
+            binding.ivTekno.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivHealth.setImageDrawable(getContext().getDrawable(R.drawable.ic_heart_off));
+
+        });
+
+
+        binding.menuOtomotif.setOnClickListener(view -> {
+            binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBisnis.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBola.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbLifestyle.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbEntertainment.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbOtomotif.setTextColor(getContext().getColor(R.color.black));
+            binding.tvTbTekno.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbHealth.setTextColor(getContext().getColor(R.color.second_font));
+
+            // set type
+            newsType = "otomotif";
+
+            // get data
+            getData("otomotif");
+
+            binding.lnTerbaru.setVisibility(View.GONE);
+            binding.lnBisnis.setVisibility(View.GONE);
+            binding.lnBola.setVisibility(View.GONE);
+            binding.lnLifestyle.setVisibility(View.GONE);
+            binding.lnEntertainment.setVisibility(View.GONE);
+            binding.lnOtomotif.setVisibility(View.VISIBLE);
+            binding.lnTekno.setVisibility(View.GONE);
+            binding.lnHealth.setVisibility(View.GONE);
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivBisnis.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivBola.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
+            binding.ivEntertainment.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivOtomotif.setImageDrawable(getContext().getDrawable(R.drawable.ic_otomotif));
+            binding.ivTekno.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivHealth.setImageDrawable(getContext().getDrawable(R.drawable.ic_heart_off));
+
+        });
+
+
+        binding.menuTekno.setOnClickListener(view -> {
+            binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBisnis.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBola.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbLifestyle.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbEntertainment.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbOtomotif.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbTekno.setTextColor(getContext().getColor(R.color.black));
+            binding.tvTbHealth.setTextColor(getContext().getColor(R.color.second_font));
+
+            // set type
+            newsType = "tekno";
+
+            // get data
+            getData("tekno");
+
+            binding.lnTerbaru.setVisibility(View.GONE);
+            binding.lnBisnis.setVisibility(View.GONE);
+            binding.lnBola.setVisibility(View.GONE);
+            binding.lnLifestyle.setVisibility(View.GONE);
+            binding.lnEntertainment.setVisibility(View.GONE);
+            binding.lnOtomotif.setVisibility(View.GONE);
+            binding.lnTekno.setVisibility(View.VISIBLE);
+            binding.lnHealth.setVisibility(View.GONE);
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivBisnis.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivBola.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
+            binding.ivEntertainment.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivOtomotif.setImageDrawable(getContext().getDrawable(R.drawable.ic_otomotif_off));
+            binding.ivTekno.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech));
+            binding.ivHealth.setImageDrawable(getContext().getDrawable(R.drawable.ic_heart_off));
+
+        });
+
+
+        binding.menuHealth.setOnClickListener(view -> {
+            binding.tvTbTerbaru.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBisnis.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbBola.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbLifestyle.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbEntertainment.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbOtomotif.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbTekno.setTextColor(getContext().getColor(R.color.second_font));
+            binding.tvTbHealth.setTextColor(getContext().getColor(R.color.black));
+
+            // set type
+            newsType = "health";
+
+            // get data
+            getData("health");
+
+            binding.lnTerbaru.setVisibility(View.GONE);
+            binding.lnBisnis.setVisibility(View.GONE);
+            binding.lnBola.setVisibility(View.GONE);
+            binding.lnLifestyle.setVisibility(View.GONE);
+            binding.lnEntertainment.setVisibility(View.GONE);
+            binding.lnOtomotif.setVisibility(View.GONE);
+            binding.lnTekno.setVisibility(View.GONE);
+            binding.lnHealth.setVisibility(View.VISIBLE);
+
+            binding.ivTerbaru.setImageDrawable(getContext().getDrawable(R.drawable.ic_terbaru_off));
+            binding.ivBisnis.setImageDrawable(getContext().getDrawable(R.drawable.ic_ekonomi_off));
+            binding.ivBola.setImageDrawable(getContext().getDrawable(R.drawable.ic_sport_off));
+            binding.ivLifestyle.setImageDrawable(getContext().getDrawable(R.drawable.ic_life_style_off));
+            binding.ivEntertainment.setImageDrawable(getContext().getDrawable(R.drawable.ic_entertaiment_off));
+            binding.ivOtomotif.setImageDrawable(getContext().getDrawable(R.drawable.ic_otomotif_off));
+            binding.ivTekno.setImageDrawable(getContext().getDrawable(R.drawable.ic_tech_off));
+            binding.ivHealth.setImageDrawable(getContext().getDrawable(R.drawable.ic_heart));
+
+        });
+
+
+
+
+
     }
 
 
@@ -681,7 +672,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         });
 
         binding.tvHeader.setOnClickListener(view -> {
-            setWebView(Constans.URL_CNN_INDONESIA);
+            setWebView(Constans.URL_SUARA);
             showBottomSheetWebView();
         });
 
@@ -689,7 +680,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     }
 
     private void listenerMediaBeritaPicker() {
-        binding.mnuCnn.setOnClickListener(view -> {
+        binding.mnuSuara.setOnClickListener(view -> {
             getData("terbaru");
             hideBottomSheetMediaBerita();
         });
@@ -723,8 +714,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             moveFragment(new HomeTempoFragment());
         });
 
-        binding.mnuSuara.setOnClickListener(view -> {
-            moveFragment(new HomeSuaraFragment());
+        binding.mnuCnn.setOnClickListener(view -> {
+            moveFragment(new HomeCnnFragment());
         });
     }
 

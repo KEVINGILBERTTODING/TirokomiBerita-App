@@ -24,6 +24,8 @@ public class Constans {
     public static final String URL_ANTARA = "https://www.antaranews.com/";
     public static final String URL_SINDONEWS = "https://www.sindonews.com/";
     public static final String URL_TEMPO = "https://www.tempo.co/";
+    public static final String URL_SUARA = "https://www.suara.com/";
+
 
 
 

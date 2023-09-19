@@ -7,6 +7,7 @@ import com.example.tiroberita.data.remote.CnnApiService;
 import com.example.tiroberita.data.remote.KumparanService;
 import com.example.tiroberita.data.remote.OkezoneService;
 import com.example.tiroberita.data.remote.SindonewsService;
+import com.example.tiroberita.data.remote.SuaraService;
 import com.example.tiroberita.data.remote.TempoService;
 import com.example.tiroberita.data.remote.TribunNewsService;
 
@@ -78,5 +79,11 @@ public class NetworkModule {
     @Singleton
     public TempoService tempoService(Retrofit retrofit) {
         return retrofit.create(TempoService.class);
+    }
+
+    @Provides
+    @Singleton
+    public SuaraService suaraService (Retrofit retrofit) {
+        return  retrofit.create(SuaraService.class);
     }
 }
