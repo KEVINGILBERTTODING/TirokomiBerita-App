@@ -682,7 +682,7 @@ public class HomeOkezoneFragment extends Fragment implements ItemClickListener {
         });
 
         binding.tvHeader.setOnClickListener(view -> {
-            setWebView(Constans.URL_CNN_INDONESIA);
+            setWebView(Constans.URL_OKEZONE);
             showBottomSheetWebView();
         });
 

@@ -20,6 +20,8 @@ public class Constans {
     public static final String URL_KUMPARAN = "https://kumparan.com/";
     public static final String URL_TRIBUNEWS = "https://www.tribunnews.com/";
     public static final String URL_CNBC_INDONESIA = "https://www.cnbcindonesia.com/";
+    public static final String URL_OKEZONE = "https://www.okezone.com/";
+    public static final String URL_ANTARA = "https://www.antaranews.com/";
 
 
 }

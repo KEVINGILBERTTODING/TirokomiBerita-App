@@ -1,5 +1,6 @@
 package com.example.tiroberita.di.module;
 
+import com.example.tiroberita.data.remote.AntaraService;
 import com.example.tiroberita.data.remote.ApiService;
 import com.example.tiroberita.data.remote.CnbcService;
 import com.example.tiroberita.data.remote.CnnApiService;
@@ -56,5 +57,11 @@ public class NetworkModule {
     @Singleton
     public OkezoneService okezoneService (Retrofit retrofit) {
         return retrofit.create(OkezoneService.class);
+    }
+
+    @Provides
+    @Singleton
+    public AntaraService antaraService (Retrofit retrofit) {
+        return retrofit.create(AntaraService.class);
     }
 }
