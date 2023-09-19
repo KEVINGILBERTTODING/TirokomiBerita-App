@@ -672,6 +672,11 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             showBottomSheetMediaBerita();
         });
 
+        binding.tvHeader.setOnClickListener(view -> {
+            setWebView(Constans.URL_CNN_INDONESIA);
+            showBottomSheetWebView();
+        });
+
 
     }
 
@@ -864,31 +869,6 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
         webSettings.setJavaScriptEnabled(true);
         binding.webview.loadUrl(url);
 
-
-
-
-
-
-//        UNCOMMENT THIS IF GET REAL TIME TO LOAD WEBVIEW COMPLETE
-//        // Set WebViewClient dan callback
-//        binding.webview.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//                binding.webViewShimmer.setVisibility(View.VISIBLE);
-//                binding.webViewShimmer.startShimmer();
-//                binding.webview.setVisibility(View.GONE);
-//            }
-//
-//            @Override
-//            public void onPageFinished(WebView view, String url) {
-//                binding.webViewShimmer.setVisibility(View.GONE);
-//                binding.webViewShimmer.stopShimmer();
-//                binding.webview.setVisibility(View.VISIBLE);
-//            }
-//        });
-//
-//        // Load URL
-//        binding.webview.loadUrl(url);
     }
 
     private void shimmerWebView() {

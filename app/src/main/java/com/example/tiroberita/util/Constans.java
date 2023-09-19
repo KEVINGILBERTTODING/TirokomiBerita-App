@@ -16,4 +16,5 @@ public class Constans {
     public static final String NO_INTERNET_CONNECTION  = "Tidak ada koneksi internet";
     public static final String FIREBASE_CHILD_SAVE_POST = "save";
     public static final String FIREBASE_CHILD_USER = "user";
+    public static final String URL_CNN_INDONESIA = "https://www.cnnindonesia.com/";
 }
