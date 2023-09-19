@@ -48,10 +48,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.tvDesc.setText(postModelList.get(holder.getAdapterPosition()).getDescription());
 
 
-        String date = postModelList.get(holder.getAdapterPosition()).getPubDate().substring(0, 10);
-        String timeStamp = postModelList.get(holder.getAdapterPosition()).getPubDate().substring(11, 19);
+        if (postModelList.get(holder.getAdapterPosition()).getPubDate() != null) {
+            String date = postModelList.get(holder.getAdapterPosition()).getPubDate().substring(0, 10);
+            String timeStamp = postModelList.get(holder.getAdapterPosition()).getPubDate().substring(11, 19);
 
-        holder.tvDate.setText(date + " | " + timeStamp);
+            holder.tvDate.setText(date + " | " + timeStamp);
+        }else {
+            holder.tvDate.setText("-");
+        }
+
 
         Glide.with(context).load(postModelList.get(holder.getAdapterPosition()).getThumbnail())
                 .skipMemoryCache(true)
