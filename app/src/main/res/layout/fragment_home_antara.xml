@@ -1015,27 +1015,7 @@
                             </RelativeLayout>
 
 
-                            <RelativeLayout
-                                android:id="@+id/mnuMerdeka"
-                                android:layout_width="@dimen/_50sdp"
-                                android:layout_marginLeft="@dimen/_15sdp"
-                                android:background="@drawable/container_media_rounded"
-                                android:layout_height="@dimen/_50sdp">
-                                <androidx.cardview.widget.CardView
-                                    android:layout_width="@dimen/_30sdp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    app:cardCornerRadius="@dimen/_5sdp"
-                                    app:cardElevation="0dp">
-                                    <ImageView
-                                        android:layout_width="@dimen/_30sdp"
-                                        android:layout_height="@dimen/_30sdp"
-                                        android:src="@drawable/logo_merdeka"/>
-                                </androidx.cardview.widget.CardView>
 
-
-
-                            </RelativeLayout>
 
 
                             <RelativeLayout
