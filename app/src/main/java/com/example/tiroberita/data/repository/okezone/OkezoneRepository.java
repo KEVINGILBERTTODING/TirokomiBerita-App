@@ -4,10 +4,9 @@ package com.example.tiroberita.data.repository.okezone;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.tiroberita.data.remote.CnnApiService;
 import com.example.tiroberita.data.remote.OkezoneService;
 import com.example.tiroberita.model.ResponseModel;
-import com.example.tiroberita.util.Constans;
+import com.example.tiroberita.util.constans.Constans;
 
 import javax.inject.Inject;
 

@@ -13,10 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentSettingBinding;
 import com.example.tiroberita.ui.activities.onboard.OnBoardActivitiy;
-import com.example.tiroberita.util.Constans;
+import com.example.tiroberita.util.constans.Constans;
 
 
 public class SettingFragment extends Fragment {

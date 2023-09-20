@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +25,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiroberita.databinding.FragmentSavePostBinding;
 import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.SavePostModel;
-import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.SavePostAdapter;
-import com.example.tiroberita.util.Constans;
+import com.example.tiroberita.util.constans.Constans;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 

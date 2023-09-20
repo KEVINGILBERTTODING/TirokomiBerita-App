@@ -1,16 +1,13 @@
 package com.example.tiroberita.data.repository.post;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.tiroberita.model.FirebaseResponseModel;
-import com.example.tiroberita.model.ResponseModel;
 import com.example.tiroberita.model.SaveModel;
 import com.example.tiroberita.model.SavePostModel;
-import com.example.tiroberita.util.Constans;
+import com.example.tiroberita.util.constans.Constans;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;

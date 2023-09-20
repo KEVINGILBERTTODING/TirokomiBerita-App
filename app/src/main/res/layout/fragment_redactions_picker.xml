@@ -384,7 +384,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:visibility="gone"
             android:id="@+id/rlBottomSheet"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
             android:layout_height="wrap_content">

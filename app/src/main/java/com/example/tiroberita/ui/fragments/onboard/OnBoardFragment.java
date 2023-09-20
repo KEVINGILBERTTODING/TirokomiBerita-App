@@ -11,11 +11,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentOnBoardBinding;
-import com.example.tiroberita.util.Constans;
+import com.example.tiroberita.util.constans.Constans;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import es.dmoral.toasty.Toasty;

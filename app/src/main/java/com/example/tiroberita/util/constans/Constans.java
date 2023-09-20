@@ -1,4 +1,4 @@
-package com.example.tiroberita.util;
+package com.example.tiroberita.util.constans;
 
 import java.util.Stack;
 

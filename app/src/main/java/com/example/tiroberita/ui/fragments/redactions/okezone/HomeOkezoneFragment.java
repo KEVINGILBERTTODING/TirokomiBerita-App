@@ -21,7 +21,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiroberita.R;
-import com.example.tiroberita.databinding.FragmentHomeCnnBinding;
 import com.example.tiroberita.databinding.FragmentHomeOkezoneBinding;
 import com.example.tiroberita.model.DataModel;
 import com.example.tiroberita.model.FirebaseResponseModel;
@@ -40,8 +39,7 @@ import com.example.tiroberita.ui.fragments.redactions.sindonews.HomeSindoNewsFra
 import com.example.tiroberita.ui.fragments.redactions.suara.HomeSuaraFragment;
 import com.example.tiroberita.ui.fragments.redactions.tempo.HomeTempoFragment;
 import com.example.tiroberita.ui.fragments.redactions.tribun.HomeTribunNewsFragment;
-import com.example.tiroberita.util.Constans;
-import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
+import com.example.tiroberita.util.constans.Constans;
 import com.example.tiroberita.viewmodel.okezone.OkezoneViewModel;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;

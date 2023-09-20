@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.tiroberita.data.remote.AntaraService;
 import com.example.tiroberita.model.ResponseModel;
-import com.example.tiroberita.util.Constans;
+import com.example.tiroberita.util.constans.Constans;
 
 import javax.inject.Inject;
 

@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,7 +39,7 @@ import com.example.tiroberita.ui.fragments.redactions.sindonews.HomeSindoNewsFra
 import com.example.tiroberita.ui.fragments.redactions.suara.HomeSuaraFragment;
 import com.example.tiroberita.ui.fragments.redactions.tempo.HomeTempoFragment;
 import com.example.tiroberita.ui.fragments.redactions.tribun.HomeTribunNewsFragment;
-import com.example.tiroberita.util.Constans;
+import com.example.tiroberita.util.constans.Constans;
 import com.example.tiroberita.viewmodel.jpnn.JpnnViewModel;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;

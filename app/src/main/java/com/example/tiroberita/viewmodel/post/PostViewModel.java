@@ -9,7 +9,7 @@ import com.example.tiroberita.data.repository.post.PostRepository;
 import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.SaveModel;
 import com.example.tiroberita.model.SavePostModel;
-import com.example.tiroberita.util.Constans;
+import com.example.tiroberita.util.constans.Constans;
 
 import java.util.List;
 

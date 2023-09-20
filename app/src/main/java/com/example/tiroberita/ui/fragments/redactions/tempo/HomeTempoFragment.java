@@ -39,7 +39,7 @@ import com.example.tiroberita.ui.fragments.redactions.republika.HomeRepublikaFra
 import com.example.tiroberita.ui.fragments.redactions.sindonews.HomeSindoNewsFragment;
 import com.example.tiroberita.ui.fragments.redactions.suara.HomeSuaraFragment;
 import com.example.tiroberita.ui.fragments.redactions.tribun.HomeTribunNewsFragment;
-import com.example.tiroberita.util.Constans;
+import com.example.tiroberita.util.constans.Constans;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
 import com.example.tiroberita.viewmodel.tempo.TempoViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
