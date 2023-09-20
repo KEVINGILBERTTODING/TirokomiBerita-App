@@ -1,5 +1,7 @@
 package com.example.tiroberita.data.repository.post;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -74,6 +76,42 @@ public class PostRepository {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, Constans.ERR_MESSAGE, null));
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
+
+
+    public LiveData<FirebaseResponseModel> deleteSavePost(String postId) {
+        MutableLiveData<FirebaseResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        Query query = databaseReference.child(Constans.FIREBASE_CHILD_SAVE_POST).orderByChild(Constans.POST_ID).equalTo(postId);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+              for (DataSnapshot saveSnapshot : snapshot.getChildren()) {
+                  saveSnapshot.getRef().removeValue()
+                          .addOnSuccessListener(new OnSuccessListener<Void>() {
+                              @Override
+                              public void onSuccess(Void unused) {
+                                  responseModelMutableLiveData.setValue(new FirebaseResponseModel(true, "Berhasil menghapus berita", null));
+                              }
+                          }).addOnFailureListener(new OnFailureListener() {
+                              @Override
+                              public void onFailure(@NonNull Exception e) {
+                                  responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, e.getMessage(), null));
+
+                              }
+                          });
+              }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+
+
                 responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, Constans.ERR_MESSAGE, null));
             }
         });

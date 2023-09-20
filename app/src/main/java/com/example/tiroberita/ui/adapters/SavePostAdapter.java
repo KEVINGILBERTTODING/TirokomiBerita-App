@@ -14,12 +14,26 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiroberita.R;
 import com.example.tiroberita.model.SavePostModel;
+import com.example.tiroberita.ui.ItemClickListener;
+import com.example.tiroberita.ui.fragments.post.ItemSavePostListener;
+import com.example.tiroberita.util.Constans;
+import com.zerobranch.layout.SwipeLayout;
 
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 public class SavePostAdapter extends RecyclerView.Adapter<SavePostAdapter.ViewHolder> {
     private Context context;
     private List<SavePostModel> savePostModelList;
+    private ItemSavePostListener itemClickListener;
+
+
+    public void setItemClickListener(ItemSavePostListener itemSavePostListener) {
+        this.itemClickListener = itemSavePostListener;
+    }
+
+
 
     public SavePostAdapter(Context context, List<SavePostModel> savePostModelList) {
         this.context = context;
@@ -63,9 +77,16 @@ public class SavePostAdapter extends RecyclerView.Adapter<SavePostAdapter.ViewHo
         return savePostModelList.size();
     }
 
+    public void removeItem(int position) {
+        savePostModelList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, getItemCount());
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvTitle, tvDesc, tvRedactionName, tvDate;
+        private SwipeLayout swipeLayout;
         ImageView ivThumbnail;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,8 +96,36 @@ public class SavePostAdapter extends RecyclerView.Adapter<SavePostAdapter.ViewHo
             tvDesc = itemView.findViewById(R.id.tvDesc);
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
             tvRedactionName = itemView.findViewById(R.id.tvRedactionName);
+            swipeLayout = itemView.findViewById(R.id.swipe_layout);
+
+            swipeLayout.setOnActionsListener(new SwipeLayout.SwipeActionsListener() {
+                @Override
+                public void onOpen(int direction, boolean isContinuous) {
+                    if (direction == SwipeLayout.LEFT) {
+                      if (itemClickListener != null) {
+                          itemClickListener.itemSavePostListener(getAdapterPosition(), savePostModelList.get(getAdapterPosition()));
+                      }
+
+                    }else {
+
+                    }
+                }
+
+                @Override
+                public void onClose() {
+
+                }
+            });
 
 
+        }
+    }
+
+    private void showToast(String type, String message) {
+        if (type.equals(Constans.TOAST_NORMAL)) {
+            Toasty.normal(context, message, Toasty.LENGTH_SHORT).show();
+        }else {
+            Toasty.error(context, message, Toasty.LENGTH_SHORT).show();
         }
     }
 }

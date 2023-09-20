@@ -46,4 +46,22 @@ public class PostViewModel extends ViewModel {
         }
         return responseModelMutableLiveData;
     }
+
+    public LiveData<FirebaseResponseModel> deleteSavePost(String postId){
+        MutableLiveData<FirebaseResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        if (postId == null) {
+            responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, Constans.ERR_MESSAGE, null));
+        }else {
+            LiveData<FirebaseResponseModel> responseModelLiveData = postRepository.deleteSavePost(postId);
+            responseModelLiveData.observeForever(new Observer<FirebaseResponseModel>() {
+                @Override
+                public void onChanged(FirebaseResponseModel firebaseResponseModel) {
+                    responseModelMutableLiveData.setValue(firebaseResponseModel);
+                    responseModelLiveData.removeObserver(this);
+                }
+            });
+        }
+
+        return responseModelMutableLiveData;
+    }
 }

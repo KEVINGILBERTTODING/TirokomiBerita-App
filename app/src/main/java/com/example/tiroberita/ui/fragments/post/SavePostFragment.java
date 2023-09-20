@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import com.example.tiroberita.databinding.FragmentSavePostBinding;
 import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.SavePostModel;
+import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.SavePostAdapter;
 import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
@@ -28,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
 
 @AndroidEntryPoint
-public class SavePostFragment extends Fragment {
+public class SavePostFragment extends Fragment implements ItemSavePostListener {
 
 
     private FragmentSavePostBinding binding;
@@ -76,6 +78,7 @@ public class SavePostFragment extends Fragment {
                         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                         binding.rvPost.setAdapter(savePostAdapter);
                         binding.rvPost.setLayoutManager(linearLayoutManager);
+                        savePostAdapter.setItemClickListener(SavePostFragment.this);
                         binding.rvPost.setHasFixedSize(true);
                     }else {
                         showToast(Constans.TOAST_NORMAL, "Tidak ada data");
@@ -88,6 +91,20 @@ public class SavePostFragment extends Fragment {
 
         });
 
+    }
+
+    private void deleteSavePost(String postId, int position){
+        savePostViewModel.deleteSavePost(postId).observe(getViewLifecycleOwner(), new Observer<FirebaseResponseModel>() {
+            @Override
+            public void onChanged(FirebaseResponseModel firebaseResponseModel) {
+                if (firebaseResponseModel.getSuccess() == true) {
+                    showToast(Constans.TOAST_NORMAL, firebaseResponseModel.getMessage());
+                    savePostAdapter.removeItem(position);
+                }else {
+                    showToast(Constans.ERR_MESSAGE, firebaseResponseModel.getMessage());
+                }
+            }
+        });
     }
 
 
@@ -108,5 +125,13 @@ public class SavePostFragment extends Fragment {
     public void onDestroy() {
         binding = null;
         super.onDestroy();
+    }
+
+
+
+    @Override
+    public void itemSavePostListener(int position, Object model) {
+        SavePostModel savePostModel = (SavePostModel) model;
+        deleteSavePost(savePostModel.getPost_id(), position);
     }
 }
