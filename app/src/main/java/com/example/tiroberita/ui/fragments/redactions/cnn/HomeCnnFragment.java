@@ -676,6 +676,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
         binding.btnSimpan.setOnClickListener(view -> {
             savePost();
+
         });
 
         binding.btnMenuMedia.setOnClickListener(view -> {
@@ -944,6 +945,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
         }else {
 
+            binding.btnSimpan.setBackground(getContext().getDrawable(R.drawable.ic_save_fill));
             created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
             String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(new Date());
             String postId = userId + "-" + timeStamp;

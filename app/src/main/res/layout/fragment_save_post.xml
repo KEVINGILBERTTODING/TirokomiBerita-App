@@ -213,12 +213,24 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Bagikan"
+                        android:text="Bagikan berita ini"
                         android:textColor="@color/black"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:fontFamily="@font/rfmed"
                         android:textSize="@dimen/_15sdp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Geser ke kiri pada daftar berita untuk menghapus data."
+                        android:textColor="@color/second_font"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/rfreg"
+                        android:textSize="@dimen/_11sdp"/>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
