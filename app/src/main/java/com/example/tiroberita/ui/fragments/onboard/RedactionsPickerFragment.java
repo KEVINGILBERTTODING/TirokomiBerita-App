@@ -75,6 +75,7 @@ public class RedactionsPickerFragment extends Fragment {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+
                     hideBottomSheet();
                 }
             }
@@ -222,6 +223,7 @@ public class RedactionsPickerFragment extends Fragment {
 
         binding.vOverlay.setVisibility(View.VISIBLE);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        bottomSheetBehavior.setPeekHeight(600);
 
     }
 
@@ -236,6 +238,8 @@ public class RedactionsPickerFragment extends Fragment {
     private void hideBottomSheet() {
         binding.vOverlay.setVisibility(View.GONE);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior.setPeekHeight(0);
+
 
     }
 
