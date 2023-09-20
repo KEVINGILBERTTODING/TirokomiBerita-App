@@ -568,7 +568,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Simpan dan bagikan."
+                        android:text="Simpan dan bagikan"
                         android:textColor="@color/black"
                         android:gravity="center"
                         android:includeFontPadding="false"
@@ -673,7 +673,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Geser ke kanan untuk melihat media berita lainnya."
+                        android:text="Geser ke kiri untuk melihat media berita lainnya."
                         android:textColor="@color/second_font"
                         android:gravity="center"
                         android:includeFontPadding="false"

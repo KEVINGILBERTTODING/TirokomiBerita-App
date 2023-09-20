@@ -223,7 +223,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Geser ke kiri pada daftar berita untuk menghapus data."
+                        android:text="Geser ke kanan pada daftar berita untuk menghapus data."
                         android:textColor="@color/second_font"
                         android:gravity="center"
                         android:includeFontPadding="false"
