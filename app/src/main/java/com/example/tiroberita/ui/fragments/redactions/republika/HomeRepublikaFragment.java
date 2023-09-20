@@ -33,6 +33,7 @@ import com.example.tiroberita.ui.adapters.NewsAdapter;
 import com.example.tiroberita.ui.fragments.redactions.antara.HomeAntaraFragment;
 import com.example.tiroberita.ui.fragments.redactions.cnbc.HomeCnbcFragment;
 import com.example.tiroberita.ui.fragments.redactions.cnn.HomeCnnFragment;
+import com.example.tiroberita.ui.fragments.redactions.jpnn.HomeJpnnFragment;
 import com.example.tiroberita.ui.fragments.redactions.kumparan.HomeKumparanFragment;
 import com.example.tiroberita.ui.fragments.redactions.okezone.HomeOkezoneFragment;
 import com.example.tiroberita.ui.fragments.redactions.sindonews.HomeSindoNewsFragment;
@@ -551,8 +552,8 @@ public class HomeRepublikaFragment extends Fragment implements ItemClickListener
             moveFragment(new HomeOkezoneFragment());
         });
 
-        binding.mnuAntara.setOnClickListener(view -> {
-            moveFragment(new HomeAntaraFragment());
+        binding.mnuCnn.setOnClickListener(view -> {
+            moveFragment(new HomeCnnFragment());
         });
 
         binding.mnuSindoNews.setOnClickListener(view -> {
@@ -567,8 +568,12 @@ public class HomeRepublikaFragment extends Fragment implements ItemClickListener
             moveFragment(new HomeSuaraFragment());
         });
 
-        binding.mnuCnn.setOnClickListener(view -> {
-            moveFragment(new HomeCnnFragment());
+        binding.mnuAntara.setOnClickListener(view -> {
+            moveFragment(new HomeAntaraFragment());
+        });
+
+        binding.mnuJpnn.setOnClickListener(view -> {
+            moveFragment(new HomeJpnnFragment());
         });
     }
 
@@ -777,6 +782,7 @@ public class HomeRepublikaFragment extends Fragment implements ItemClickListener
         if (userId == null) {
             showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
         }else {
+            binding.btnSimpan.setBackground(getContext().getDrawable(R.drawable.ic_save_fill));
 
             created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
             String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(new Date());

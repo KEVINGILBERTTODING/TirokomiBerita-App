@@ -34,7 +34,7 @@
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/searchBar"
-                    app:queryHint="Cari"
+                    app:queryHint="Cari judul berita"
                     app:queryBackground="@drawable/container_searchview"
                     app:iconifiedByDefault="false"
                     android:background="@drawable/container_searchview"
