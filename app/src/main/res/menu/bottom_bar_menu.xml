@@ -7,9 +7,6 @@
         android:title="Home"/>
 
 
-    <item
-        android:id="@+id/menuExplorer"
-        android:title="Home"/>
 
     <item
         android:id="@+id/menuSave"
@@ -20,6 +17,7 @@
 
 
     <item
+        android:icon="@drawable/ic_heart"
         android:id="@+id/menuProfile"
         android:title="Home"/>
 

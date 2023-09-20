@@ -100,7 +100,7 @@ public class PostRepository {
                           }).addOnFailureListener(new OnFailureListener() {
                               @Override
                               public void onFailure(@NonNull Exception e) {
-                                  responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, e.getMessage(), null));
+                                  responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, Constans.ERR_MESSAGE, null));
 
                               }
                           });

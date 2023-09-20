@@ -14,9 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiroberita.R;
 import com.example.tiroberita.model.SavePostModel;
-import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.fragments.post.ItemSavePostListener;
-import com.example.tiroberita.util.Constans;
 import com.zerobranch.layout.SwipeLayout;
 
 import java.util.List;
@@ -103,7 +101,7 @@ public class SavePostAdapter extends RecyclerView.Adapter<SavePostAdapter.ViewHo
                 public void onOpen(int direction, boolean isContinuous) {
                     if (direction == SwipeLayout.LEFT) {
                       if (itemClickListener != null) {
-                          itemClickListener.itemSavePostListener(getAdapterPosition(), savePostModelList.get(getAdapterPosition()));
+                          itemClickListener.itemSavePostListener("delete",getAdapterPosition(), savePostModelList.get(getAdapterPosition()));
                       }
 
                     }else {
@@ -121,11 +119,5 @@ public class SavePostAdapter extends RecyclerView.Adapter<SavePostAdapter.ViewHo
         }
     }
 
-    private void showToast(String type, String message) {
-        if (type.equals(Constans.TOAST_NORMAL)) {
-            Toasty.normal(context, message, Toasty.LENGTH_SHORT).show();
-        }else {
-            Toasty.error(context, message, Toasty.LENGTH_SHORT).show();
-        }
-    }
+
 }

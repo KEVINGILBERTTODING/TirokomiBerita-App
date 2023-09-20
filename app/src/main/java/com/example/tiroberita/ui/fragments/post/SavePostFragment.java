@@ -130,8 +130,12 @@ public class SavePostFragment extends Fragment implements ItemSavePostListener {
 
 
     @Override
-    public void itemSavePostListener(int position, Object model) {
+    public void itemSavePostListener(String type, int position, Object model) {
         SavePostModel savePostModel = (SavePostModel) model;
-        deleteSavePost(savePostModel.getPost_id(), position);
+
+        if (type.equals("delete")) {
+            deleteSavePost(savePostModel.getPost_id(), position);
+
+        }
     }
 }
