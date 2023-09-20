@@ -28,7 +28,6 @@ import javax.inject.Inject;
 public class PostRepository {
 
 
-
     @Inject
     public PostRepository() {
 

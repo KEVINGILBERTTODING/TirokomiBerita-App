@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,6 +32,7 @@ import com.example.tiroberita.util.Constans;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -97,6 +99,21 @@ public class SavePostFragment extends Fragment implements ItemSavePostListener {
             startActivity(shareIntent);
         });
 
+
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+
     }
 
 
@@ -142,6 +159,24 @@ public class SavePostFragment extends Fragment implements ItemSavePostListener {
 
     }
 
+
+    private void filter(String query) {
+        ArrayList<SavePostModel> filteredList = new ArrayList<>();
+        for (SavePostModel item : savePostModelList) {
+            if (item != null && item.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(item);
+            }
+
+            savePostAdapter.filter(filteredList);
+            if (filteredList.isEmpty()) {
+                binding.lrEmpty.setVisibility(View.VISIBLE);
+                binding.tvMessage.setText("Berita tidak ditemukan.");
+            }else {
+                savePostAdapter.filter(filteredList);
+                binding.lrEmpty.setVisibility(View.GONE);
+            }
+        }
+    }
     private void deleteSavePost(String postId, int position){
         savePostViewModel.deleteSavePost(postId).observe(getViewLifecycleOwner(), new Observer<FirebaseResponseModel>() {
             @Override

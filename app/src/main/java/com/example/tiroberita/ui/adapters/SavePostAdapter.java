@@ -19,6 +19,7 @@ import com.example.tiroberita.model.SavePostModel;
 import com.example.tiroberita.ui.fragments.post.ItemSavePostListener;
 import com.zerobranch.layout.SwipeLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -85,6 +86,11 @@ public class SavePostAdapter extends RecyclerView.Adapter<SavePostAdapter.ViewHo
         notifyItemRangeChanged(position, getItemCount());
     }
 
+
+    public void filter(ArrayList<SavePostModel> filteredList) {
+        this.savePostModelList = filteredList;
+        notifyDataSetChanged();
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvTitle, tvDesc, tvRedactionName, tvDate;
