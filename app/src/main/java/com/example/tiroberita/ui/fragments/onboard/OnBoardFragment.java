@@ -106,6 +106,7 @@ public class OnBoardFragment extends Fragment {
     private void hideBottomSheet() {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         binding.vOverlay.setVisibility(View.GONE);
+        binding.etUsername.setText("");
     }
     private void showToast(String type, String message) {
         if (type.equals(Constans.TOAST_SUCCESS)){
@@ -122,7 +123,7 @@ public class OnBoardFragment extends Fragment {
         if (binding.etUsername.getText().toString().isEmpty()) {
             showToast(Constans.TOAST_NORMAL, "Username tidak boleh kosong");
         }else if (binding.etUsername.getText().length() > 20){
-            showToast(Constans.TOAST_NORMAL, "Tidak boleh lebih dari 20 karakter");
+            showToast(Constans.TOAST_ERROR, "Tidak boleh lebih dari 20 karakter");
         }else {
             editor.putString(Constans.USERNAME, binding.etUsername.getText().toString());
             editor.apply();

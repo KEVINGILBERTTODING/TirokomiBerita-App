@@ -15,7 +15,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:background="@color/black"
-                android:layout_height="@dimen/_330sdp">
+                android:id="@+id/rlMain"
+                android:layout_height="@dimen/_250sdp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -26,7 +27,7 @@
                         android:fontFamily="@font/rfmed"
                         android:textColor="@color/white"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:textSize="@dimen/_35sdp"
+                        android:textSize="@dimen/_32sdp"
                         android:includeFontPadding="false"
                         android:gravity="start"
                         android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:includeFontPadding="false"
                         android:gravity="end"
-                        android:paddingBottom="@dimen/_20sdp"
+                        android:paddingBottom="@dimen/_10sdp"
                         android:layout_alignParentBottom="true"
                         android:layout_height="wrap_content"
                         android:text="@string/desc_onboard"/>
@@ -47,9 +48,18 @@
                 </RelativeLayout>
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_below="@id/rlMain"
+                android:layout_above="@id/lrButton"
+                android:background="@drawable/iv_header_news" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
+                android:id="@+id/lrButton"
                 android:layout_margin="@dimen/_10sdp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
@@ -77,7 +87,7 @@
                     android:includeFontPadding="false"
                     android:layout_alignParentBottom="true"
                     android:layout_height="wrap_content"
-                    android:text="Dengan menekan tombol mulai maka Anda menyetujui semua peraturan yang ada."/>
+                    android:text="@string/privacy"/>
             </LinearLayout>
 
 
@@ -98,8 +108,7 @@
                 android:id="@+id/rlBottomSheet"
                 app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
                 android:layout_gravity="bottom"
-                android:visibility="gone"
-                android:background="@drawable/container_bottom_sheet"
+                android:background="@drawable/container_bottom_sheet2"
                 android:layout_height="match_parent">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -124,7 +133,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/desc_onboard"
+                        android:text="@string/desc_new_user"
                         android:textColor="@color/second_font"
                         android:gravity="center"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -132,17 +141,27 @@
                         android:fontFamily="@font/rfreg"
                         android:textSize="@dimen/_11sdp"/>
 
-                    <EditText
-                        android:id="@+id/etUsername"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:fontFamily="@font/rfreg"
-                        android:hint="Username"
-                        android:maxLines="1"
-                        android:inputType="textPersonName"
-                        android:maxLength="20"
-                        android:textSize="@dimen/_14sdp"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_height="wrap_content"/>
+                        app:boxCornerRadiusTopStart="@dimen/_5sdp"
+                        app:boxCornerRadiusBottomEnd="@dimen/_5sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_5sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_5sdp"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:hint="Username"
+                            android:maxLines="1"
+                            android:textSize="@dimen/_12sdp"
+                            android:fontFamily="@font/rbreg"
+                            android:maxLength="20"
+                            android:inputType="textPersonName"
+                            android:id="@+id/etUsername"
+                            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                            android:layout_height="wrap_content"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="match_parent"
