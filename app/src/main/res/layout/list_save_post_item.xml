@@ -76,6 +76,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rfmed"
                         android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_12sdp"
                         android:text="Delegasi Kenya dan Bangladesh tiba di Madiun ikuti pelatihan kesehatan"/>
                 </LinearLayout>

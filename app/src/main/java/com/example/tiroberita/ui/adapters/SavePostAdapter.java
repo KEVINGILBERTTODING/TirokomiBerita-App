@@ -4,10 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -68,6 +70,8 @@ public class SavePostAdapter extends RecyclerView.Adapter<SavePostAdapter.ViewHo
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.ivThumbnail);
 
+
+
     }
 
     @Override
@@ -85,7 +89,9 @@ public class SavePostAdapter extends RecyclerView.Adapter<SavePostAdapter.ViewHo
 
         private TextView tvTitle, tvDesc, tvRedactionName, tvDate;
         private SwipeLayout swipeLayout;
-        ImageView ivThumbnail;
+        private ImageView ivThumbnail;
+        private ImageButton btnShare;
+        private CardView lrMain;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -95,6 +101,23 @@ public class SavePostAdapter extends RecyclerView.Adapter<SavePostAdapter.ViewHo
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
             tvRedactionName = itemView.findViewById(R.id.tvRedactionName);
             swipeLayout = itemView.findViewById(R.id.swipe_layout);
+            btnShare = itemView.findViewById(R.id.btnShare);
+            lrMain = itemView.findViewById(R.id.lrMain);
+
+
+
+            btnShare.setOnClickListener(view -> {
+                itemClickListener.itemSavePostListener("share", getAdapterPosition(), savePostModelList.get(getAdapterPosition()));
+
+            });
+
+
+            lrMain.setOnClickListener(view -> {
+                itemClickListener.itemSavePostListener("content", getAdapterPosition(), savePostModelList.get(getAdapterPosition()));
+            });
+
+
+
 
             swipeLayout.setOnActionsListener(new SwipeLayout.SwipeActionsListener() {
                 @Override
