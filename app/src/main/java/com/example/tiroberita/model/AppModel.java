@@ -8,6 +8,10 @@ public class AppModel {
     private String created_at;
     private String url;
 
+    public AppModel() {
+
+    }
+
 
     public String getDescription() {
         return description;
@@ -56,4 +60,5 @@ public class AppModel {
     public void setUrl(String url) {
         this.url = url;
     }
+
 }

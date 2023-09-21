@@ -1,6 +1,5 @@
 package com.example.tiroberita.util.constans;
 
-import java.util.Stack;
 
 public class Constans {
     public static final String ERR_MESSAGE = "Terjadi kesalahan";
@@ -32,6 +31,7 @@ public class Constans {
     public static final String APP = "app";
 
     public static final String NOTIFICATION = "notification";
+    public static final String NOTIFICATION_ID = "notification_id";
     public static final String APP_VER = "1.0.0";
 
 

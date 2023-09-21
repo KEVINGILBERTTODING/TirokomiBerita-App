@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.tiroberita.data.repository.app.AppRepository;
 import com.example.tiroberita.model.AppModel;
 import com.example.tiroberita.model.FirebaseResponseModel;
+import com.example.tiroberita.model.NotificationModel;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,11 @@ public class AppViewModel extends ViewModel {
 
     public LiveData<FirebaseResponseModel<AppModel>> checkUpdate() {
        return appRepository.updateCheck();
+
+    }
+
+    public LiveData<FirebaseResponseModel<NotificationModel>> checkNotification() {
+        return appRepository.notficationCheck();
 
     }
 }
