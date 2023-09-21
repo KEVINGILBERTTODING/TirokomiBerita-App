@@ -19,7 +19,7 @@
             android:textSize="@dimen/_25sdp"
             android:textColor="@color/black"
             android:fontFamily="@font/rfbold"
-            android:text="Tiro Berita"/>
+            android:text="Tirokomi Berita"/>
 
 
 

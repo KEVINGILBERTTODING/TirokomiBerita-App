@@ -461,7 +461,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Anda dapat mengubah pilihan anda pada menu pengaturan."
+                        android:text="Anda dapat mengubah pilihan anda pada menu profil."
                         android:textColor="@color/second_font"
                         android:gravity="center"
                         android:layout_marginTop="@dimen/_5sdp"

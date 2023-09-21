@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putString(Constans.NOTIFICATION_ID, notification_update);
             editor.apply();
             binding.rlBottomSheetNotification.setVisibility(View.GONE);
+            binding.vOverla2.setVisibility(View.GONE);
         });
 
 
@@ -181,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                               .into(binding.ivNotif);
 
                       binding.rlBottomSheetNotification.setVisibility(View.VISIBLE);
-                      binding.vOverlay.setVisibility(View.VISIBLE);
+                      binding.vOverla2.setVisibility(View.VISIBLE);
                       notification_update = appModelFirebaseResponseModel.getData().getNotif_id();
 
                       if (appModelFirebaseResponseModel.getData().getImage().equals("none")) {
