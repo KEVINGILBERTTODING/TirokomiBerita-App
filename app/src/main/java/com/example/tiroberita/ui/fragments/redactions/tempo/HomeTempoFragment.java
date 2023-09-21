@@ -1627,6 +1627,8 @@ public class HomeTempoFragment extends Fragment implements ItemClickListener {
         bottomSheetShare.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetShare.setPeekHeight(600);
         binding.vOverlay.setVisibility(View.VISIBLE);
+        binding.btnSimpan.setBackground(getContext().getDrawable(R.drawable.ic_save));
+
 
 
     }

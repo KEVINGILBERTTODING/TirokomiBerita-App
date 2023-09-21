@@ -1,29 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.activities.main.MainActivity">
 
-        <FrameLayout
-            android:id="@+id/frameHome"
+        <View
+            android:id="@+id/vOverlay"
             android:layout_width="match_parent"
-            android:layout_above="@id/bottom_bar"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
 
-        <me.ibrahimsn.lib.SmoothBottomBar
-            android:id="@+id/bottom_bar"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            app:iconTint="@color/second_font"
-            app:iconTintActive="@color/white"
-            android:layout_height="70dp"
-            app:backgroundColor="@color/background"
-            app:indicatorColor="@color/black"
-            android:layout_alignParentBottom="true"
-            app:menu="@menu/bottom_bar_menu"/>
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/frameHome"
+                android:layout_width="match_parent"
+                android:layout_above="@id/bottom_bar"
+                android:layout_height="match_parent"/>
+
+            <me.ibrahimsn.lib.SmoothBottomBar
+                android:id="@+id/bottom_bar"
+                android:layout_width="match_parent"
+                app:iconTint="@color/second_font"
+                app:iconTintActive="@color/white"
+                android:layout_height="70dp"
+                app:backgroundColor="@color/background"
+                app:indicatorColor="@color/black"
+                android:layout_alignParentBottom="true"
+                app:menu="@menu/bottom_bar_menu"/>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+
+
+
+
+
+<!--        Layout bottom sheet-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/rlBottomSheetUpdate"
+            android:visibility="gone"
+            android:layout_gravity="bottom"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/container_bottom_sheet2"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:padding="@dimen/_10sdp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                            android:layout_width="match_parent"
+                            app:tint="@color/black"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Update Tiro Berita App"
+                            android:textColor="@color/black"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:fontFamily="@font/rfmed"
+                            android:textSize="@dimen/_18sdp"/>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Versi aplikasi yang kamu gunakan akan segera dinonaktifkan. Segera update ke versi terbaru."
+                            android:textColor="@color/second_font"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:includeFontPadding="false"
+                            android:fontFamily="@font/rfreg"
+                            android:textSize="@dimen/_11sdp"/>
+
+
+                    </LinearLayout>
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:background="@color/background"
+                            android:paddingRight="@dimen/_10sdp"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:orientation="vertical"
+
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Deskripsi update:"
+                                android:textColor="@color/black"
+                                android:gravity="start"
+
+                                android:includeFontPadding="false"
+                                android:fontFamily="@font/rfmed"
+                                android:textSize="@dimen/_11sdp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tvDescUpdate"
+                                android:text="Kami dengan bangga mempersembahkan versi terbaru dari aplikasi kami, yang dirancang untuk memberikan pengalaman yang lebih baik dan lebih bermanfaat kepada pengguna kami. Berikut adalah beberapa fitur utama yang kami perbarui:"
+                                android:textColor="@color/second_font"
+                                android:gravity="start"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:includeFontPadding="false"
+                                android:fontFamily="@font/rfreg"
+                                android:textSize="@dimen/_11sdp"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:layout_width="wrap_content"
+                                android:id="@+id/btnUpdate"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_20sdp"
+                                android:text="Update sekarang"
+                                android:layout_gravity="end"/>
+
+
+                        </LinearLayout>
+                    </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+
+
+
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

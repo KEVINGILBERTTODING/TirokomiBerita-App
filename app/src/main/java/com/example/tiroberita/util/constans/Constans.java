@@ -27,7 +27,13 @@ public class Constans {
     public static final String URL_SUARA = "https://www.suara.com/";
     public static final String URL_REPUBLIKA = "https://www.republika.co.id/";
     public static final String URL_JPNN = "https://www.jpnn.com/";
-    public static final String POST_ID = "post_id";
+    public static final String POST_ID  = "post_id";
+
+    public static final String APP = "app";
+
+    public static final String NOTIFICATION = "notification";
+    public static final String APP_VER = "1.0.0";
+
 
 
 
