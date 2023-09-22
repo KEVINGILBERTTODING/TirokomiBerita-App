@@ -16,11 +16,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tiroberita.R;
 import com.example.tiroberita.databinding.FragmentSettingBinding;
 import com.example.tiroberita.model.AppModel;
 import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.ui.activities.onboard.OnBoardActivitiy;
+import com.example.tiroberita.ui.fragments.redactions.cnbc.HomeCnbcFragment;
+import com.example.tiroberita.ui.fragments.redactions.cnn.HomeCnnFragment;
+import com.example.tiroberita.ui.fragments.redactions.jpnn.HomeJpnnFragment;
+import com.example.tiroberita.ui.fragments.redactions.kumparan.HomeKumparanFragment;
+import com.example.tiroberita.ui.fragments.redactions.okezone.HomeOkezoneFragment;
+import com.example.tiroberita.ui.fragments.redactions.republika.HomeRepublikaFragment;
+import com.example.tiroberita.ui.fragments.redactions.sindonews.HomeSindoNewsFragment;
+import com.example.tiroberita.ui.fragments.redactions.suara.HomeSuaraFragment;
+import com.example.tiroberita.ui.fragments.redactions.tempo.HomeTempoFragment;
+import com.example.tiroberita.ui.fragments.redactions.tribun.HomeTribunNewsFragment;
 import com.example.tiroberita.util.constans.Constans;
+import com.example.tiroberita.util.constans.RedactionConstans;
 import com.example.tiroberita.viewmodel.app.AppViewModel;
 import com.example.tiroberita.viewmodel.auth.AuthViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -37,8 +49,8 @@ public class SettingFragment extends Fragment {
     private SharedPreferences.Editor editor;
     private AppViewModel appViewModel;
     private AuthViewModel authViewModel;
-    private String username, userId, postUrl;
-    private BottomSheetBehavior bottomSheetBehavior, bottomSheetCheckUpdate, bottomSheetUpdateUsername;
+    private String username, userId, postUrl, mediaFavorite;
+    private BottomSheetBehavior bottomSheetBehavior, bottomSheetCheckUpdate, bottomSheetUpdateUsername, bottomSheetMediaPicker;
 
 
     @Override
@@ -57,11 +69,13 @@ public class SettingFragment extends Fragment {
         listener();
         setUpBottomSheetMenu();
         setUpBottomSheetCheckUpdate();
+        setUpBottomSheetMediaPicker();
         setUpBottomSheetUpdateUsername();
 
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheetCheckUpdate.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheetUpdateUsername.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetMediaPicker.setState(BottomSheetBehavior.STATE_HIDDEN);
 
         binding.tvUsername.setText("Hai, " + username);
 
@@ -130,6 +144,194 @@ public class SettingFragment extends Fragment {
         binding.btnSimpan.setOnClickListener(view -> {
             updateUsername();
         });
+
+        binding.cvMediaPicker.setOnClickListener(view -> {
+            showBottomSheetMediaPicker();
+            hideBottomSheet();
+        });
+
+        binding.btnPilih.setOnClickListener(view -> {
+            updateMediaFavorit();
+        });
+
+        binding.mnuKumparan.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.KUMPARAN;
+            binding.btnPilih.setEnabled(true);
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        });
+
+        binding.mnuAntara.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.ANTARA;
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+
+        });
+
+        binding.mnuTribun.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.TRIBUN;
+            binding.btnPilih.setEnabled(true);
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+
+        });
+
+        binding.mnuCnbc.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.CNBC;
+            binding.btnPilih.setEnabled(true);
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        });
+
+        binding.mnuOkezone.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.OKEZONE;
+            binding.btnPilih.setEnabled(true);
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        });
+
+        binding.mnuCnn.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.CNN;
+            binding.btnPilih.setEnabled(true);
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        });
+
+        binding.mnuSindoNews.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.SINDONEWS;
+            binding.btnPilih.setEnabled(true);
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+
+
+        });
+
+        binding.mnuTempo.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.TEMPO;
+            binding.btnPilih.setEnabled(true);
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        });
+
+        binding.mnuSuara.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.SUARA;
+            binding.btnPilih.setEnabled(true);
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        });
+
+        binding.mnuRepublika.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.REPUBLIKA;
+            binding.btnPilih.setEnabled(true);
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        });
+
+        binding.mnuJpnn.setOnClickListener(view -> {
+            mediaFavorite = RedactionConstans.JPNN;
+            binding.btnPilih.setEnabled(true);
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+        });
     }
 
 
@@ -158,11 +360,27 @@ public class SettingFragment extends Fragment {
 
     }
 
-    private void deleteSharedPref() {
-        editor.clear();
-        editor.apply();
-        startActivity(new Intent(getActivity(), OnBoardActivitiy.class));
-        getActivity().finish();
+
+    private void updateMediaFavorit() {
+        if (userId != null && mediaFavorite != null) {
+            authViewModel.updateMediaFavorit(userId, mediaFavorite).observe(getViewLifecycleOwner(), new Observer<FirebaseResponseModel>() {
+                @Override
+                public void onChanged(FirebaseResponseModel firebaseResponseModel) {
+                    if (firebaseResponseModel.getSuccess() == true) {
+                        showToast(Constans.TOAST_NORMAL, firebaseResponseModel.getMessage());
+                        hideBottomSheetMediaPicker();
+                        editSharedPref(Constans.REDACTION_FAVORIT,  mediaFavorite);
+                        binding.vOverlay3.setVisibility(View.GONE);
+                    }else {
+                        showToast(Constans.TOAST_ERROR, firebaseResponseModel.getMessage());
+
+                    }
+                }
+            });
+        }else {
+            showToast(Constans.TOAST_ERROR, Constans.ERR_MESSAGE);
+        }
+
     }
 
     private void showToast(String type, String message) {
@@ -228,6 +446,28 @@ public class SettingFragment extends Fragment {
 
     }
 
+    private void setUpBottomSheetMediaPicker() {
+
+        bottomSheetMediaPicker = BottomSheetBehavior.from(binding.rlBottomSheetMediaPicker);
+        bottomSheetMediaPicker.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetMediaPicker.setHideable(true);
+
+        bottomSheetMediaPicker.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    hideBottomSheetMediaPicker();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+
+    }
+
 
     private void setUpBottomSheetUpdateUsername() {
 
@@ -271,7 +511,20 @@ public class SettingFragment extends Fragment {
         binding.etUsername.setText("");
     }
 
-    private void showBottomSheetMenu() {
+
+    private void showBottomSheetMediaPicker() {
+        bottomSheetMediaPicker.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        binding.vOverlay3.setVisibility(View.VISIBLE);
+        binding.etUsername.setText(username);
+    }
+
+    private void hideBottomSheetMediaPicker() {
+        bottomSheetMediaPicker.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay3.setVisibility(View.GONE);
+    }
+
+
+        private void showBottomSheetMenu() {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         binding.vOverlay.setVisibility(View.VISIBLE);
 

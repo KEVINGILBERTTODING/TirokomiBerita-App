@@ -27,7 +27,7 @@
                         android:fontFamily="@font/rfmed"
                         android:textColor="@color/white"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:textSize="@dimen/_32sdp"
+                        android:textSize="@dimen/_30sdp"
                         android:includeFontPadding="false"
                         android:gravity="start"
                         android:layout_height="wrap_content"

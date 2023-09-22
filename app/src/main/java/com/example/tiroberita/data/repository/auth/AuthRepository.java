@@ -65,6 +65,42 @@ public class AuthRepository {
 
     }
 
+    public LiveData<FirebaseResponseModel> updateMediaFavorite(String userId, String mediaName) {
+        MutableLiveData<FirebaseResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        Query query = databaseReference.child(Constans.FIREBASE_CHILD_USER).orderByChild("userId").equalTo(userId);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot != null) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        dataSnapshot.getRef().child("favorite").setValue(mediaName)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        responseModelMutableLiveData.setValue(new FirebaseResponseModel(true, "Berhasil mengubah media favorit", null));
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, Constans.ERR_MESSAGE, null));
+                                    }
+                                });
+                    }
+                }else {
+                    responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, Constans.ERR_MESSAGE, null));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, Constans.ERR_MESSAGE, null));
+
+            }
+        });
+
+        return  responseModelMutableLiveData;
+    }
+
 
 
 }

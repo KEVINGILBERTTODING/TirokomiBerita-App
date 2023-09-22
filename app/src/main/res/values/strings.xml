@@ -37,7 +37,7 @@
     <!--    On board screen-->
     <string name="title_new_user">Hai, apakah Anda pengguna baru?</string>
     <string name="desc_new_user">Sistem kami mendeteksi bahwa Anda baru pertama kali menggunakan aplikasi Tiro Berita.</string>
-    <string name="title_onboard">Kenapa harus aplikasi Tiro Berita?</string>
+    <string name="title_onboard">Kenapa harus aplikasi Tirokomi Berita?</string>
     <string name="privacy">Dengan menekan tombol Lanjut, Anda menyatakan persetujuan terhadap semua peraturan yang berlaku</string>
     <string name="desc_onboard">"Karena hanya dalam satu aplikasi, Anda dapat mengakses semua berita terbaru dan terpercaya dari berbagai sumber media berita terkemuka di Indonesia.</string>
 

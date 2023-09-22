@@ -42,4 +42,24 @@ public class AuthViewModel extends ViewModel {
     }
 
 
+    public LiveData<FirebaseResponseModel> updateMediaFavorit(String userId, String mediaName) {
+        MutableLiveData<FirebaseResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        if (userId != null && mediaName != null) {
+            LiveData<FirebaseResponseModel> firebaseResponseModelLiveData = authRepository.updateMediaFavorite(userId, mediaName);
+            firebaseResponseModelLiveData.observeForever(new Observer<FirebaseResponseModel>() {
+                @Override
+                public void onChanged(FirebaseResponseModel firebaseResponseModel) {
+                    responseModelMutableLiveData.setValue(firebaseResponseModel);
+                    firebaseResponseModelLiveData.removeObserver(this);
+                }
+            });
+        }else {
+            responseModelMutableLiveData.setValue(new FirebaseResponseModel(false, Constans.ERR_MESSAGE, null));
+        }
+
+        return responseModelMutableLiveData;
+    }
+
+
 }
+
