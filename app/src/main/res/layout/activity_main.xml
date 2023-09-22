@@ -93,6 +93,7 @@
                             android:text="Update Tiro Berita App"
                             android:textColor="@color/black"
                             android:gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:id="@+id/tvTitleNotification"
                             android:includeFontPadding="false"
                             android:fontFamily="@font/rfmed"
@@ -124,7 +125,6 @@
                                 android:text="Kami dengan bangga mempersembahkan versi terbaru dari aplikasi kami, yang dirancang untuk memberikan pengalaman yang lebih baik dan lebih bermanfaat kepada pengguna kami. Berikut adalah beberapa fitur utama yang kami perbarui:"
                                 android:textColor="@color/second_font"
                                 android:gravity="center"
-                                android:layout_marginTop="@dimen/_5sdp"
                                 android:includeFontPadding="false"
                                 android:fontFamily="@font/rfreg"
                                 android:textSize="@dimen/_11sdp"/>

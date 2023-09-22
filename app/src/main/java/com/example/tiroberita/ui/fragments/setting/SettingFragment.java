@@ -50,7 +50,7 @@ public class SettingFragment extends Fragment {
     private AppViewModel appViewModel;
     private AuthViewModel authViewModel;
     private String username, userId, postUrl, mediaFavorite;
-    private BottomSheetBehavior bottomSheetBehavior, bottomSheetCheckUpdate, bottomSheetUpdateUsername, bottomSheetMediaPicker;
+    private BottomSheetBehavior bottomSheetBehavior, bottomSheetCheckUpdate, bottomSheetUpdateUsername, bottomSheetMediaPicker, bottomSheetAboutUs;
 
 
     @Override
@@ -71,11 +71,13 @@ public class SettingFragment extends Fragment {
         setUpBottomSheetCheckUpdate();
         setUpBottomSheetMediaPicker();
         setUpBottomSheetUpdateUsername();
+        setUpBottomSheetAboutUs();
 
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheetCheckUpdate.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheetUpdateUsername.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheetMediaPicker.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetAboutUs.setState(BottomSheetBehavior.STATE_HIDDEN);
 
         binding.tvUsername.setText("Hai, " + username);
 
@@ -126,6 +128,7 @@ public class SettingFragment extends Fragment {
         binding.vOverlay3.setOnClickListener(view -> {
             hideBottomSheetUpdateUsername();
             hideBottomSheetMediaPicker();
+            hideBottomSheetAboutUs();
         });
 
         binding.cvUpdateApp.setOnClickListener(view -> {
@@ -153,6 +156,11 @@ public class SettingFragment extends Fragment {
 
         binding.btnPilih.setOnClickListener(view -> {
             updateMediaFavorit();
+        });
+        binding.cvAboutUs.setOnClickListener(view -> {
+            showBottomSheetAboutUs();
+            hideBottomSheet();
+
         });
 
         binding.mnuKumparan.setOnClickListener(view -> {
@@ -495,6 +503,28 @@ public class SettingFragment extends Fragment {
     }
 
 
+    private void setUpBottomSheetAboutUs() {
+
+        bottomSheetAboutUs = BottomSheetBehavior.from(binding.rlBottomSheetAboutUs);
+        bottomSheetAboutUs.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetAboutUs.setHideable(true);
+
+        bottomSheetAboutUs.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    hideBottomSheetAboutUs();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+
+    }
+
     private void showBottomSheetCheckUpdate() {
         bottomSheetCheckUpdate.setState(BottomSheetBehavior.STATE_COLLAPSED);
         binding.vOverlay2.setVisibility(View.VISIBLE);
@@ -511,6 +541,20 @@ public class SettingFragment extends Fragment {
         binding.vOverlay3.setVisibility(View.GONE);
         binding.etUsername.setText("");
     }
+
+    private void showBottomSheetAboutUs() {
+        bottomSheetAboutUs.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        binding.vOverlay3.setVisibility(View.VISIBLE);
+
+    }
+
+    private void hideBottomSheetAboutUs() {
+        bottomSheetAboutUs.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay3.setVisibility(View.GONE);
+
+    }
+
+
 
 
     private void showBottomSheetMediaPicker() {
