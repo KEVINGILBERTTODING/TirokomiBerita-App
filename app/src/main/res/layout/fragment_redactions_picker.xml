@@ -474,11 +474,11 @@
                         android:layout_height="wrap_content"
                         app:backgroundTint="@color/black"
                         android:text="Simpan"
+                        android:layout_marginBottom="@dimen/_20sdp"
                         android:id="@+id/btnSimpan"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textSize="@dimen/_12sdp"
-                        android:fontFamily="@font/rfbold"
-                        app:cornerRadius="@dimen/_5sdp"/>
+                        android:fontFamily="@font/rfbold"/>
                 </LinearLayout>
             </RelativeLayout>
 

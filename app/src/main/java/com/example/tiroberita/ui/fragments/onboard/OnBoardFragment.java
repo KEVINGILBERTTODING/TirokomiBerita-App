@@ -45,6 +45,7 @@ public class OnBoardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listener();
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
 
     private void init() {
@@ -77,7 +78,6 @@ public class OnBoardFragment extends Fragment {
         bottomSheetBehavior = BottomSheetBehavior.from(binding.rlBottomSheet);
         // set behaviior
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-        bottomSheetBehavior.setPeekHeight(0);
         bottomSheetBehavior.setHideable(true);
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -97,7 +97,7 @@ public class OnBoardFragment extends Fragment {
 
     private void showBottomSheet() {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        bottomSheetBehavior.setPeekHeight(600);
+
         binding.vOverlay.setVisibility(View.VISIBLE);
     }
 

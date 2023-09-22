@@ -172,8 +172,7 @@
                         android:maxLength="20"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:textSize="@dimen/_12sdp"
-                        android:fontFamily="@font/rfbold"
-                        app:cornerRadius="@dimen/_5sdp"/>
+                        android:fontFamily="@font/rfbold"/>
                 </LinearLayout>
             </RelativeLayout>
 
