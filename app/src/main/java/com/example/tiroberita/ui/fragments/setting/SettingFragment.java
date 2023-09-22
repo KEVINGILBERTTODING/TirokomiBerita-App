@@ -125,6 +125,7 @@ public class SettingFragment extends Fragment {
 
         binding.vOverlay3.setOnClickListener(view -> {
             hideBottomSheetUpdateUsername();
+            hideBottomSheetMediaPicker();
         });
 
         binding.cvUpdateApp.setOnClickListener(view -> {
@@ -521,6 +522,18 @@ public class SettingFragment extends Fragment {
     private void hideBottomSheetMediaPicker() {
         bottomSheetMediaPicker.setState(BottomSheetBehavior.STATE_HIDDEN);
         binding.vOverlay3.setVisibility(View.GONE);
+        binding.btnPilih.setEnabled(false);
+        binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+        binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
     }
 
 
@@ -547,9 +560,5 @@ public class SettingFragment extends Fragment {
         editor.apply();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
+
 }

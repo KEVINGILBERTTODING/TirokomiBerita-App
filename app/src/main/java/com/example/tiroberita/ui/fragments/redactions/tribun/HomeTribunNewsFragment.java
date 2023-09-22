@@ -464,9 +464,5 @@ public class HomeTribunNewsFragment extends Fragment implements ItemClickListene
     }
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
+
 }

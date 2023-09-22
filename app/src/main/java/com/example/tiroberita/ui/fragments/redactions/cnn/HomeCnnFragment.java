@@ -1029,9 +1029,4 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
     }
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
 }
