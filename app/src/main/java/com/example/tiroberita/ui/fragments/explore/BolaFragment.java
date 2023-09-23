@@ -274,7 +274,7 @@ public class BolaFragment extends Fragment implements ItemClickListener {
         binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getData(RedactionConstans.CNN);
+                getData(redactionName);
             }
         });
 

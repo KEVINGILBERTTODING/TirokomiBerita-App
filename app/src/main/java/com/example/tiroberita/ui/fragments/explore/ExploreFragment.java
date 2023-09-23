@@ -50,6 +50,10 @@ public class ExploreFragment extends Fragment {
             moveFragment(new BolaFragment());
         });
 
+        binding.rlOlahraga.setOnClickListener(view -> {
+            moveFragment(new OlahragaFragment());
+        });
+
     }
 
     private void moveFragment(Fragment fragment) {

@@ -22,7 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiroberita.R;
-import com.example.tiroberita.databinding.FragmentHomeKumparanBinding;
+import com.example.tiroberita.databinding.FragmentOlahragaBinding;
 import com.example.tiroberita.databinding.FragmentTerbaruBinding;
 import com.example.tiroberita.model.DataModel;
 import com.example.tiroberita.model.FirebaseResponseModel;
@@ -31,15 +31,6 @@ import com.example.tiroberita.model.ResponseModel;
 import com.example.tiroberita.model.SaveModel;
 import com.example.tiroberita.ui.ItemClickListener;
 import com.example.tiroberita.ui.adapters.NewsAdapter;
-import com.example.tiroberita.ui.fragments.redactions.cnbc.HomeCnbcFragment;
-import com.example.tiroberita.ui.fragments.redactions.cnn.HomeCnnFragment;
-import com.example.tiroberita.ui.fragments.redactions.jpnn.HomeJpnnFragment;
-import com.example.tiroberita.ui.fragments.redactions.okezone.HomeOkezoneFragment;
-import com.example.tiroberita.ui.fragments.redactions.republika.HomeRepublikaFragment;
-import com.example.tiroberita.ui.fragments.redactions.sindonews.HomeSindoNewsFragment;
-import com.example.tiroberita.ui.fragments.redactions.suara.HomeSuaraFragment;
-import com.example.tiroberita.ui.fragments.redactions.tempo.HomeTempoFragment;
-import com.example.tiroberita.ui.fragments.redactions.tribun.HomeTribunNewsFragment;
 import com.example.tiroberita.util.constans.Constans;
 import com.example.tiroberita.util.constans.RedactionConstans;
 import com.example.tiroberita.viewmodel.antara.AntaraViewModel;
@@ -67,9 +58,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
 
 @AndroidEntryPoint
-public class TerbaruFragment extends Fragment implements ItemClickListener {
+public class OlahragaFragment extends Fragment implements ItemClickListener {
 
-    private FragmentTerbaruBinding binding;
+    private FragmentOlahragaBinding binding;
     private SharedPreferences sharedPreferences;
     private KumparanViewModel kumparanViewModel;
     private AntaraViewModel antaraViewModel;
@@ -96,7 +87,7 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentTerbaruBinding.inflate(inflater, container, false);
+        binding = FragmentOlahragaBinding.inflate(inflater, container, false);
 
         init();
         return binding.getRoot();
@@ -142,7 +133,7 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
         binding.rvNews.setAdapter(null);
 
         if (redactionName.equals(RedactionConstans.CNN)) {
-            cnnViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            cnnViewModel.getDataOlahraga().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -156,7 +147,7 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+                        newsAdapter.setItemClickListener(OlahragaFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -165,7 +156,7 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
                 }
             });
         }else if (redactionName.equals(RedactionConstans.ANTARA)) {
-            antaraViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            antaraViewModel.getDataOlahraga().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -179,76 +170,7 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(TerbaruFragment.this);
-
-                    }else {
-                        hideShimmer(true, responseModel.getMessage());
-
-                    }
-                }
-            });
-        }else if (redactionName.equals(RedactionConstans.CNBC)) {
-            cnbcViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-                @Override
-                public void onChanged(ResponseModel responseModel) {
-                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
-                        dataModel = responseModel.getDataModel();
-                        postModelList = dataModel.getPostModelList();
-                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                        newsAdapter = new NewsAdapter(getContext(), postModelList);
-                        binding.rvNews.setAdapter(newsAdapter);
-                        binding.rvNews.setLayoutManager(linearLayoutManager);
-                        binding.rvNews.setHasFixedSize(true);
-                        hideShimmer(false, "");
-
-                        // set on click item
-                        newsAdapter.setItemClickListener(TerbaruFragment.this);
-
-                    }else {
-                        hideShimmer(true, responseModel.getMessage());
-
-                    }
-                }
-            });
-        }else if (redactionName.equals(RedactionConstans.JPNN)) {
-            jpnnViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-                @Override
-                public void onChanged(ResponseModel responseModel) {
-                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
-                        dataModel = responseModel.getDataModel();
-                        postModelList = dataModel.getPostModelList();
-                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                        newsAdapter = new NewsAdapter(getContext(), postModelList);
-                        binding.rvNews.setAdapter(newsAdapter);
-                        binding.rvNews.setLayoutManager(linearLayoutManager);
-                        binding.rvNews.setHasFixedSize(true);
-                        hideShimmer(false, "");
-
-                        // set on click item
-                        newsAdapter.setItemClickListener(TerbaruFragment.this);
-
-                    }else {
-                        hideShimmer(true, responseModel.getMessage());
-
-                    }
-                }
-            });
-        }else if (redactionName.equals(RedactionConstans.KUMPARAN)) {
-            kumparanViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-                @Override
-                public void onChanged(ResponseModel responseModel) {
-                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
-                        dataModel = responseModel.getDataModel();
-                        postModelList = dataModel.getPostModelList();
-                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                        newsAdapter = new NewsAdapter(getContext(), postModelList);
-                        binding.rvNews.setAdapter(newsAdapter);
-                        binding.rvNews.setLayoutManager(linearLayoutManager);
-                        binding.rvNews.setHasFixedSize(true);
-                        hideShimmer(false, "");
-
-                        // set on click item
-                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+                        newsAdapter.setItemClickListener(OlahragaFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -257,7 +179,7 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
                 }
             });
         }else if (redactionName.equals(RedactionConstans.OKEZONE)) {
-            okezoneViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            okezoneViewModel.getDataSports().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -271,30 +193,7 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(TerbaruFragment.this);
-
-                    }else {
-                        hideShimmer(true, responseModel.getMessage());
-
-                    }
-                }
-            });
-        }else if (redactionName.equals(RedactionConstans.REPUBLIKA)) {
-            republikaViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-                @Override
-                public void onChanged(ResponseModel responseModel) {
-                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
-                        dataModel = responseModel.getDataModel();
-                        postModelList = dataModel.getPostModelList();
-                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                        newsAdapter = new NewsAdapter(getContext(), postModelList);
-                        binding.rvNews.setAdapter(newsAdapter);
-                        binding.rvNews.setLayoutManager(linearLayoutManager);
-                        binding.rvNews.setHasFixedSize(true);
-                        hideShimmer(false, "");
-
-                        // set on click item
-                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+                        newsAdapter.setItemClickListener(OlahragaFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -317,76 +216,7 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(TerbaruFragment.this);
-
-                    }else {
-                        hideShimmer(true, responseModel.getMessage());
-
-                    }
-                }
-            });
-        }else if (redactionName.equals(RedactionConstans.SUARA)) {
-            suaraViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-                @Override
-                public void onChanged(ResponseModel responseModel) {
-                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
-                        dataModel = responseModel.getDataModel();
-                        postModelList = dataModel.getPostModelList();
-                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                        newsAdapter = new NewsAdapter(getContext(), postModelList);
-                        binding.rvNews.setAdapter(newsAdapter);
-                        binding.rvNews.setLayoutManager(linearLayoutManager);
-                        binding.rvNews.setHasFixedSize(true);
-                        hideShimmer(false, "");
-
-                        // set on click item
-                        newsAdapter.setItemClickListener(TerbaruFragment.this);
-
-                    }else {
-                        hideShimmer(true, responseModel.getMessage());
-
-                    }
-                }
-            });
-        }else if (redactionName.equals(RedactionConstans.TEMPO)) {
-//            tempoViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-//                @Override
-//                public void onChanged(ResponseModel responseModel) {
-//                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
-//                        dataModel = responseModel.getDataModel();
-//                        postModelList = dataModel.getPostModelList();
-//                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-//                        newsAdapter = new NewsAdapter(getContext(), postModelList);
-//                        binding.rvNews.setAdapter(newsAdapter);
-//                        binding.rvNews.setLayoutManager(linearLayoutManager);
-//                        binding.rvNews.setHasFixedSize(true);
-//                        hideShimmer(false, "");
-//
-//                        // set on click item
-//                        newsAdapter.setItemClickListener(TerbaruFragment.this);
-//
-//                    }else {
-//                        hideShimmer(true, responseModel.getMessage());
-//
-//                    }
-//                }
-//            });
-        }else if (redactionName.equals(RedactionConstans.TRIBUN)) {
-            tribunnewsViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-                @Override
-                public void onChanged(ResponseModel responseModel) {
-                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
-                        dataModel = responseModel.getDataModel();
-                        postModelList = dataModel.getPostModelList();
-                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                        newsAdapter = new NewsAdapter(getContext(), postModelList);
-                        binding.rvNews.setAdapter(newsAdapter);
-                        binding.rvNews.setLayoutManager(linearLayoutManager);
-                        binding.rvNews.setHasFixedSize(true);
-                        hideShimmer(false, "");
-
-                        // set on click item
-                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+                        newsAdapter.setItemClickListener(OlahragaFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
