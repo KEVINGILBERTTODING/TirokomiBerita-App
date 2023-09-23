@@ -42,6 +42,10 @@ public class ExploreFragment extends Fragment {
             moveFragment(new TerbaruFragment());
         });
 
+        binding.rlEkonomi.setOnClickListener(view -> {
+            moveFragment(new EkonomiFragment());
+        });
+
     }
 
     private void moveFragment(Fragment fragment) {

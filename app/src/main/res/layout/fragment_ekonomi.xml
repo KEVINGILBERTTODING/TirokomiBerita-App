@@ -89,7 +89,7 @@
                                 android:layout_marginTop="@dimen/_10sdp"
                                 android:layout_marginLeft="@dimen/_10sdp"
                                 android:layout_marginRight="@dimen/_10sdp"
-                                android:text="Terbaru"
+                                android:text="Ekonomi"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/rfbold"
                                 android:textSize="@dimen/_40sdp"/>
@@ -133,6 +133,7 @@
                                         android:id="@+id/mnuKumparan"
                                         android:layout_width="@dimen/_40sdp"
                                         android:layout_marginLeft="@dimen/_15sdp"
+                                        android:visibility="gone"
                                         android:background="@drawable/container_media_rounded"
                                         android:layout_height="@dimen/_40sdp">
                                         <androidx.cardview.widget.CardView
@@ -155,6 +156,7 @@
                                     <RelativeLayout
                                         android:id="@+id/mnuTribun"
                                         android:layout_width="@dimen/_40sdp"
+                                        android:visibility="gone"
                                         android:layout_marginLeft="@dimen/_15sdp"
                                         android:background="@drawable/container_media_rounded"
                                         android:layout_height="@dimen/_40sdp">
@@ -293,6 +295,7 @@
                                         android:id="@+id/mnuSuara"
                                         android:layout_width="@dimen/_40sdp"
                                         android:layout_marginLeft="@dimen/_15sdp"
+                                        android:layout_marginRight="@dimen/_10sdp"
                                         android:background="@drawable/container_media_rounded"
                                         android:layout_height="@dimen/_40sdp">
                                         <androidx.cardview.widget.CardView
@@ -315,6 +318,7 @@
                                         android:id="@+id/mnuRepublika"
                                         android:layout_width="@dimen/_40sdp"
                                         android:layout_marginLeft="@dimen/_15sdp"
+                                        android:visibility="gone"
                                         android:background="@drawable/container_media_rounded"
                                         android:layout_height="@dimen/_40sdp">
                                         <androidx.cardview.widget.CardView
@@ -339,6 +343,7 @@
                                         android:layout_width="@dimen/_40sdp"
                                         android:layout_marginLeft="@dimen/_15sdp"
                                         android:layout_marginRight="@dimen/_10sdp"
+                                        android:visibility="gone"
                                         android:background="@drawable/container_media_rounded"
                                         android:layout_height="@dimen/_40sdp">
                                         <androidx.cardview.widget.CardView
