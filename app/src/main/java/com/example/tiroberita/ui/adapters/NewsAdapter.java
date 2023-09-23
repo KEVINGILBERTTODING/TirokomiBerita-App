@@ -17,6 +17,7 @@ import com.example.tiroberita.R;
 import com.example.tiroberita.model.PostModel;
 import com.example.tiroberita.ui.ItemClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
@@ -73,6 +74,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return postModelList.size();
+    }
+
+    public void filter(ArrayList<PostModel> filteredList) {
+        postModelList = filteredList;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

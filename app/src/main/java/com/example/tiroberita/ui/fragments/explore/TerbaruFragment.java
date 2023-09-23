@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -56,6 +57,7 @@ import com.example.tiroberita.viewmodel.tribunnews.TribunnewsViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -446,9 +448,34 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
             savePost();
         });
 
-        binding.btnMenuMedia.setOnClickListener(view -> {
-            getActivity().onBackPressed();
+
+
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
         });
+
+        binding.searchBar.setOnClickListener(view -> {
+            binding.lrHeader.setVisibility(View.GONE);
+        });
+
+        binding.searchBar.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                binding.lrHeader.setVisibility(View.VISIBLE);
+
+                return false;
+            }
+        });
+
 
 
 
@@ -459,6 +486,7 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
         binding.mnuKumparan.setOnClickListener(view -> {
             getData();
             redactionName = RedactionConstans.KUMPARAN;
+            binding.searchBar.setQuery("", false);
 
             binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
             binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
@@ -476,6 +504,8 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
 
         binding.mnuAntara.setOnClickListener(view -> {
             getData();
+
+            binding.searchBar.setQuery("", false);
 
 
 
@@ -498,6 +528,8 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
         binding.mnuTribun.setOnClickListener(view -> {
             getData();
 
+            binding.searchBar.setQuery("", false);
+
 
             redactionName = RedactionConstans.TRIBUN;
 
@@ -517,6 +549,8 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
         binding.mnuCnbc.setOnClickListener(view -> {
             getData();
 
+            binding.searchBar.setQuery("", false);
+
             redactionName = RedactionConstans.CNBC;
 
             binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
@@ -534,6 +568,8 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
 
         binding.mnuOkezone.setOnClickListener(view -> {
             getData();
+            binding.searchBar.setQuery("", false);
+
 
             redactionName = RedactionConstans.OKEZONE;
 
@@ -553,6 +589,8 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
         binding.mnuCnn.setOnClickListener(view -> {
 
             getData();
+            binding.searchBar.setQuery("", false);
+
 
             redactionName = RedactionConstans.CNN;
 
@@ -572,6 +610,8 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
         binding.mnuSindoNews.setOnClickListener(view -> {
             getData();
 
+            binding.searchBar.setQuery("", false);
+
 
             redactionName = RedactionConstans.SINDONEWS;
 
@@ -590,6 +630,8 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
 
         binding.mnuTempo.setOnClickListener(view -> {
             getData();
+            binding.searchBar.setQuery("", false);
+
 
 
             redactionName = RedactionConstans.TEMPO;
@@ -609,6 +651,8 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
 
         binding.mnuSuara.setOnClickListener(view -> {
             getData();
+            binding.searchBar.setQuery("", false);
+
 
 
             redactionName = RedactionConstans.SUARA;
@@ -628,6 +672,8 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
 
         binding.mnuRepublika.setOnClickListener(view -> {
             getData();
+            binding.searchBar.setQuery("", false);
+
 
 
             redactionName = RedactionConstans.REPUBLIKA;
@@ -647,6 +693,8 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
 
         binding.mnuJpnn.setOnClickListener(view -> {
             getData();
+            binding.searchBar.setQuery("", false);
+
 
 
             redactionName = RedactionConstans.JPNN;
@@ -840,10 +888,24 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
 
     }
 
-    private void moveFragment(Fragment fragment) {
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameHome, fragment)
-                .addToBackStack(null).commit();
+    private void filter(String query){
+        ArrayList<PostModel> filteredList = new ArrayList<>();
+        for (PostModel item : postModelList) {
+            if (item != null && item.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(item);
+            }
+
+            newsAdapter.filter(filteredList);
+            if (!filteredList.isEmpty()) {
+                newsAdapter.filter(filteredList);
+                binding.lrEmpty.setVisibility(View.GONE);
+            }else {
+                binding.lrEmpty.setVisibility(View.VISIBLE);
+                binding.tvMessage.setText("Berita tidak ditemukan.");
+            }
+        }
     }
+
 
 
 }
