@@ -40,8 +40,19 @@ import com.example.tiroberita.ui.fragments.redactions.suara.HomeSuaraFragment;
 import com.example.tiroberita.ui.fragments.redactions.tempo.HomeTempoFragment;
 import com.example.tiroberita.ui.fragments.redactions.tribun.HomeTribunNewsFragment;
 import com.example.tiroberita.util.constans.Constans;
+import com.example.tiroberita.util.constans.RedactionConstans;
+import com.example.tiroberita.viewmodel.antara.AntaraViewModel;
+import com.example.tiroberita.viewmodel.cnbc.CnbcViewModel;
+import com.example.tiroberita.viewmodel.cnn.CnnViewModel;
+import com.example.tiroberita.viewmodel.jpnn.JpnnViewModel;
 import com.example.tiroberita.viewmodel.kumparan.KumparanViewModel;
+import com.example.tiroberita.viewmodel.okezone.OkezoneViewModel;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
+import com.example.tiroberita.viewmodel.republika.RepublikaViewModel;
+import com.example.tiroberita.viewmodel.sindonews.SindonewsViewModel;
+import com.example.tiroberita.viewmodel.suara.SuaraViewModel;
+import com.example.tiroberita.viewmodel.tempo.TempoViewModel;
+import com.example.tiroberita.viewmodel.tribunnews.TribunnewsViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.SimpleDateFormat;
@@ -59,12 +70,22 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
     private FragmentTerbaruBinding binding;
     private SharedPreferences sharedPreferences;
     private KumparanViewModel kumparanViewModel;
+    private AntaraViewModel antaraViewModel;
+    private CnbcViewModel cnbcViewModel;
+    private CnnViewModel cnnViewModel;
+    private JpnnViewModel jpnnViewModel;
+    private OkezoneViewModel okezoneViewModel;
+    private RepublikaViewModel republikaViewModel;
+    private SindonewsViewModel sindonewsViewModel;
+    private SuaraViewModel suaraViewModel;
+    private TempoViewModel tempoViewModel;
+    private TribunnewsViewModel tribunnewsViewModel;
     private NewsAdapter newsAdapter;
     private List<PostModel> postModelList;
     private PostViewModel postViewModel;
     private DataModel dataModel;
     private LinearLayoutManager linearLayoutManager;
-    private BottomSheetBehavior bottomSheetShare, bottomSheetMediaBerita;
+    private BottomSheetBehavior bottomSheetShare;
     private String thumbnail, postTitle, postDesc, postDate, postUrl, userId, created_at, username, redactionName;
 
 
@@ -96,9 +117,20 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
     private void init() {
         sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         kumparanViewModel = new ViewModelProvider(this).get(KumparanViewModel.class);
+        antaraViewModel = new ViewModelProvider(this).get(AntaraViewModel.class);
+        cnbcViewModel = new ViewModelProvider(this).get(CnbcViewModel.class);
+        cnnViewModel = new ViewModelProvider(this).get(CnnViewModel.class);
+        jpnnViewModel = new ViewModelProvider(this).get(JpnnViewModel.class);
+        okezoneViewModel = new ViewModelProvider(this).get(OkezoneViewModel.class);
+        republikaViewModel = new ViewModelProvider(this).get(RepublikaViewModel.class);
+        sindonewsViewModel = new ViewModelProvider(this).get(SindonewsViewModel.class);
+        suaraViewModel = new ViewModelProvider(this).get(SuaraViewModel.class);
+        tempoViewModel = new ViewModelProvider(this).get(TempoViewModel.class);
+        tribunnewsViewModel = new ViewModelProvider(this).get(TribunnewsViewModel.class);
+
         userId = sharedPreferences.getString(Constans.USER_ID, null);
         username = sharedPreferences.getString(Constans.USERNAME, null);
-        redactionName = "Kumparan";
+        redactionName = RedactionConstans.CNN;
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
 
     }
@@ -107,6 +139,99 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
         showShimmer();
         binding.rvNews.setAdapter(null);
 
+        if (redactionName.equals(RedactionConstans.CNN)) {
+            cnnViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (redactionName.equals(RedactionConstans.ANTARA)) {
+            antaraViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (redactionName.equals(RedactionConstans.CNBC)) {
+            cnbcViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (redactionName.equals(RedactionConstans.JPNN)) {
+            jpnnViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (redactionName.equals(RedactionConstans.KUMPARAN)) {
             kumparanViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
@@ -129,6 +254,147 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
+        }else if (redactionName.equals(RedactionConstans.OKEZONE)) {
+            okezoneViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (redactionName.equals(RedactionConstans.REPUBLIKA)) {
+            republikaViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (redactionName.equals(RedactionConstans.SINDONEWS)) {
+            sindonewsViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (redactionName.equals(RedactionConstans.SUARA)) {
+            suaraViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else if (redactionName.equals(RedactionConstans.TEMPO)) {
+//            tempoViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+//                @Override
+//                public void onChanged(ResponseModel responseModel) {
+//                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+//                        dataModel = responseModel.getDataModel();
+//                        postModelList = dataModel.getPostModelList();
+//                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+//                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+//                        binding.rvNews.setAdapter(newsAdapter);
+//                        binding.rvNews.setLayoutManager(linearLayoutManager);
+//                        binding.rvNews.setHasFixedSize(true);
+//                        hideShimmer(false, "");
+//
+//                        // set on click item
+//                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+//
+//                    }else {
+//                        hideShimmer(true, responseModel.getMessage());
+//
+//                    }
+//                }
+//            });
+        }else if (redactionName.equals(RedactionConstans.TRIBUN)) {
+            tribunnewsViewModel.getDataTerbaru().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
+                        dataModel = responseModel.getDataModel();
+                        postModelList = dataModel.getPostModelList();
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        newsAdapter = new NewsAdapter(getContext(), postModelList);
+                        binding.rvNews.setAdapter(newsAdapter);
+                        binding.rvNews.setLayoutManager(linearLayoutManager);
+                        binding.rvNews.setHasFixedSize(true);
+                        hideShimmer(false, "");
+
+                        // set on click item
+                        newsAdapter.setItemClickListener(TerbaruFragment.this);
+
+                    }else {
+                        hideShimmer(true, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }
+
+
 
     }
 
@@ -192,48 +458,210 @@ public class TerbaruFragment extends Fragment implements ItemClickListener {
     private void listenerMediaBeritaPicker() {
         binding.mnuKumparan.setOnClickListener(view -> {
             getData();
+            redactionName = RedactionConstans.KUMPARAN;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
 
         });
 
         binding.mnuAntara.setOnClickListener(view -> {
-            moveFragment(new TerbaruFragment());
+            getData();
+
+
+
+            redactionName = RedactionConstans.ANTARA;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
 
         });
 
         binding.mnuTribun.setOnClickListener(view -> {
-            moveFragment(new HomeTribunNewsFragment());
+            getData();
+
+
+            redactionName = RedactionConstans.TRIBUN;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
         });
 
         binding.mnuCnbc.setOnClickListener(view -> {
-            moveFragment(new HomeCnbcFragment());
+            getData();
+
+            redactionName = RedactionConstans.CNBC;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
         });
 
         binding.mnuOkezone.setOnClickListener(view -> {
-            moveFragment(new HomeOkezoneFragment());
+            getData();
+
+            redactionName = RedactionConstans.OKEZONE;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
         });
 
         binding.mnuCnn.setOnClickListener(view -> {
-            moveFragment(new HomeCnnFragment());
+
+            getData();
+
+            redactionName = RedactionConstans.CNN;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
         });
 
         binding.mnuSindoNews.setOnClickListener(view -> {
-            moveFragment(new HomeSindoNewsFragment());
+            getData();
+
+
+            redactionName = RedactionConstans.SINDONEWS;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
         });
 
         binding.mnuTempo.setOnClickListener(view -> {
-            moveFragment(new HomeTempoFragment());
+            getData();
+
+
+            redactionName = RedactionConstans.TEMPO;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
         });
 
         binding.mnuSuara.setOnClickListener(view -> {
-            moveFragment(new HomeSuaraFragment());
+            getData();
+
+
+            redactionName = RedactionConstans.SUARA;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
         });
 
         binding.mnuRepublika.setOnClickListener(view -> {
-            moveFragment(new HomeRepublikaFragment());
+            getData();
+
+
+            redactionName = RedactionConstans.REPUBLIKA;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
         });
 
         binding.mnuJpnn.setOnClickListener(view -> {
-            moveFragment(new HomeJpnnFragment());
+            getData();
+
+
+            redactionName = RedactionConstans.JPNN;
+
+            binding.mnuKumparan.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTribun.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuCnbc.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSindoNews.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuOkezone.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuAntara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuTempo.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuSuara.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuRepublika.setBackground(getContext().getDrawable(R.drawable.container_media_rounded));
+            binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
         });
     }
 

@@ -33,6 +33,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
+                    android:id="@+id/rlTerbaru"
                     android:layout_height="@dimen/_140sdp">
                     <ImageView
                         android:layout_width="match_parent"
@@ -55,6 +56,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
+                    android:id="@+id/rlEkonomi"
                     android:layout_height="@dimen/_140sdp">
                     <ImageView
                         android:layout_width="match_parent"
@@ -75,6 +77,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rlOlahraga"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_140sdp">
                     <ImageView
@@ -96,6 +99,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rlOtomotif"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_140sdp">
                     <ImageView
@@ -116,6 +120,7 @@
 
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/rlTeknologi"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_140sdp">
                     <ImageView
@@ -137,6 +142,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rlLifestyle"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_140sdp">
                     <ImageView
