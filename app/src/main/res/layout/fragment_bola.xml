@@ -89,7 +89,7 @@
                                 android:layout_marginTop="@dimen/_10sdp"
                                 android:layout_marginLeft="@dimen/_10sdp"
                                 android:layout_marginRight="@dimen/_10sdp"
-                                android:text="Ekonomi"
+                                android:text="Bola"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/rfbold"
                                 android:textSize="@dimen/_40sdp"/>
@@ -110,6 +110,7 @@
                                     <RelativeLayout
                                         android:id="@+id/mnuCnn"
                                         android:layout_width="@dimen/_40sdp"
+                                        android:visibility="gone"
                                         android:background="@drawable/container_media_rounded_stroke"
                                         android:layout_height="@dimen/_40sdp">
                                         <androidx.cardview.widget.CardView
@@ -132,8 +133,8 @@
                                     <RelativeLayout
                                         android:id="@+id/mnuKumparan"
                                         android:layout_width="@dimen/_40sdp"
-                                        android:layout_marginLeft="@dimen/_15sdp"
                                         android:visibility="gone"
+                                        android:layout_marginLeft="@dimen/_15sdp"
                                         android:background="@drawable/container_media_rounded"
                                         android:layout_height="@dimen/_40sdp">
                                         <androidx.cardview.widget.CardView
@@ -177,6 +178,7 @@
                                     </RelativeLayout>
 
                                     <RelativeLayout
+                                        android:visibility="gone"
                                         android:id="@+id/mnuCnbc"
                                         android:layout_width="@dimen/_40sdp"
                                         android:layout_marginLeft="@dimen/_15sdp"
@@ -201,8 +203,7 @@
                                     <RelativeLayout
                                         android:id="@+id/mnuOkezone"
                                         android:layout_width="@dimen/_40sdp"
-                                        android:layout_marginLeft="@dimen/_15sdp"
-                                        android:background="@drawable/container_media_rounded"
+                                        android:background="@drawable/container_media_rounded_stroke"
                                         android:layout_height="@dimen/_40sdp">
                                         <androidx.cardview.widget.CardView
                                             android:layout_width="@dimen/_25sdp"
@@ -248,6 +249,7 @@
 
                                     <RelativeLayout
                                         android:id="@+id/mnuSindoNews"
+                                        android:visibility="gone"
                                         android:layout_width="@dimen/_40sdp"
                                         android:layout_marginLeft="@dimen/_15sdp"
                                         android:background="@drawable/container_media_rounded"
@@ -295,7 +297,6 @@
                                         android:id="@+id/mnuSuara"
                                         android:layout_width="@dimen/_40sdp"
                                         android:layout_marginLeft="@dimen/_15sdp"
-                                        android:layout_marginRight="@dimen/_10sdp"
                                         android:background="@drawable/container_media_rounded"
                                         android:layout_height="@dimen/_40sdp">
                                         <androidx.cardview.widget.CardView
@@ -318,7 +319,6 @@
                                         android:id="@+id/mnuRepublika"
                                         android:layout_width="@dimen/_40sdp"
                                         android:layout_marginLeft="@dimen/_15sdp"
-                                        android:visibility="gone"
                                         android:background="@drawable/container_media_rounded"
                                         android:layout_height="@dimen/_40sdp">
                                         <androidx.cardview.widget.CardView
@@ -341,9 +341,9 @@
                                     <RelativeLayout
                                         android:id="@+id/mnuJpnn"
                                         android:layout_width="@dimen/_40sdp"
+                                        android:visibility="gone"
                                         android:layout_marginLeft="@dimen/_15sdp"
                                         android:layout_marginRight="@dimen/_10sdp"
-                                        android:visibility="gone"
                                         android:background="@drawable/container_media_rounded"
                                         android:layout_height="@dimen/_40sdp">
                                         <androidx.cardview.widget.CardView

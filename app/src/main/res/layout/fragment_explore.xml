@@ -76,6 +76,7 @@
 
                 </RelativeLayout>
 
+
                 <RelativeLayout
                     android:id="@+id/rlOlahraga"
                     android:layout_width="match_parent"
@@ -91,6 +92,27 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
                         android:text="Olaraga"
+                        android:fontFamily="@font/rfbold"
+                        android:padding="@dimen/_10sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_25sdp"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rlBola"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_140sdp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:scaleType="fitXY"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/iv_bola"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:text="Bola"
                         android:fontFamily="@font/rfbold"
                         android:padding="@dimen/_10sdp"
                         android:textColor="@color/white"

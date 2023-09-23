@@ -22,7 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiroberita.R;
-import com.example.tiroberita.databinding.FragmentEkonomiBinding;
+import com.example.tiroberita.databinding.FragmentBolaBinding;
 import com.example.tiroberita.databinding.FragmentTerbaruBinding;
 import com.example.tiroberita.model.DataModel;
 import com.example.tiroberita.model.FirebaseResponseModel;
@@ -58,9 +58,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
 
 @AndroidEntryPoint
-public class EkonomiFragment extends Fragment implements ItemClickListener {
+public class BolaFragment extends Fragment implements ItemClickListener {
 
-    private FragmentEkonomiBinding binding;
+    private FragmentBolaBinding binding;
     private SharedPreferences sharedPreferences;
     private KumparanViewModel kumparanViewModel;
     private AntaraViewModel antaraViewModel;
@@ -87,7 +87,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentEkonomiBinding.inflate(inflater, container, false);
+        binding = FragmentBolaBinding.inflate(inflater, container, false);
 
         init();
         return binding.getRoot();
@@ -99,7 +99,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
         super.onViewCreated(view, savedInstanceState);
         listener();
         listenerMediaBeritaPicker();
-        getData(RedactionConstans.CNN);
+        getData(RedactionConstans.OKEZONE);
         greetings();
         setUpBottomSheetShare();
 
@@ -123,7 +123,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
 
         userId = sharedPreferences.getString(Constans.USER_ID, null);
         username = sharedPreferences.getString(Constans.USERNAME, null);
-        redactionName = RedactionConstans.CNN;
+        redactionName = RedactionConstans.OKEZONE;
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
 
     }
@@ -132,8 +132,8 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
         showShimmer();
         binding.rvNews.setAdapter(null);
 
-        if (redactionName.equals(RedactionConstans.CNN)) {
-            cnnViewModel.getDataEkonomi().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+        if (redactionName.equals(RedactionConstans.ANTARA)) {
+            antaraViewModel.getDataBola().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -147,53 +147,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(EkonomiFragment.this);
-
-                    }else {
-                        hideShimmer(true, responseModel.getMessage());
-
-                    }
-                }
-            });
-        }else if (redactionName.equals(RedactionConstans.ANTARA)) {
-            antaraViewModel.getDataEkonomi().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-                @Override
-                public void onChanged(ResponseModel responseModel) {
-                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
-                        dataModel = responseModel.getDataModel();
-                        postModelList = dataModel.getPostModelList();
-                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                        newsAdapter = new NewsAdapter(getContext(), postModelList);
-                        binding.rvNews.setAdapter(newsAdapter);
-                        binding.rvNews.setLayoutManager(linearLayoutManager);
-                        binding.rvNews.setHasFixedSize(true);
-                        hideShimmer(false, "");
-
-                        // set on click item
-                        newsAdapter.setItemClickListener(EkonomiFragment.this);
-
-                    }else {
-                        hideShimmer(true, responseModel.getMessage());
-
-                    }
-                }
-            });
-        }else if (redactionName.equals(RedactionConstans.CNBC)) {
-            cnbcViewModel.getDataMarket().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-                @Override
-                public void onChanged(ResponseModel responseModel) {
-                    if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
-                        dataModel = responseModel.getDataModel();
-                        postModelList = dataModel.getPostModelList();
-                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                        newsAdapter = new NewsAdapter(getContext(), postModelList);
-                        binding.rvNews.setAdapter(newsAdapter);
-                        binding.rvNews.setLayoutManager(linearLayoutManager);
-                        binding.rvNews.setHasFixedSize(true);
-                        hideShimmer(false, "");
-
-                        // set on click item
-                        newsAdapter.setItemClickListener(EkonomiFragment.this);
+                        newsAdapter.setItemClickListener(BolaFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -202,7 +156,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
                 }
             });
         }else if (redactionName.equals(RedactionConstans.OKEZONE)) {
-            okezoneViewModel.getDataEconomy().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            okezoneViewModel.getDataBola().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -216,7 +170,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(EkonomiFragment.this);
+                        newsAdapter.setItemClickListener(BolaFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -224,8 +178,8 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
-        }else if (redactionName.equals(RedactionConstans.SINDONEWS)) {
-            sindonewsViewModel.getDataEkbis().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+        }else if (redactionName.equals(RedactionConstans.REPUBLIKA)) {
+            republikaViewModel.getDataBola().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -239,7 +193,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(EkonomiFragment.this);
+                        newsAdapter.setItemClickListener(BolaFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -247,8 +201,8 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
-        }else if (redactionName.equals(RedactionConstans.SUARA)) {
-            suaraViewModel.getDataBisnis().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+        }   else if (redactionName.equals(RedactionConstans.SUARA)) {
+            suaraViewModel.getDataBola().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -262,7 +216,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(EkonomiFragment.this);
+                        newsAdapter.setItemClickListener(BolaFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -271,7 +225,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
                 }
             });
         }else if (redactionName.equals(RedactionConstans.TEMPO)) {
-            tempoViewModel.getDataBisnis().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            tempoViewModel.getDataBola().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.getSuccess() == true && responseModel.getDataModel() != null) {
@@ -285,7 +239,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
                         hideShimmer(false, "");
 
                         // set on click item
-                        newsAdapter.setItemClickListener(EkonomiFragment.this);
+                        newsAdapter.setItemClickListener(BolaFragment.this);
 
                     }else {
                         hideShimmer(true, responseModel.getMessage());
@@ -293,7 +247,9 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
                     }
                 }
             });
+
         }
+
 
 
     }
@@ -614,6 +570,7 @@ public class EkonomiFragment extends Fragment implements ItemClickListener {
             binding.mnuJpnn.setBackground(getContext().getDrawable(R.drawable.container_media_rounded_stroke));
         });
     }
+
 
     private void greetings() {
         Calendar calendar = Calendar.getInstance();

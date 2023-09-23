@@ -165,8 +165,8 @@
                                             app:cardCornerRadius="@dimen/_5sdp"
                                             app:cardElevation="0dp">
                                             <ImageView
-                                                android:layout_width="@dimen/_30sdp"
-                                                android:layout_height="@dimen/_30sdp"
+                                                android:layout_width="@dimen/_25sdp"
+                                                android:layout_height="@dimen/_25sdp"
                                                 android:src="@drawable/logo_tribun"/>
                                         </androidx.cardview.widget.CardView>
 
@@ -280,8 +280,8 @@
                                             app:cardCornerRadius="@dimen/_5sdp"
                                             app:cardElevation="0dp">
                                             <ImageView
-                                                android:layout_width="@dimen/_30sdp"
-                                                android:layout_height="@dimen/_30sdp"
+                                                android:layout_width="@dimen/_25sdp"
+                                                android:layout_height="@dimen/_25sdp"
                                                 android:src="@drawable/tempo"/>
                                         </androidx.cardview.widget.CardView>
 
