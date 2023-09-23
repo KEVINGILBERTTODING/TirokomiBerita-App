@@ -20,6 +20,7 @@ import com.example.tiroberita.databinding.ActivityMainBinding;
 import com.example.tiroberita.model.AppModel;
 import com.example.tiroberita.model.FirebaseResponseModel;
 import com.example.tiroberita.model.NotificationModel;
+import com.example.tiroberita.ui.fragments.explore.ExploreFragment;
 import com.example.tiroberita.ui.fragments.redactions.antara.HomeAntaraFragment;
 import com.example.tiroberita.ui.fragments.redactions.cnbc.HomeCnbcFragment;
 import com.example.tiroberita.ui.fragments.redactions.cnn.HomeCnnFragment;
@@ -78,9 +79,12 @@ public class MainActivity extends AppCompatActivity {
                         validateRedactionFav();
                         break;
                     case 1:
-                        moveFragment(new SavePostFragment());
+                        moveFragment(new ExploreFragment());
                         break;
                     case 2:
+                        moveFragment(new SavePostFragment());
+                        break;
+                    case 3:
                         moveFragment(new SettingFragment());
                         break;
                 }

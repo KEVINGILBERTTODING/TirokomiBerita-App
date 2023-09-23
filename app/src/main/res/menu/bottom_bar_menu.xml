@@ -6,6 +6,10 @@
         android:icon="@drawable/ic_home"
         android:title="Beranda"/>
 
+    <item
+        android:id="@+id/menuExplore"
+        android:icon="@drawable/ic_explore"
+        android:title="Jelajah"/>
 
 
     <item
