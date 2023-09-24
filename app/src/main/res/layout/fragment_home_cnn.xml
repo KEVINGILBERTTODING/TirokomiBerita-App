@@ -52,14 +52,26 @@
 
                         </LinearLayout>
 
+                        <ImageButton
+                            android:id="@+id/btnSearch"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/ic_search"/>
 
                         <androidx.appcompat.widget.SearchView
                             android:layout_width="wrap_content"
                             android:id="@+id/searchView"
+                            android:visibility="gone"
                             app:queryHint="Cari berita..."
+                            app:iconifiedByDefault="true"
                             android:layout_alignParentEnd="true"
                             app:queryBackground="@drawable/container_searchview"
                             android:layout_height="wrap_content"/>
+
+
+
 
                     </RelativeLayout>
 
@@ -1032,6 +1044,15 @@
 
 
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:src="@drawable/ic_redaction"
+            app:backgroundTint="@color/black"
+            android:id="@+id/fabMediaPicker"
+            app:tint="@color/white"
+            android:layout_gravity="bottom|end"
+            android:layout_height="wrap_content"/>
 
 
 
