@@ -17,7 +17,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
 
         // full screen
         getWindow().getDecorView().setSystemUiVisibility(
@@ -30,6 +29,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashScreenActivity.this, OnBoardActivitiy.class));
                 finish();
             }
-        }, 1500);
+        }, 1200);
     }
 }

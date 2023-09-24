@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:drawable="@color/background"/>
+
+    <item
+        android:width="@dimen/_140sdp"
+        android:right="@dimen/_20sdp"
+        android:left="@dimen/_20sdp"
+        android:height="@dimen/_12sdp"
+        android:drawable="@drawable/ic_splash"
+        android:gravity="center" />
+</layer-list>
