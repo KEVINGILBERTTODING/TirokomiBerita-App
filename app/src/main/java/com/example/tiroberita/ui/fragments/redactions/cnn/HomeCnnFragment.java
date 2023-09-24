@@ -678,9 +678,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             savePost();
 
         });
-
-        binding.btnMenuMedia.setOnClickListener(view -> {
-            showBottomSheetMediaBerita();
+        binding.searchView.setOnClickListener(view -> {
+            Toasty.normal(getContext(), "Berhasul", Toasty.LENGTH_SHORT).show();
         });
 
         binding.tvHeader.setOnClickListener(view -> {
@@ -815,7 +814,7 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                    hideBottomSheetShare();
+                    hideBottomSheetMediaBerita();
                 }
             }
 
