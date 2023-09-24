@@ -58,6 +58,10 @@ public class ExploreFragment extends Fragment {
             moveFragment(new OtomotifFragment());
         });
 
+        binding.rlTeknologi.setOnClickListener(view -> {
+            moveFragment(new TeknologiFragment());
+        });
+
     }
 
     private void moveFragment(Fragment fragment) {
