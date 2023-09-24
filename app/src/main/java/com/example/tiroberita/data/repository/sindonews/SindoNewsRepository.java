@@ -404,4 +404,35 @@ public LiveData<ResponseModel> getDataTerbaru(){
 
         return responseModelMutableLiveData;
     }
+
+    public LiveData<ResponseModel> getDataOtomotif(){
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        sindonewsService.getDataOtomotif().enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        responseModelMutableLiveData.setValue(response.body());
+
+                    }else {
+                        responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+                    }
+
+                }else {
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.ERR_MESSAGE, null));
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, Constans.NO_INTERNET_CONNECTION, null));
+
+
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
 }

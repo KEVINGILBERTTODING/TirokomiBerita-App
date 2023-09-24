@@ -68,6 +68,9 @@ public class SindonewsViewModel extends ViewModel {
     public LiveData<ResponseModel> getDataKalam(){
         return sindoNewsRepository.getDataKalam();
     }
+    public LiveData<ResponseModel> getDataOtomotif(){
+        return sindoNewsRepository.getDataOtomotif();
+    }
 
 
 

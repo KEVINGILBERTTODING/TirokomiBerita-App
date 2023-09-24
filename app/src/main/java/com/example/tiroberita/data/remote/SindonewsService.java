@@ -14,6 +14,8 @@ public interface SindonewsService {
 
     @GET("sindonews/metro/")
     Call<ResponseModel> getDataMetro();
+    @GET("sindonews/otomotif")
+    Call<ResponseModel> getDataOtomotif();
 
     @GET("sindonews/sports/")
     Call<ResponseModel> getDataSports();

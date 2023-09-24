@@ -54,6 +54,10 @@ public class ExploreFragment extends Fragment {
             moveFragment(new OlahragaFragment());
         });
 
+        binding.rlOtomotif.setOnClickListener(view -> {
+            moveFragment(new OtomotifFragment());
+        });
+
     }
 
     private void moveFragment(Fragment fragment) {
