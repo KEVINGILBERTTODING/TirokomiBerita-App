@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
@@ -45,6 +47,7 @@ import com.example.tiroberita.viewmodel.post.PostViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -91,6 +94,7 @@ public class HomeJpnnFragment extends Fragment implements ItemClickListener {
         greetings();
         setUpBottomSheetShare();
         setUpBottomSheetMediaBerita();
+        hideFab();
 
         binding.tvUsername.setText(sharedPreferences.getString(Constans.USERNAME, "-"));
 
@@ -163,7 +167,51 @@ public class HomeJpnnFragment extends Fragment implements ItemClickListener {
             @Override
             public void onRefresh() {
                 getData(newsType);
+                binding.searchView.setQuery("", false);
+                binding.searchView.setIconified(true);
             }
+        });
+
+        binding.btnSearch.setOnClickListener(view -> {
+            binding.searchView.setVisibility(View.VISIBLE);
+            binding.searchView.setIconified(false);
+            binding.btnSearch.setVisibility(View.GONE);
+            binding.lrHeader.setVisibility(View.GONE);
+        });
+
+
+
+        binding.searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                binding.lrHeader.setVisibility(View.VISIBLE);
+                binding.btnSearch.setVisibility(View.VISIBLE);
+                binding.searchView.setVisibility(View.GONE);
+                binding.lrHeader.setVisibility(View.VISIBLE);
+
+
+                return false;
+            }
+        });
+
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+
+
+
+        binding.fabMediaPicker.setOnClickListener(view -> {
+            showBottomSheetMediaBerita();
+            binding.fabMediaPicker.setVisibility(View.GONE);
         });
 
         binding.vOverlay.setOnClickListener(view -> {
@@ -191,9 +239,7 @@ public class HomeJpnnFragment extends Fragment implements ItemClickListener {
             savePost();
         });
 
-        binding.btnMenuMedia.setOnClickListener(view -> {
-            showBottomSheetMediaBerita();
-        });
+
 
         binding.tvHeader.setOnClickListener(view -> {
             directPost(Constans.URL_JPNN);
@@ -326,7 +372,7 @@ public class HomeJpnnFragment extends Fragment implements ItemClickListener {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                    hideBottomSheetShare();
+                    hideBottomSheetMediaBerita();
                 }
             }
 
@@ -361,6 +407,8 @@ public class HomeJpnnFragment extends Fragment implements ItemClickListener {
         bottomSheetMediaBerita.setState(BottomSheetBehavior.STATE_HIDDEN);
         binding.vOverlay.setVisibility(View.GONE);
         bottomSheetMediaBerita.setPeekHeight(0);
+        binding.fabMediaPicker.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -368,10 +416,10 @@ public class HomeJpnnFragment extends Fragment implements ItemClickListener {
         bottomSheetMediaBerita.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetMediaBerita.setPeekHeight(600);
         binding.vOverlay.setVisibility(View.VISIBLE);
+        binding.fabMediaPicker.setVisibility(View.GONE);
 
 
     }
-
 
 
     private void savePost() {
@@ -464,6 +512,47 @@ public class HomeJpnnFragment extends Fragment implements ItemClickListener {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl));
         startActivity(browserIntent);
     }
+
+
+
+    private void hideFab() {
+
+        binding.rvNews.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx,
+                                   int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) {
+                    binding.fabMediaPicker.hide();
+                } else if (dy < 0) {
+                    binding.fabMediaPicker.show();
+                }
+            }
+        });
+    }
+
+
+    private void filter(String querry) {
+        ArrayList<PostModel> filteredList = new ArrayList<>();
+        for (PostModel item : postModelList) {
+            if (item != null && item.getTitle().toLowerCase().contains(querry.toLowerCase())) {
+                filteredList.add(item);
+            }
+
+            newsAdapter.filter(filteredList);
+
+            if (filteredList.isEmpty()) {
+                binding.lrEmpty.setVisibility(View.VISIBLE);
+                binding.tvMessage.setText("Berita tidak ditemukan.");
+            }else {
+                newsAdapter.filter(filteredList);
+                binding.lrEmpty.setVisibility(View.GONE);
+            }
+        }
+    }
+
+
 
 
 }
