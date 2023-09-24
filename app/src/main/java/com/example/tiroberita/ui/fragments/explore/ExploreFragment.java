@@ -62,6 +62,10 @@ public class ExploreFragment extends Fragment {
             moveFragment(new TeknologiFragment());
         });
 
+        binding.rlLifestyle.setOnClickListener(view -> {
+            moveFragment(new LifestyleFragment());
+        });
+
     }
 
     private void moveFragment(Fragment fragment) {
