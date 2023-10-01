@@ -32,7 +32,7 @@ public class Constans {
 
     public static final String NOTIFICATION = "notification";
     public static final String NOTIFICATION_ID = "notification_id";
-    public static final String APP_VER = "2.0.1";
+    public static final String APP_VER = "2.1.0";
 
 
 

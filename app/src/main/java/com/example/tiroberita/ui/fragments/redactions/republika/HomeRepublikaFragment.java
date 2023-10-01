@@ -102,6 +102,7 @@ public class HomeRepublikaFragment extends Fragment implements ItemClickListener
         setUpBottomSheetMediaBerita();
         hideFab();
 
+
         binding.tvUsername.setText(sharedPreferences.getString(Constans.USERNAME, "-"));
 
     }
