@@ -25,6 +25,7 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:layout_height="wrap_content">
+
                         <LinearLayout
                             android:id="@+id/lrHeader"
                             android:layout_width="wrap_content"
@@ -78,6 +79,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
+                        android:animateLayoutChanges="true"
                         android:layout_height="wrap_content">
                         <LinearLayout
 

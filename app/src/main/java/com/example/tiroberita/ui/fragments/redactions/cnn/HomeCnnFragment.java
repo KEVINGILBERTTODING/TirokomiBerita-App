@@ -106,6 +106,8 @@ public class HomeCnnFragment extends Fragment implements ItemClickListener {
 
         binding.tvUsername.setText(sharedPreferences.getString(Constans.USERNAME, "-"));
 
+
+
     }
 
     private void init() {
