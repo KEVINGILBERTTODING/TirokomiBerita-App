@@ -8,7 +8,10 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +48,8 @@ import com.example.tiroberita.util.constans.Constans;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
 import com.example.tiroberita.viewmodel.republika.RepublikaViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.monstertechno.adblocker.AdBlockerWebView;
+import com.monstertechno.adblocker.util.AdBlocker;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -108,6 +113,8 @@ public class HomeRepublikaFragment extends Fragment implements ItemClickListener
         username = sharedPreferences.getString(Constans.USERNAME, null);
         redactionName = "Republika";
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        new AdBlockerWebView.init(getContext()).initializeWebView(binding.webview);
+
 
     }
 
@@ -801,6 +808,8 @@ public class HomeRepublikaFragment extends Fragment implements ItemClickListener
     private void setWebView(String url) {
         // start shimmer
         shimmerWebView();
+        binding.webview.setWebViewClient(new Browser_home());
+
 
         // Aktifkan JavaScript
         WebSettings webSettings = binding.webview.getSettings();
@@ -950,6 +959,23 @@ public class HomeRepublikaFragment extends Fragment implements ItemClickListener
             }
         }
     }
+
+    private class Browser_home extends WebViewClient {
+
+        Browser_home() {}
+
+        @SuppressWarnings("deprecation")
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+
+            return AdBlockerWebView.blockAds(view,url) ? AdBlocker.createEmptyResource() :
+                    super.shouldInterceptRequest(view, url);
+
+        }
+
+    }
+
+
 
 
 
