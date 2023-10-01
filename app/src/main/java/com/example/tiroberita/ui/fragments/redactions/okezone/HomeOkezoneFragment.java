@@ -8,7 +8,10 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +48,8 @@ import com.example.tiroberita.util.constans.Constans;
 import com.example.tiroberita.viewmodel.okezone.OkezoneViewModel;
 import com.example.tiroberita.viewmodel.post.PostViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.monstertechno.adblocker.AdBlockerWebView;
+import com.monstertechno.adblocker.util.AdBlocker;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,6 +112,7 @@ public class HomeOkezoneFragment extends Fragment implements ItemClickListener {
         userId = sharedPreferences.getString(Constans.USER_ID, null);
         username = sharedPreferences.getString(Constans.USERNAME, null);
         redactionName = "Okezone.com";
+        new AdBlockerWebView.init(getContext()).initializeWebView(binding.webview);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
 
     }
@@ -970,6 +976,8 @@ public class HomeOkezoneFragment extends Fragment implements ItemClickListener {
         // start shimmer
         shimmerWebView();
 
+        binding.webview.setWebViewClient(new Browser_home());
+
         // Aktifkan JavaScript
         WebSettings webSettings = binding.webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -1117,6 +1125,21 @@ public class HomeOkezoneFragment extends Fragment implements ItemClickListener {
                 binding.lrEmpty.setVisibility(View.GONE);
             }
         }
+    }
+
+    private class Browser_home extends WebViewClient {
+
+        Browser_home() {}
+
+        @SuppressWarnings("deprecation")
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+
+            return AdBlockerWebView.blockAds(view,url) ? AdBlocker.createEmptyResource() :
+                    super.shouldInterceptRequest(view, url);
+
+        }
+
     }
 
 
